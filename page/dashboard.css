@@ -41,13 +41,12 @@ body {
 /* Dashboard Container (App Frame) */
 .dashboard-container {
     width: 100%;
-    /* Mobile-First: พื้นที่เต็มจอ */
-    min-height: 100vh; 
-    background-color: var(--app-bg);
-    padding: 16px; /* Padding โดยรวม */
+    min-height: 100vh; /* ให้เต็มจอเมื่ออยู่บนมือถือ */
+    background-color: var(--app-bg); 
     display: flex;
     flex-direction: column;
-    position: relative; /* สำหรับ FAB */
+    padding: 16px 20px;
+    /* *ไม่* ต้องใส่ position: relative ที่นี่ */
 }
 
 /*
@@ -172,9 +171,9 @@ body {
  * ========================================
  */
 .fab {
-    position: absolute;
-    right: 32px;
-    bottom: 32px;
+    position: fixed; /* เปลี่ยนจาก absolute เป็น fixed */
+    right: 20px;     /* ปรับตำแหน่งให้เหมาะสมกับขอบจอมือถือ */
+    bottom: 20px;
     width: 56px;
     height: 56px;
     background-color: var(--fab-color);
@@ -188,6 +187,7 @@ body {
     align-items: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     transition: background-color 0.2s;
+    z-index: 1000; /* ให้ปุ่มอยู่เหนือทุกอย่าง */
 }
 
 .fab:hover {
@@ -200,22 +200,37 @@ body {
  * ========================================
  */
 @media (min-width: 768px) {
-    .page-wrapper {
-        min-height: 100vh;
-    }
-    
+    /* 1. แก้ปัญหา กล่องสี่เหลี่ยมสีดำ (Dashboard Container) */
     .dashboard-container {
-        /* จำกัดความกว้างสูงสุดให้ดูเหมือนแอปบนจอใหญ่ */
-        max-width: 400px; 
-        min-height: 80vh; /* จำกัดความสูงไม่ให้เต็มจอคอม */
-        /* เพิ่มขอบมนและเงาเพื่อให้ดูเหมือน Card */
-        border-radius: 16px;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        max-width: 400px; /* จำกัดความกว้างให้ดูเหมือน Mobile App บน Desktop */
+        min-height: 80vh; 
+        height: auto;
+        border-radius: 16px; /* ขอบมน */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
+        /* กลับมาใช้ position: relative *เฉพาะบน Desktop* ถ้าจำเป็นสำหรับองค์ประกอบอื่น 
+           แต่ไม่จำเป็นสำหรับ FAB ที่เราเปลี่ยนเป็น fixed ไปแล้ว */
+        position: relative; 
     }
 
-    /* ปรับตำแหน่ง FAB ให้สัมพันธ์กับ container ที่มี max-width */
+    /* 2. ปรับตำแหน่ง FAB บน Desktop */
     .fab {
-        right: 48px;
-        bottom: 48px;
+        /*
+         * บน Desktop, FAB ที่เป็น fixed จะยังคงอยู่มุมล่างขวาของหน้าจอ Browser
+         * แต่ถ้าต้องการให้ FAB อยู่มุมล่างขวาของกรอบ App Frame (400px) เท่านั้น:
+         * * Option A: คงที่ที่หน้าจอ (Fixed) - ง่ายที่สุด:
+         * right: calc(50% - 400px/2 + 20px); // ตำแหน่งที่ซับซ้อนกว่า
+         * * Option B: ใช้ Position Absolute ร่วมกับ Container (ที่เราแก้ไขให้ relative)
+         * ถ้าเลือก Option B, ต้องเปลี่ยน FAB ใน Mobile (5) กลับไปเป็น position: absolute 
+         *
+         * ผมแนะนำให้คงเป็น fixed (ตาม Section 5) เพื่อให้ปุ่ม "ลื่นขึ้นมา" และแก้ไขแค่ตำแหน่งบน Desktop:
+         */
+        
+        /* ตำแหน่งที่คำนวณจากกึ่งกลางของกรอบแอป (400px) */
+        right: calc(50% - 200px + 20px); 
+        /* (50% - (max-width/2) + ระยะห่าง) */
+
+        bottom: 20px; /* คงเดิม */
     }
 }
+
+
