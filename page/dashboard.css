@@ -1,0 +1,221 @@
+/*
+ * ========================================
+ * 1. Global & Base Styles for Dashboard
+ * ========================================
+ */
+:root {
+    --bg-color: #333333; /* พื้นหลังโดยรวม */
+    --app-bg: #1c1c1c;  /* พื้นหลังหลักของ App/Dashboard */
+    --card-color: #2d2d2d; /* สีพื้นหลังของ Search Input */
+    --text-color: #ffffff;
+    --sub-text-color: #aaaaaa;
+    --primary-color: #6366f1; /* สีม่วง/น้ำเงินหลัก */
+    --fab-color: #4f46e5;     /* สีปุ่ม FAB */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+/* Page Wrapper for Responsiveness */
+.page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Dashboard Container (App Frame) */
+.dashboard-container {
+    width: 100%;
+    /* Mobile-First: พื้นที่เต็มจอ */
+    min-height: 100vh; 
+    background-color: var(--app-bg);
+    padding: 16px; /* Padding โดยรวม */
+    display: flex;
+    flex-direction: column;
+    position: relative; /* สำหรับ FAB */
+}
+
+/*
+ * ========================================
+ * 2. Header and User Info
+ * ========================================
+ */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    margin-bottom: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 12px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.project-count {
+    font-size: 12px;
+    color: var(--sub-text-color);
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: var(--sub-text-color);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.icon-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/*
+ * ========================================
+ * 3. Search Bar
+ * ========================================
+ */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: var(--card-color);
+    border-radius: 12px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+
+.search-bar i {
+    color: var(--sub-text-color);
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.search-bar input {
+    flex-grow: 1;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 16px;
+    outline: none;
+    padding: 0;
+}
+
+.search-bar input::placeholder {
+    color: #6a6a6a;
+}
+
+/*
+ * ========================================
+ * 4. Main Content Area
+ * ========================================
+ */
+.main-content {
+    flex-grow: 1; /* ทำให้กินพื้นที่ว่างที่เหลืออยู่ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--sub-text-color);
+    font-size: 18px;
+    /* ลด Padding ที่ซ้ำซ้อนจาก container */
+    padding: 50px 0; 
+}
+
+/*
+ * ========================================
+ * 5. Floating Action Button (FAB)
+ * ========================================
+ */
+.fab {
+    position: absolute;
+    right: 32px;
+    bottom: 32px;
+    width: 56px;
+    height: 56px;
+    background-color: var(--fab-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.2s;
+}
+
+.fab:hover {
+    background-color: #5d53f2;
+}
+
+/*
+ * ========================================
+ * 6. Responsive Styles (Desktop/Tablet)
+ * ========================================
+ */
+@media (min-width: 768px) {
+    .page-wrapper {
+        min-height: 100vh;
+    }
+    
+    .dashboard-container {
+        /* จำกัดความกว้างสูงสุดให้ดูเหมือนแอปบนจอใหญ่ */
+        max-width: 400px; 
+        min-height: 80vh; /* จำกัดความสูงไม่ให้เต็มจอคอม */
+        /* เพิ่มขอบมนและเงาเพื่อให้ดูเหมือน Card */
+        border-radius: 16px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ปรับตำแหน่ง FAB ให้สัมพันธ์กับ container ที่มี max-width */
+    .fab {
+        right: 48px;
+        bottom: 48px;
+    }
+}
