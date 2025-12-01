@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         signInLink.addEventListener('click', (e) => {
             e.preventDefault();
             alert('คุณคลิกที่ "Sign In" แล้ว!');
-            // window.location.href = 'sign-in.html';
+            window.location.href = '../page/dashboard.html';
         });
     }
 });

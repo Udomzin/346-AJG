@@ -5,17 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskSplit - Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
-    <!-- Icon Library (Font Awesome/Lucide Icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="page-wrapper">
         <div class="dashboard-container">
-            
-            <!-- 1. Header Section -->
+            <!-- Header -->
             <header class="header">
                 <div class="user-info">
-                    <!-- Avatar (Initials: JD) -->
                     <div class="avatar">JD</div>
                     <div class="user-details">
                         <span class="user-name">John Doe</span>
@@ -23,34 +20,64 @@
                     </div>
                 </div>
                 <div class="actions">
-                    <button class="icon-btn" title="Notifications">
-                        <i class="fas fa-bell"></i>
-                    </button>
-                    <button class="icon-btn" title="Settings">
-                        <i class="fas fa-cog"></i>
-                    </button>
+                    <button class="icon-btn" title="Notifications"><i class="fas fa-bell"></i></button>
+                    <button class="icon-btn" title="Settings"><i class="fas fa-cog"></i></button>
                 </div>
             </header>
 
-            <!-- 2. Search Input -->
+            <!-- Search -->
             <div class="search-bar">
                 <i class="fas fa-search"></i>
                 <input type="text" placeholder="Search workspaces...">
             </div>
 
-            <!-- 3. Main Content Area -->
-            <main class="main-content">
-                <p>No project yet.</p>
+            <!-- Main Content / Project List -->
+            <main class="main-content" id="dashboard-projects">
+                <p id="no-project-msg">No project yet.</p>
             </main>
 
-            <!-- 4. Floating Action Button (FAB) -->
-            <div class="page-wrapper">
-                <div class="dashboard-container">
-            
+            <!-- Floating Action Button -->
             <a href="create_project.html" class="fab" title="Create New Project">
                 <i class="fas fa-plus"></i>
             </a>
         </div>
     </div>
+
+    <!-- JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dashboardContainer = document.getElementById('dashboard-projects');
+            const noProjectMsg = document.getElementById('no-project-msg');
+            let projects = JSON.parse(localStorage.getItem('projects')) || [];
+
+            function renderProjects() {
+                dashboardContainer.innerHTML = '';
+                if (projects.length === 0) {
+                    dashboardContainer.innerHTML = '<p>No project yet.</p>';
+                    return;
+                }
+
+                projects.forEach((p, index) => {
+                    const projectCard = document.createElement('div');
+                    projectCard.className = 'project-card';
+                    projectCard.innerHTML = `
+                        <h3>${p.name}</h3>
+                        <p>${p.description || '<i>No description</i>'}</p>
+                        <p><b>Max Members:</b> ${p.maxMembers}</p>
+                        <button onclick="deleteProject(${index})">Delete</button>
+                    `;
+                    dashboardContainer.appendChild(projectCard);
+                });
+            }
+
+            renderProjects();
+
+            window.deleteProject = (index) => {
+                projects.splice(index, 1);
+                localStorage.setItem('projects', JSON.stringify(projects));
+                renderProjects();
+            };
+        });
+    </script>
 </body>
 </html>
