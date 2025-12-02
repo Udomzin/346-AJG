@@ -25,9 +25,11 @@ body {
     color: var(--text-color);
     display: flex;
     justify-content: center; /* จัดกึ่งกลางแนวนอน */
-    align-items: center;   /* จัดกึ่งกลางแนวตั้ง */
-    min-height: 100vh;     /* ให้ body สูงเต็มหน้าจอ */
+    align-items: center;  /* จัดกึ่งกลางแนวตั้ง */
+    min-height: 100vh;
+
 }
+
 
 /*
  * ========================================
@@ -35,15 +37,17 @@ body {
  * ========================================
  */
 .app-container {
+    /* การปรับปรุงโค้ดตามที่ระบุ: ใช้ Flexbox จัดกึ่งกลางเต็มหน้าจอ */
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     min-height: 100vh;
     padding: 24px;
+    /* ลบ background-color และ flex-direction: column; ออกเพื่อให้เหลือเพียงการจัดกึ่งกลางของเนื้อหา */
 }
 
-/* Login Card */
+/* Login Card - ใช้คลาสนี้แทน Responsive Styles ใน Media Query เก่า */
 .login-card {
     width: 100%;
     max-width: 400px; /* กำหนดขนาดสูงสุด */
@@ -52,6 +56,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
+
 /*
  * ========================================
  * 3. Logo and Header Styling
@@ -88,6 +93,7 @@ body {
 
 .welcome-text {
     margin-bottom: 20px;
+    text-align: center; /* จัดหัวข้อให้อยู่กึ่งกลางตามที่ต้องการ */
 }
 
 .welcome-text h2 {
@@ -184,26 +190,12 @@ body {
  * ========================================
  * 6. Responsive Styles (Desktop/Tablet)
  * ========================================
- * ใช้เมื่อความกว้างของหน้าจอตั้งแต่ 768px ขึ้นไป
+ * ส่วน Media Query ถูกลดความซับซ้อนลง เพราะ .login-card ถูกตั้งค่า Max-width ที่ 400px แล้ว
  */
 @media (min-width: 768px) {
     
-    /* 1. App Container: จำกัดความกว้างและตัดความสูง */
     .app-container {
-        /* ลบความสูงเต็มจอออก เมื่ออยู่บน Desktop */
-        min-height: auto; 
-        /* ไม่ต้องมีพื้นหลังเต็มจออีกต่อไป */
-        background-color: transparent; 
-        padding: 0;
-    }
-    
-    /* 2. Login Card: กำหนดขนาดคงที่และเงา */
-    .login-card {
-        max-width: 400px; /* จำกัดความกว้างสูงสุด */
-        width: 100%;
-        padding: 40px; /* เพิ่ม Padding */
-        background-color: var(--card-color);
-        border-radius: 12px; /* เพิ่มขอบมน */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* เพิ่มเงา */
+        /* ปรับ App container ให้ไม่ยืดเต็มจอเมื่ออยู่บน Desktop */
+        background-color: var(--bg-color); 
     }
 }
