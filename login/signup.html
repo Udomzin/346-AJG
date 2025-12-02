@@ -22,18 +22,18 @@
                 <h2>Create Account</h2>
             </div>
 
-            <form class="account-form">
+            <form class="account-form" id="signupForm">
                 <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" placeholder="John Doe">
+                <input type="text" id="fullName" placeholder="John Doe" required>
                 
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="you@example.com">
+                <input type="email" id="email" placeholder="you@example.com" required>
                 
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="********">
+                <input type="password" id="password" placeholder="********" required>
                 
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" placeholder="********">
+                <input type="password" id="confirmPassword" placeholder="********" required>
                 
                 <button type="submit" class="btn-primary" id="signUpButton">Sign Up</button>
             </form>
@@ -45,6 +45,58 @@
 
         </div>
     </div>
-    <script src="signincilck.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const signupForm = document.getElementById('signupForm');
+            const signInLink = document.getElementById('signInLink');
+
+            signupForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const fullName = document.getElementById('fullName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                if (!fullName || !email || !password || !confirmPassword) {
+                    alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    alert('Password ไม่ตรงกัน');
+                    return;
+                }
+
+                // อ่าน users เดิมจาก localStorage
+                let users = JSON.parse(localStorage.getItem('users')) || [];
+
+                // เช็คว่า email ซ้ำไหม
+                if (users.some(u => u.email === email)) {
+                    alert('Email นี้ถูกใช้งานแล้ว');
+                    return;
+                }
+
+                // สร้าง token ง่าย ๆ
+                const token = Math.random().toString(36).substr(2);
+
+                // เพิ่ม user ใหม่
+                users.push({ fullName, email, password, token });
+                localStorage.setItem('users', JSON.stringify(users));
+
+                alert('สมัครสำเร็จ! สามารถเข้าสู่ระบบได้เลย');
+                window.location.href = 'login.html';
+            });
+
+            // ลิงก์ไปหน้า Login
+            if (signInLink) {
+                signInLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'login.html';
+                });
+            }
+        });
+    </script>
 </body>
 </html>
