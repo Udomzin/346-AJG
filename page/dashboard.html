@@ -93,38 +93,81 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const dashboardContainer = document.getElementById('dashboard-projects');
-            let projects = JSON.parse(localStorage.getItem('projects')) || [];
+document.addEventListener('DOMContentLoaded', () => {
+    const dashboardContainer = document.getElementById('dashboard-projects');
+    const avatarElement = document.querySelector('.avatar');
+    const userNameElement = document.querySelector('.user-name');
+    const projectCountElement = document.querySelector('.project-count');
 
-            function renderProjects() {
-                dashboardContainer.innerHTML = '';
-                if (projects.length === 0) {
-                    dashboardContainer.innerHTML = '<p style="color:#777; text-align:center;">No project yet.</p>';
-                    return;
-                }
+    // ดึง token ของผู้ใช้ที่ล็อกอิน
+    const token = localStorage.getItem('currentUserToken') || sessionStorage.getItem('currentUserToken');
 
-                projects.forEach((p, index) => {
-                    const projectCard = document.createElement('div');
-                    projectCard.className = 'project-card';
-                    projectCard.innerHTML = `
-                        <h3>${p.name}</h3>
-                        <p>${p.description || '<i>No description</i>'}</p>
-                        <p><b>Max Members:</b> ${p.maxMembers}</p>
-                        <button onclick="deleteProject(${index})">Delete</button>
-                    `;
-                    dashboardContainer.appendChild(projectCard);
-                });
-            }
+    if (!token) {
+        alert('คุณยังไม่ได้ล็อกอิน!');
+        window.location.href = 'login.html';
+        return;
+    }
 
-            renderProjects();
+    // ดึง users ทั้งหมดจาก localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
 
-            window.deleteProject = (index) => {
-                projects.splice(index, 1);
-                localStorage.setItem('projects', JSON.stringify(projects));
-                renderProjects();
-            };
+    // หา user ที่ตรงกับ token
+    const currentUser = users.find(u => u.token === token);
+
+    if (!currentUser) {
+        alert('ผู้ใช้ไม่ถูกต้อง!');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // แสดงชื่อผู้ใช้และอักษรย่อใน avatar
+    userNameElement.textContent = currentUser.fullName;
+    avatarElement.textContent = currentUser.fullName.split(' ').map(n => n[0]).join('').toUpperCase();
+
+    // ดึง projects จาก localStorage
+    let projects = JSON.parse(localStorage.getItem('projects')) || [];
+
+    // กรอง project ของผู้ใช้
+    let userProjects = projects.filter(p => p.ownerToken === token);
+
+    // อัปเดตจำนวน project
+    projectCountElement.textContent = `${userProjects.length} project${userProjects.length !== 1 ? 's' : ''}`;
+
+    function renderProjects() {
+        dashboardContainer.innerHTML = '';
+        if (userProjects.length === 0) {
+            dashboardContainer.innerHTML = '<p style="color:#777; text-align:center;">No project yet.</p>';
+            return;
+        }
+
+        userProjects.forEach((p, index) => {
+            const projectCard = document.createElement('div');
+            projectCard.className = 'project-card';
+            projectCard.innerHTML = `
+                <h3>${p.name}</h3>
+                <p>${p.description || '<i>No description</i>'}</p>
+                <p><b>Max Members:</b> ${p.maxMembers}</p>
+                <button onclick="deleteProject(${index})">Delete</button>
+            `;
+            dashboardContainer.appendChild(projectCard);
         });
-    </script>
+    }
+
+    renderProjects();
+
+    window.deleteProject = (index) => {
+        // ลบ project ของผู้ใช้
+        const globalIndex = projects.findIndex(p => p.ownerToken === token && userProjects.indexOf(p) === index);
+        if (globalIndex !== -1) {
+            projects.splice(globalIndex, 1);
+            localStorage.setItem('projects', JSON.stringify(projects));
+            userProjects = projects.filter(p => p.ownerToken === token);
+            projectCountElement.textContent = `${userProjects.length} project${userProjects.length !== 1 ? 's' : ''}`;
+            renderProjects();
+        }
+    };
+});
+</script>
+
 </body>
 </html>

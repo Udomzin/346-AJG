@@ -22,7 +22,6 @@
             </header>
 
             <main class="main-content form-content">
-                <!-- เพิ่ม id="project-form" ให้ form -->
                 <form id="project-form" class="project-form">
                     
                     <div class="input-group">
@@ -100,9 +99,20 @@
                     return;
                 }
 
+                // ดึง token ของผู้ใช้ปัจจุบัน
+                const token = localStorage.getItem('currentUserToken') || sessionStorage.getItem('currentUserToken');
+
                 // อ่านข้อมูลเดิมจาก Local Storage
                 let projects = JSON.parse(localStorage.getItem('projects')) || [];
-                projects.push({name: projectName, description: description, maxMembers: maxMembers});
+
+                // เพิ่ม project พร้อม ownerToken
+                projects.push({
+                    name: projectName,
+                    description: description,
+                    maxMembers: maxMembers,
+                    ownerToken: token
+                });
+
                 localStorage.setItem('projects', JSON.stringify(projects));
 
                 // ไป Dashboard
