@@ -176,4 +176,47 @@
     .form-footer-action {
         border-radius: 0 0 16px 16px;
     }
+    .project-card {
+    background-color: var(--card-color);
+    padding: 18px 20px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.project-title {
+    font-size: 18px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.member-badge {
+    background-color: var(--fab-color);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+}
+
+.project-desc {
+    font-size: 14px;
+    color: var(--sub-text-color);
+    margin-top: 6px;
+    line-height: 1.5em;
+}
+
 }

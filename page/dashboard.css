@@ -161,76 +161,59 @@ body {
     align-items: center;
     color: var(--sub-text-color);
     font-size: 18px;
-    /* ลด Padding ที่ซ้ำซ้อนจาก container */
     padding: 50px 0; 
 }
 
-/*
- * ========================================
- * 5. Floating Action Button (FAB)
- * ========================================
- */
-.fab {
-    position: fixed; /* เปลี่ยนจาก absolute เป็น fixed */
-    right: 20px;     /* ปรับตำแหน่งให้เหมาะสมกับขอบจอมือถือ */
-    bottom: 20px;
-    width: 56px;
-    height: 56px;
-    background-color: var(--fab-color);
+/* ===========================
+   4.1 Project Cards
+   =========================== */
+#dashboard-projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    padding: 20px;
+}
+
+.project-card {
+    background-color: var(--card-color); /* ใช้สีจากตัวแปรหลัก */
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    border: 1px solid #444; /* เส้นขอบอ่อนๆ ให้ดูกรอบ */
+    transition: 0.25s;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.project-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 6px;
     color: var(--text-color);
+}
+
+.project-card p {
+    font-size: 0.95rem;
+    color: var(--sub-text-color);
+    margin-bottom: 8px;
+}
+
+.project-card button {
+    padding: 8px 14px;
+    background-color: #f44336;
+    color: #fff;
     border: none;
-    border-radius: 50%;
-    font-size: 24px;
+    border-radius: 10px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    font-size: 0.9rem;
     transition: background-color 0.2s;
-    z-index: 1000; /* ให้ปุ่มอยู่เหนือทุกอย่าง */
 }
 
-.fab:hover {
-    background-color: #5d53f2;
-}
+.project-card button:hover {
+    background-color: #d32f2f;
 
-/*
- * ========================================
- * 6. Responsive Styles (Desktop/Tablet)
- * ========================================
- */
-@media (min-width: 768px) {
-    /* 1. แก้ปัญหา กล่องสี่เหลี่ยมสีดำ (Dashboard Container) */
-    .dashboard-container {
-        max-width: 400px; /* จำกัดความกว้างให้ดูเหมือน Mobile App บน Desktop */
-        min-height: 80vh; 
-        height: auto;
-        border-radius: 16px; /* ขอบมน */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
-        /* กลับมาใช้ position: relative *เฉพาะบน Desktop* ถ้าจำเป็นสำหรับองค์ประกอบอื่น 
-           แต่ไม่จำเป็นสำหรับ FAB ที่เราเปลี่ยนเป็น fixed ไปแล้ว */
-        position: relative; 
-    }
-
-    /* 2. ปรับตำแหน่ง FAB บน Desktop */
-    .fab {
-        /*
-         * บน Desktop, FAB ที่เป็น fixed จะยังคงอยู่มุมล่างขวาของหน้าจอ Browser
-         * แต่ถ้าต้องการให้ FAB อยู่มุมล่างขวาของกรอบ App Frame (400px) เท่านั้น:
-         * * Option A: คงที่ที่หน้าจอ (Fixed) - ง่ายที่สุด:
-         * right: calc(50% - 400px/2 + 20px); // ตำแหน่งที่ซับซ้อนกว่า
-         * * Option B: ใช้ Position Absolute ร่วมกับ Container (ที่เราแก้ไขให้ relative)
-         * ถ้าเลือก Option B, ต้องเปลี่ยน FAB ใน Mobile (5) กลับไปเป็น position: absolute 
-         *
-         * ผมแนะนำให้คงเป็น fixed (ตาม Section 5) เพื่อให้ปุ่ม "ลื่นขึ้นมา" และแก้ไขแค่ตำแหน่งบน Desktop:
-         */
-        
-        /* ตำแหน่งที่คำนวณจากกึ่งกลางของกรอบแอป (400px) */
-        right: calc(50% - 200px + 20px); 
-        /* (50% - (max-width/2) + ระยะห่าง) */
-
-        bottom: 20px; /* คงเดิม */
-    }
 }
 
 
