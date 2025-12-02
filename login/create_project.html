@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskSplit - Create Project</title>
+    
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="create_project.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="dashboard-container form-view-container"> 
+            
+            <header class="form-header">
+                <button class="icon-btn back-btn" title="Back">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="header-title">Create Project</h1>
+                <div style="width: 36px; height: 36px;"></div> 
+            </header>
+
+            <main class="main-content form-content">
+                <form id="project-form" class="project-form">
+                    
+                    <div class="input-group">
+                        <label for="projectName">
+                            <i class="fas fa-clipboard-list"></i> Project Name
+                        </label>
+                        <input type="text" id="projectName" placeholder="e.g., DTI326 Mobile App" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="description">
+                            <i class="fas fa-file-alt"></i> Description
+                        </label>
+                        <textarea id="description" placeholder="Describe your workspace..."></textarea>
+                    </div>
+                    
+                    <div class="input-group member-control-group">
+                        <label for="maxMembers">
+                            <i class="fas fa-user-friends"></i> Max Members
+                        </label>
+                        <div class="member-control">
+                            <button type="button" class="control-btn minus-btn"><i class="fas fa-minus"></i></button>
+                            <input type="number" id="maxMembers" value="4" min="1" max="100" readonly>
+                            <button type="button" class="control-btn plus-btn"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="form-footer-action">
+                        <button type="submit" class="btn-full-width">Create Project</button>
+                    </div>
+                    
+                </form>
+            </main>
+
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Member control
+            const minusBtn = document.querySelector('.minus-btn');
+            const plusBtn = document.querySelector('.plus-btn');
+            const memberInput = document.getElementById('maxMembers');
+            
+            minusBtn.addEventListener('click', () => {
+                let currentVal = parseInt(memberInput.value);
+                if (currentVal > parseInt(memberInput.min)) {
+                    memberInput.value = currentVal - 1;
+                }
+            });
+
+            plusBtn.addEventListener('click', () => {
+                let currentVal = parseInt(memberInput.value);
+                if (currentVal < parseInt(memberInput.max)) {
+                    memberInput.value = currentVal + 1;
+                }
+            });
+            
+            // ปุ่ม Back
+            document.querySelector('.back-btn').addEventListener('click', () => {
+                window.history.back();
+            });
+
+            // Submit form
+            const projectForm = document.getElementById('project-form');
+            projectForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const projectName = document.getElementById('projectName').value.trim();
+                const description = document.getElementById('description').value.trim();
+                const maxMembers = document.getElementById('maxMembers').value;
+
+                if (!projectName) {
+                    alert('กรุณากรอกชื่อ Project');
+                    return;
+                }
+
+                // ดึง token ของผู้ใช้ปัจจุบัน
+                const token = localStorage.getItem('currentUserToken') || sessionStorage.getItem('currentUserToken');
+
+                // อ่านข้อมูลเดิมจาก Local Storage
+                let projects = JSON.parse(localStorage.getItem('projects')) || [];
+
+                // เพิ่ม project พร้อม ownerToken
+                projects.push({
+                    name: projectName,
+                    description: description,
+                    maxMembers: maxMembers,
+                    ownerToken: token
+                });
+
+                localStorage.setItem('projects', JSON.stringify(projects));
+
+                // ไป Dashboard
+                window.location.href = 'dashboard.html';
+            });
+        });
+    </script>
+</body>
+</html>

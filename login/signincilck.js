@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         alert('Login สำเร็จ!');
-        window.location.href = '../page/dashboard.html';
+        window.location.href = 'dashboard.html';
     });
 
     // ลิงก์ Sign Up
