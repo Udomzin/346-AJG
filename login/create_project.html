@@ -49,6 +49,27 @@
                         </div>
                     </div>
 
+                    <div class="input-group">
+                        <label><i class="fas fa-envelope"></i> Invite Members (Optional)</label>
+                        <div id="email-list" style="margin-bottom: 10px;"></div>
+                        <div style="display: flex; gap: 10px;">
+                             <input 
+                                 type="email" 
+                                 id="inviteEmail" 
+                                 placeholder="Enter member email"
+                                 style="flex: 1; padding: 12px; border-radius: 8px; background: #2d2d2d; border: 1px solid #444; color: white;"
+                             >
+                             <button 
+                                type="button" 
+                                id="addEmailBtn"
+                                style="padding: 12px 20px; background: #55ac40; border: none; border-radius: 8px; color: white; cursor: pointer;"
+                             >
+                                <i class="fas fa-plus"></i> Add
+                             </button>
+                        </div>
+                        <input type="hidden" id="membersInput" name="members">
+                    </div>
+
                     <div class="form-footer-action">
                         <button type="submit" class="btn-full-width">Create Project</button>
                     </div>
@@ -85,6 +106,60 @@
                 window.history.back();
             });
 
+            // Add Email
+            const addEmailBtn = document.getElementById('addEmailBtn');
+            const inviteEmail = document.getElementById('inviteEmail');
+            const emailList = document.getElementById('email-list');
+            let emails = [];
+
+            addEmailBtn.addEventListener('click', () => {
+                const email = inviteEmail.value.trim();
+                if (!email) {
+                    alert('กรุณากรอกอีเมล');
+                    return;
+                }
+
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('รูปแบบอีเมลไม่ถูกต้อง');
+                    return;
+                }
+
+                // เพิ่มอีเมลลงใน array
+                emails.push(email);
+
+                // สร้าง div แสดงอีเมล
+                const emailDiv = document.createElement('div');
+                emailDiv.textContent = email;
+                emailDiv.style.padding = "5px 10px";
+                emailDiv.style.background = "#444";
+                emailDiv.style.color = "white";
+                emailDiv.style.borderRadius = "5px";
+                emailDiv.style.marginBottom = "5px";
+                emailDiv.style.fontSize = "14px";
+
+                // ปุ่มลบ
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = "×";
+                removeBtn.style.marginLeft = "10px";
+                removeBtn.style.background = "red";
+                removeBtn.style.border = "none";
+                removeBtn.style.color = "white";
+                removeBtn.style.cursor = "pointer";
+                removeBtn.style.borderRadius = "50%";
+                removeBtn.style.width = "20px";
+                removeBtn.style.height = "20px";
+                removeBtn.addEventListener('click', () => {
+                    emailList.removeChild(emailDiv);
+                    emails = emails.filter(e => e !== email);
+                });
+
+                emailDiv.appendChild(removeBtn);
+                emailList.appendChild(emailDiv);
+
+                inviteEmail.value = "";
+            });
+
             // Submit form
             const projectForm = document.getElementById('project-form');
             projectForm.addEventListener('submit', (e) => {
@@ -99,23 +174,23 @@
                     return;
                 }
 
-                // ดึง token ของผู้ใช้ปัจจุบัน
+                // เก็บอีเมลทั้งหมดใน hidden input
+                document.getElementById('membersInput').value = emails.join(',');
+
                 const token = localStorage.getItem('currentUserToken') || sessionStorage.getItem('currentUserToken');
 
-                // อ่านข้อมูลเดิมจาก Local Storage
                 let projects = JSON.parse(localStorage.getItem('projects')) || [];
 
-                // เพิ่ม project พร้อม ownerToken
                 projects.push({
                     name: projectName,
                     description: description,
                     maxMembers: maxMembers,
-                    ownerToken: token
+                    ownerToken: token,
+                    members: emails
                 });
 
                 localStorage.setItem('projects', JSON.stringify(projects));
 
-                // ไป Dashboard
                 window.location.href = 'dashboard.html';
             });
         });

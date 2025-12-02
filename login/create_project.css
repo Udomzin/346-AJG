@@ -129,6 +129,29 @@
     color: var(--text-color);
 }
 
+.email-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #3d3d3d;
+    padding: 8px 12px;
+    border-radius: 20px;
+    margin: 5px;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.email-tag button {
+    background: #f44336;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
 /* 5. Bottom Action Button */
 .form-footer-action {
     position: sticky;

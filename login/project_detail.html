@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* Base Styles (Retained from user's upload) */
+        /* Base Styles */
         :root {
             --bg-color: #333333;
             --app-bg: #1c1c1c; 
@@ -16,20 +16,9 @@
             --text-color: #ffffff;
             --sub-text-color: #aaaaaa;
             --primary-color: #6366f1;
-            --fab-color: #4f46e5; /* ใช้สีม่วงหลัก */
+            --fab-color: #4f46e5;
         }
 
-        .page-wrapper {
-            background-color: var(--app-bg);
-            min-height: 100vh;
-        }
-
-        .dashboard-container {
-            padding: 16px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
         .project-header {
             display: flex;
             justify-content: space-between;
@@ -132,10 +121,9 @@
             background-color: #383838;
         }
 
-        /* Task Item Border Color based on Priority (FIXED) */
-        .task-item.priority-low { border-left-color: #10b981; } /* Green - Low */
-        .task-item.priority-medium { border-left-color: #f59e0b; } /* Orange - Medium */
-        .task-item.priority-high { border-left-color: #f44336; } /* Red - High */
+        .task-item.done { border-left-color: #4CAF50; }
+        .task-item.progress { border-left-color: #ffeb3b; }
+        .task-item.todo { border-left-color: #f44336; }
         
         .task-item-details strong {
             display: block;
@@ -148,7 +136,6 @@
             color: var(--sub-text-color);
         }
         
-        /* Task Status Color Coding (FIXED to support To Do, In Progress, Done) */
         .task-status {
             font-size: 0.85rem;
             padding: 4px 8px;
@@ -156,11 +143,11 @@
             font-weight: 600;
         }
         
-        .task-status.to-do { background-color: #6366f1; color: #fff; } 
-        .task-status.in-progress { background-color: #f59e0b; color: #333; }
-        .task-status.done { background-color: #10b981; color: #fff; }
+        .task-status.done { background-color: #4CAF50; color: #fff; }
+        .task-status.progress { background-color: #ffeb3b; color: #333; }
+        .task-status.todo { background-color: #f44336; color: #fff; }
         
-        /* FAB Menu Styles (FIXED for smooth animation) */
+        /* FAB Menu Styles */
         .fab-menu {
             position: fixed;
             bottom: 20px;
@@ -172,7 +159,7 @@
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background-color: var(--fab-color);
+            background-color: #55ac40; 
             color: var(--text-color);
             border: none;
             font-size: 24px;
@@ -180,31 +167,25 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease-in-out;
-            position: relative; 
-            z-index: 1002;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease-in-out, background-color 0.2s;
         }
         
         .fab-options {
             position: absolute;
             bottom: 70px;
             right: 0;
-            display: flex; /* เปลี่ยนจาก display:none */
+            display: none;
             flex-direction: column;
-            align-items: flex-end;
-            gap: 12px;
-            opacity: 0; 
-            transform: translateY(10px); 
-            pointer-events: none; 
-            transition: opacity 0.3s, transform 0.3s;
-            z-index: 1001;
+            gap: 10px;
+            background-color: var(--app-bg);
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
         
         .fab-options.open {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto; 
+            display: flex;
         }
         
         .fab-option-btn {
@@ -222,108 +203,10 @@
             gap: 10px;
             min-width: 150px;
             justify-content: flex-end;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
         
         .fab-option-btn:hover {
             background-color: #383838;
-        }
-
-        /* Task Detail Modal Styles (NEW) */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: none; 
-            justify-content: center;
-            align-items: flex-start;
-            z-index: 2000;
-            padding-top: 5vh;
-            overflow-y: auto;
-        }
-
-        .modal.open {
-            display: flex;
-        }
-
-        .modal-content {
-            background-color: var(--app-bg);
-            width: 90%;
-            max-width: 500px;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-            transform: translateY(-50px);
-            transition: transform 0.3s ease-out;
-        }
-
-        .modal.open .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h3 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-color);
-            border-left: 4px solid var(--primary-color);
-            padding-left: 10px;
-            line-height: 1.2;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--sub-text-color);
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .task-info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-top: 10px;
-            border-top: 1px solid #333;
-        }
-
-        .task-info-item strong {
-            display: block;
-            font-size: 12px;
-            color: var(--sub-text-color);
-            margin-bottom: 4px;
-        }
-
-        .task-info-item span {
-            font-size: 16px;
-            font-weight: 500;
-            color: var(--text-color);
-        }
-
-        /* Color Coding for Modal Header based on Priority */
-        .modal-header.priority-low h3 { border-left-color: #10b981; }
-        .modal-header.priority-medium h3 { border-left-color: #f59e0b; }
-        .modal-header.priority-high h3 { border-left-color: #f44336; }
-
-        .modal-description {
-            font-style: italic;
-            color: var(--sub-text-color) !important;
-            padding: 10px;
-            background-color: #222;
-            border-radius: 8px;
-            margin-top: 15px;
-            line-height: 1.5;
-            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -367,219 +250,87 @@
                 </div>
             </section>
 
-            <div id="taskDetailModal" class="modal">
-                <div class="modal-content">
-                    <header class="modal-header" id="modal-header">
-                        <h3 id="modal-task-name">Task Name</h3>
-                        <button class="close-btn" id="close-modal-btn"><i class="fas fa-times"></i></button>
-                    </header>
-                    <div class="modal-body">
-                        <div class="task-info-grid">
-                            <div class="task-info-item">
-                                <strong>Status</strong>
-                                <span id="modal-status">Done</span>
-                            </div>
-                            <div class="task-info-item">
-                                <strong>Priority</strong>
-                                <span id="modal-priority">High</span>
-                            </div>
-                            <div class="task-info-item">
-                                <strong>Estimated Time</strong>
-                                <span id="modal-estimated-time">2 hours</span>
-                            </div>
-                            <div class="task-info-item">
-                                <strong>Deadline</strong>
-                                <span id="modal-deadline">2025-12-31</span>
-                            </div>
-                        </div>
-                        <strong>Description:</strong>
-                        <p id="modal-description" class="modal-description">This is the task description.</p>
-                    </div>
-                </div>
-            </div>
             <div class="fab-menu">
                 <div class="fab-options" id="fab-options">
                     <button class="fab-option-btn" id="create-task-btn">
                         <i class="fas fa-plus-circle"></i> Create Task
                     </button>
-                    <button class="fab-option-btn" onclick="alert('Inviting Member (Invite Page coming soon!)')">
+
+                    <button class="fab-option-btn" id="invite-member-btn">
                         <i class="fas fa-user-plus"></i> Invite Member
                     </button>
-                </div>
+                    </button>
+                    </div>
                 <button class="fab-btn" id="fab-toggle-btn">
                     <i class="fas fa-plus"></i>
                 </button>
             </div>
         </div>
     </div>
-    
-    <script>
+
+    <div id="inviteBox" style="
+        display:none;
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+        background: #2d2d2d;
+        padding: 20px;
+        border-radius: 12px;
+        color: white;
+        width: 260px;
+        z-index: 2000;
+    ">
+        <h3 style="margin-top:0;">Invite Member</h3>
+
+        <input type="email" id="inviteEmail" placeholder="Enter member email"
+            style="width:100%; padding:8px; border-radius:6px;">
+
+        <button onclick="sendInvite()"
+            style="margin-top:10px; width:100%; padding:10px; background:#55ac40; border:none; border-radius:8px;">
+            Send Invite
+        </button>
+
+        <button onclick="hideInviteBox()"
+            style="margin-top:10px; width:100%; padding:10px; background:#444; border:none; border-radius:8px;">
+            Cancel
+        </button>
+    </div>
+
+<script>
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Get Project ID from URL
+    // Get projectId from URL
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('projectId');
     
-    // Elements
     const projectInfoElement = document.getElementById('project-info');
     const tasksToDoCount = document.getElementById('tasks-todo-count');
     const tasksProgressCount = document.getElementById('tasks-progress-count');
     const tasksDoneCount = document.getElementById('tasks-done-count');
     const taskListContainer = document.getElementById('task-list-container');
-    
-    // FAB Elements
     const fabToggleBtn = document.getElementById('fab-toggle-btn');
     const fabOptions = document.getElementById('fab-options');
+
     const createTaskBtn = document.getElementById('create-task-btn');
-    
-    // MODAL Elements (NEW)
-    const taskDetailModal = document.getElementById('taskDetailModal');
-    const closeModalBtn = document.getElementById('close-modal-btn');
-    const modalHeader = document.getElementById('modal-header');
-    const modalTaskName = document.getElementById('modal-task-name');
-    const modalStatus = document.getElementById('modal-status');
-    const modalPriority = document.getElementById('modal-priority');
-    const modalEstimatedTime = document.getElementById('modal-estimated-time');
-    const modalDeadline = document.getElementById('modal-deadline');
-    const modalDescription = document.getElementById('modal-description');
-    
-    let allTasks = []; 
-    
-    // --- Mock Data Setup (for initial testing if localStorage is empty) ---
-    const mockProjects = [
-        { id: "P001", name: "Mobile App Redesign", maxMembers: 5 },
-        { id: "P002", name: "Marketing Campaign Q4", maxMembers: 10 }
-    ];
-    if (!localStorage.getItem('projects')) {
-        localStorage.setItem('projects', JSON.stringify(mockProjects));
-    }
-
-    if (!localStorage.getItem('tasks')) {
-        const mockTasks = [
-            { id: "T001", projectId: "P001", name: "Design UI Mockups", description: "Create 5 key screens for mobile app.", priority: "High", estimatedTime: "8 hours", deadline: "2025-12-05", status: "In Progress" },
-            { id: "T002", projectId: "P001", name: "Setup Backend API", description: "Initialize database and REST endpoints.", priority: "Medium", estimatedTime: "1 day", deadline: "2025-12-10", status: "To Do" },
-            { id: "T003", projectId: "P001", name: "Testing Landing Page", description: "Test the responsive design on various devices.", priority: "Low", estimatedTime: "4 hours", deadline: "2025-11-28", status: "Done" }
-        ];
-        localStorage.setItem('tasks', JSON.stringify(mockTasks));
-    }
-    // -------------------------------------------------------------------
-
-    // --- Modal Functions (NEW) ---
-    const openTaskDetailModal = (task) => {
-        // Clear previous priority class and set new one for color coding
-        modalHeader.className = 'modal-header'; 
-        modalHeader.classList.add(`priority-${task.priority.toLowerCase()}`);
-
-        // Set content
-        modalTaskName.textContent = task.name;
-        modalStatus.textContent = task.status;
-        modalPriority.textContent = task.priority;
-        modalEstimatedTime.textContent = task.estimatedTime || 'N/A';
-        modalDeadline.textContent = task.deadline || 'N/A';
-        modalDescription.textContent = task.description || 'No detailed description provided.';
-        
-        // Show Modal
-        taskDetailModal.classList.add('open');
-    };
-
-    const closeTaskDetailModal = () => {
-        taskDetailModal.classList.remove('open');
-    };
-
-    closeModalBtn.addEventListener('click', closeTaskDetailModal);
-    taskDetailModal.addEventListener('click', (e) => {
-        if (e.target === taskDetailModal) {
-            closeTaskDetailModal();
+    createTaskBtn.onclick = () => {
+        if(projectId) {
+             window.location.href = `add_task.html?projectId=${projectId}`;
         }
+    };
+    
+    fabToggleBtn.addEventListener('click', () => {
+        fabOptions.classList.toggle('open');
+        const icon = fabToggleBtn.querySelector('i');
+        icon.className = fabOptions.classList.contains('open') ? 'fas fa-times' : 'fas fa-plus';
     });
-
-    // --- Task List Rendering Function ---
-    const renderTasks = (projectTasks) => {
-        let todoCount = 0;
-        let progressCount = 0;
-        let doneCount = 0;
-
-        taskListContainer.innerHTML = '';
-
-        if (projectTasks.length === 0) {
-            taskListContainer.innerHTML = '<p style="text-align:center; color:var(--sub-text-color);">No tasks yet. Add one with the \'+\' button.</p>';
-        } else {
-            projectTasks.forEach(task => {
-                const statusClass = task.status.replace(' ', '-').toLowerCase();
-                const priorityClass = task.priority.toLowerCase(); 
-                
-                if (task.status === 'To Do') {
-                    todoCount++;
-                } else if (task.status === 'In Progress') {
-                    progressCount++;
-                } else if (task.status === 'Done') {
-                    doneCount++;
-                }
-
-                const taskElement = document.createElement('div');
-                // ใช้ทั้ง status และ priority เพื่อควบคุมสีขอบซ้าย
-                taskElement.className = `task-item status-${statusClass} priority-${priorityClass}`;
-                taskElement.dataset.taskId = task.id; 
-                
-                taskElement.innerHTML = `
-                    <div class="task-item-details">
-                        <strong>${task.name}</strong>
-                        <span>Priority: ${task.priority} | Deadline: ${task.deadline || 'N/A'}</span>
-                    </div>
-                    <span class="task-status ${statusClass}">${task.status}</span>
-                `;
-                
-                // เพิ่ม Event Listener สำหรับเปิด Modal
-                taskElement.addEventListener('click', () => openTaskDetailModal(task));
-                
-                taskListContainer.appendChild(taskElement);
-            });
-        }
-
-        // Update Summary Counts
-        tasksToDoCount.textContent = todoCount;
-        tasksProgressCount.textContent = progressCount;
-        tasksDoneCount.textContent = doneCount;
-    };
-    
-    // --- FAB Button and Navigation Logic (FIXED) ---
-    
-    // Toggle FAB Menu (แก้ให้ปุ่มกดติดและเปลี่ยนไอคอน)
-    if(fabToggleBtn && fabOptions) {
-        fabToggleBtn.addEventListener('click', () => {
-            fabOptions.classList.toggle('open'); 
-            
-            const icon = fabToggleBtn.querySelector('i');
-            if (fabOptions.classList.contains('open')) {
-                icon.className = 'fas fa-times'; 
-            } else {
-                icon.className = 'fas fa-plus';
-            }
-        });
-    }
-
-    // Link "Create Task" button to add_task.html
-    if(createTaskBtn) {
-        createTaskBtn.onclick = () => {
-            if(projectId) {
-                 window.location.href = `add_task.html?projectId=${projectId}`; 
-            } else {
-                alert('Project ID not found. Cannot create task.');
-            }
-        };
-    }
-    
-    // --- Initialization ---
 
     if (!projectId) {
         projectInfoElement.innerHTML = '<h2>Error: No Project ID</h2>';
         return;
     }
 
-    // Load tasks and filter for current project
-    allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
     const projectTasks = allTasks.filter(t => t.projectId === projectId); 
 
-    // Get Project Data
     const projects = JSON.parse(localStorage.getItem('projects')) || [];
     const currentProject = projects.find(p => p.id === projectId);
 
@@ -588,15 +339,72 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Render Project Info
     projectInfoElement.innerHTML = `
         <h2>${currentProject.name}</h2>
         <p class="project-meta">ID: ${currentProject.id} | Max Members: ${currentProject.maxMembers}</p>
     `;
 
-    // Render Tasks
-    renderTasks(projectTasks);
+    let todoCount = 0;
+    let progressCount = 0;
+    let doneCount = 0;
+
+    taskListContainer.innerHTML = '';
+
+    if (projectTasks.length === 0) {
+        taskListContainer.innerHTML = '<p style="text-align:center; color:var(--sub-text-color);">No tasks yet. Add one with the \'+\' button.</p>';
+    } else {
+        projectTasks.forEach(task => {
+            const statusClass = task.status.replace(' ', '-').toLowerCase();
+            if (task.status === 'To Do') todoCount++;
+            else if (task.status === 'In Progress') progressCount++;
+            else if (task.status === 'Done') doneCount++;
+
+            const taskElement = document.createElement('div');
+            taskElement.className = `task-item ${statusClass}`;
+            taskElement.innerHTML = `
+                <div class="task-item-details">
+                    <strong>${task.name}</strong>
+                    <span>Priority: ${task.priority} | Deadline: ${task.deadline || 'N/A'}</span>
+                </div>
+                <span class="task-status ${statusClass}">${task.status}</span>
+            `;
+            taskListContainer.appendChild(taskElement);
+        });
+    }
+
+    tasksToDoCount.textContent = todoCount;
+    tasksProgressCount.textContent = progressCount;
+    tasksDoneCount.textContent = doneCount;
 });
-    </script>
+
+function showInviteBox() {
+    document.getElementById("inviteBox").style.display = "block";
+}
+
+function hideInviteBox() {
+    document.getElementById("inviteBox").style.display = "none";
+}
+
+function sendInvite() {
+    const email = document.getElementById("inviteEmail").value;
+
+    if (!email) {
+        alert("Please enter an email.");
+        return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert("Invalid email format");
+        return;
+    }
+
+    alert("Invitation sent to " + email);
+    hideInviteBox();
+}
+
+document.getElementById("invite-member-btn").onclick = showInviteBox;
+
+</script>
+
 </body>
 </html>
