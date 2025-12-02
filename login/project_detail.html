@@ -1,410 +1,514 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Detail</title>
-    <link rel="stylesheet" href="dashboard.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
     <style>
-        /* Base Styles */
-        :root {
-            --bg-color: #333333;
-            --app-bg: #1c1c1c; 
-            --card-color: #2d2d2d;
-            --text-color: #ffffff;
-            --sub-text-color: #aaaaaa;
-            --primary-color: #6366f1;
-            --fab-color: #4f46e5;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            margin-bottom: 20px;
-        }
-        
-        .project-header .back-btn {
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-size: 24px;
-            cursor: pointer;
-            padding: 8px;
-        }
-
-        .project-title h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .project-meta {
-            font-size: 0.85rem;
-            color: var(--sub-text-color);
-            margin-top: 4px;
-        }
-        
-        /* Task Summary Card (Overall Progress) */
-        .task-summary-card {
-            background-color: #55ac40; 
-            color: #111; 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
             padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .task-summary-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #111;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            margin-bottom: 30px;
         }
-        
-        .summary-stats {
+
+        .back-btn {
+            width: 44px;
+            height: 44px;
+            background: #2a2a2a;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
             display: flex;
-            justify-content: space-around;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #3a3a3a;
+            transform: translateX(-3px);
+        }
+
+        .header-center {
+            flex: 1;
             text-align: center;
         }
-        
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            padding: 10px;
-            border-radius: 8px;
-            color: #111;
-        }
-        
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
 
-        .stat-label {
-            font-size: 0.85rem;
-            color: #333;
-        }
-
-        /* Task List */
-        .task-list-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            padding-top: 10px;
-            color: var(--text-color);
-        }
-        
-        .task-list {
-            padding-bottom: 80px;
-        }
-        
-        .task-item {
-            background-color: var(--card-color);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            border-left: 5px solid transparent;
-        }
-        
-        .task-item:hover {
-            background-color: #383838;
-        }
-
-        .task-item.done { border-left-color: #4CAF50; }
-        .task-item.progress { border-left-color: #ffeb3b; }
-        .task-item.todo { border-left-color: #f44336; }
-        
-        .task-item-details strong {
-            display: block;
-            font-size: 1rem;
+        .project-title {
+            font-size: 28px;
+            font-weight: 700;
             margin-bottom: 4px;
         }
 
-        .task-item-details span {
-            font-size: 0.8rem;
-            color: var(--sub-text-color);
-        }
-        
-        .task-status {
-            font-size: 0.85rem;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-weight: 600;
-        }
-        
-        .task-status.done { background-color: #4CAF50; color: #fff; }
-        .task-status.progress { background-color: #ffeb3b; color: #333; }
-        .task-status.todo { background-color: #f44336; color: #fff; }
-        
-        /* FAB Menu Styles */
-        .fab-menu {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
+        .project-info {
+            font-size: 14px;
+            color: #999;
         }
 
-        .fab-btn {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background-color: #55ac40; 
-            color: var(--text-color);
+        .menu-btn {
+            width: 44px;
+            height: 44px;
+            background: #2a2a2a;
             border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .menu-btn:hover {
+            background: #3a3a3a;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: #2a2a2a;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            min-width: 150px;
+            z-index: 100;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 16px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dropdown-item:first-child {
+            border-radius: 10px 10px 0 0;
+        }
+
+        .dropdown-item:last-child {
+            border-radius: 0 0 10px 10px;
+        }
+
+        .dropdown-item:hover {
+            background: #dc3545;
+        }
+
+        /* Progress Card */
+        .progress-card {
+            background: linear-gradient(135deg, #7ed957 0%, #5cb85c 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 24px rgba(92, 184, 92, 0.4);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .progress-icon {
             font-size: 24px;
+            color: #000;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #000;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        /* Tasks Section */
+        .tasks-section {
+            margin-top: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .task-item {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .task-item:hover {
+            background: #3a3a3a;
+            transform: translateX(5px);
+        }
+
+        .task-item.priority-high {
+            border-left-color: #dc3545;
+        }
+
+        .task-item.priority-medium {
+            border-left-color: #ffc107;
+        }
+
+        .task-item.priority-low {
+            border-left-color: #28a745;
+        }
+
+        .task-info {
+            flex: 1;
+        }
+
+        .task-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .task-details {
+            font-size: 13px;
+            color: #999;
+            display: flex;
+            gap: 15px;
+        }
+
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .status-badge.todo {
+            background: #667eea;
+            color: white;
+        }
+
+        .status-badge.in-progress {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .status-badge.done {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-badge:hover {
+            transform: scale(1.05);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state i {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        /* FAB */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-            transition: transform 0.2s ease-in-out, background-color 0.2s;
-        }
-        
-        .fab-options {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            background-color: var(--app-bg);
-            padding: 10px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-        
-        .fab-options.open {
-            display: flex;
-        }
-        
-        .fab-option-btn {
-            background-color: var(--card-color);
-            color: var(--text-color);
+            font-size: 28px;
+            text-decoration: none;
+            box-shadow: 0 6px 24px rgba(102, 126, 234, 0.6);
+            z-index: 100;
+            transition: all 0.3s;
             border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 1rem;
-            text-align: right;
             cursor: pointer;
-            transition: background-color 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            min-width: 150px;
-            justify-content: flex-end;
         }
-        
-        .fab-option-btn:hover {
-            background-color: #383838;
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.8);
         }
     </style>
 </head>
 <body>
-    <div class="page-wrapper">
-        <div class="dashboard-container">
-            
-            <header class="project-header">
-                <button class="back-btn" onclick="window.location.href='dashboard.html'"><i class="fas fa-arrow-left"></i></button>
-                <div class="project-title" id="project-info">
-                    <h2>Loading...</h2>
-                    <p class="project-meta">ID: N/A | Max Members: N/A</p>
-                </div>
-                <div class="actions">
-                    <button class="icon-btn" title="More Options"><i class="fas fa-ellipsis-v"></i></button>
-                </div>
-            </header>
-
-            <section class="task-summary-card">
-                <h3>Overall Progress <i class="fas fa-chart-line"></i></h3>
-                <div class="summary-stats">
-                    <div class="stat-item">
-                        <span class="stat-value" id="tasks-todo-count">0</span>
-                        <span class="stat-label">To Do</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value" id="tasks-progress-count">0</span>
-                        <span class="stat-label">In Progress</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value" id="tasks-done-count">0</span>
-                        <span class="stat-label">Done</span>
+    <div class="container">
+        <div class="header">
+            <button class="back-btn" id="backBtn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="header-center">
+                <h1 class="project-title" id="projectTitle">Loading...</h1>
+                <p class="project-info" id="projectInfo">ID: ... | Max Members: ...</p>
+            </div>
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-ellipsis-v"></i>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <div class="dropdown-item" id="deleteProject">
+                        <i class="fas fa-trash"></i>
+                        Delete Project
                     </div>
                 </div>
-            </section>
+            </button>
+        </div>
 
-            <section>
-                <h3 class="task-list-title">Recent Activity / Tasks</h3>
-                <div class="task-list" id="task-list-container">
-                    <p style="text-align:center; color:var(--sub-text-color);">Loading tasks...</p>
+        <div class="progress-card">
+            <div class="progress-header">
+                <span class="progress-title">Overall Progress</span>
+                <i class="fas fa-chart-line progress-icon"></i>
+            </div>
+            <div class="progress-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="todoCount">0</span>
+                    <span class="stat-label">To Do</span>
                 </div>
-            </section>
-
-            <div class="fab-menu">
-                <div class="fab-options" id="fab-options">
-                    <button class="fab-option-btn" id="create-task-btn">
-                        <i class="fas fa-plus-circle"></i> Create Task
-                    </button>
-
-                    <button class="fab-option-btn" id="invite-member-btn">
-                        <i class="fas fa-user-plus"></i> Invite Member
-                    </button>
-                    </button>
-                    </div>
-                <button class="fab-btn" id="fab-toggle-btn">
-                    <i class="fas fa-plus"></i>
-                </button>
+                <div class="stat-item">
+                    <span class="stat-number" id="inProgressCount">0</span>
+                    <span class="stat-label">In Progress</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="doneCount">0</span>
+                    <span class="stat-label">Done</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="inviteBox" style="
-        display:none;
-        position: fixed;
-        bottom: 100px;
-        right: 20px;
-        background: #2d2d2d;
-        padding: 20px;
-        border-radius: 12px;
-        color: white;
-        width: 260px;
-        z-index: 2000;
-    ">
-        <h3 style="margin-top:0;">Invite Member</h3>
-
-        <input type="email" id="inviteEmail" placeholder="Enter member email"
-            style="width:100%; padding:8px; border-radius:6px;">
-
-        <button onclick="sendInvite()"
-            style="margin-top:10px; width:100%; padding:10px; background:#55ac40; border:none; border-radius:8px;">
-            Send Invite
-        </button>
-
-        <button onclick="hideInviteBox()"
-            style="margin-top:10px; width:100%; padding:10px; background:#444; border:none; border-radius:8px;">
-            Cancel
-        </button>
-    </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Get projectId from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const projectId = urlParams.get('projectId');
-    
-    const projectInfoElement = document.getElementById('project-info');
-    const tasksToDoCount = document.getElementById('tasks-todo-count');
-    const tasksProgressCount = document.getElementById('tasks-progress-count');
-    const tasksDoneCount = document.getElementById('tasks-done-count');
-    const taskListContainer = document.getElementById('task-list-container');
-    const fabToggleBtn = document.getElementById('fab-toggle-btn');
-    const fabOptions = document.getElementById('fab-options');
-
-    const createTaskBtn = document.getElementById('create-task-btn');
-    createTaskBtn.onclick = () => {
-        if(projectId) {
-             window.location.href = `add_task.html?projectId=${projectId}`;
-        }
-    };
-    
-    fabToggleBtn.addEventListener('click', () => {
-        fabOptions.classList.toggle('open');
-        const icon = fabToggleBtn.querySelector('i');
-        icon.className = fabOptions.classList.contains('open') ? 'fas fa-times' : 'fas fa-plus';
-    });
-
-    if (!projectId) {
-        projectInfoElement.innerHTML = '<h2>Error: No Project ID</h2>';
-        return;
-    }
-
-    const allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const projectTasks = allTasks.filter(t => t.projectId === projectId); 
-
-    const projects = JSON.parse(localStorage.getItem('projects')) || [];
-    const currentProject = projects.find(p => p.id === projectId);
-
-    if (!currentProject) {
-        projectInfoElement.innerHTML = '<h2>Project Not Found</h2>';
-        return;
-    }
-
-    projectInfoElement.innerHTML = `
-        <h2>${currentProject.name}</h2>
-        <p class="project-meta">ID: ${currentProject.id} | Max Members: ${currentProject.maxMembers}</p>
-    `;
-
-    let todoCount = 0;
-    let progressCount = 0;
-    let doneCount = 0;
-
-    taskListContainer.innerHTML = '';
-
-    if (projectTasks.length === 0) {
-        taskListContainer.innerHTML = '<p style="text-align:center; color:var(--sub-text-color);">No tasks yet. Add one with the \'+\' button.</p>';
-    } else {
-        projectTasks.forEach(task => {
-            const statusClass = task.status.replace(' ', '-').toLowerCase();
-            if (task.status === 'To Do') todoCount++;
-            else if (task.status === 'In Progress') progressCount++;
-            else if (task.status === 'Done') doneCount++;
-
-            const taskElement = document.createElement('div');
-            taskElement.className = `task-item ${statusClass}`;
-            taskElement.innerHTML = `
-                <div class="task-item-details">
-                    <strong>${task.name}</strong>
-                    <span>Priority: ${task.priority} | Deadline: ${task.deadline || 'N/A'}</span>
+        <div class="tasks-section">
+            <h2 class="section-title">Recent Activity / Tasks</h2>
+            <div class="tasks-list" id="tasksList">
+                <div class="empty-state">
+                    <i class="fas fa-clipboard-list"></i>
+                    <p>No tasks yet. Add one with the '+' button.</p>
                 </div>
-                <span class="task-status ${statusClass}">${task.status}</span>
-            `;
-            taskListContainer.appendChild(taskElement);
+            </div>
+        </div>
+
+        <button class="fab" id="addTaskBtn">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = urlParams.get('projectId');
+
+        if (!projectId) {
+            alert('Project not found!');
+            window.location.href = 'dashboard.html';
+        }
+
+        const projects = JSON.parse(localStorage.getItem('projects')) || [];
+        const project = projects.find(p => p.id === projectId);
+
+        if (!project) {
+            alert('Project not found!');
+            window.location.href = 'dashboard.html';
+        }
+
+        // Display project info
+        document.getElementById('projectTitle').textContent = project.name;
+        document.getElementById('projectInfo').textContent = `ID: ${projectId} | Max Members: ${project.maxMembers}`;
+
+        // Load tasks
+        let allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let projectTasks = allTasks.filter(t => t.projectId === projectId);
+
+        function updateProgress() {
+            const todo = projectTasks.filter(t => t.status === 'To Do').length;
+            const inProgress = projectTasks.filter(t => t.status === 'In Progress').length;
+            const done = projectTasks.filter(t => t.status === 'Done').length;
+
+            document.getElementById('todoCount').textContent = todo;
+            document.getElementById('inProgressCount').textContent = inProgress;
+            document.getElementById('doneCount').textContent = done;
+        }
+
+        function renderTasks() {
+            const tasksList = document.getElementById('tasksList');
+            
+            if (projectTasks.length === 0) {
+                tasksList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>No tasks yet. Add one with the '+' button.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            tasksList.innerHTML = projectTasks.map(task => {
+                const priorityClass = task.priority.toLowerCase();
+                const statusClass = task.status.toLowerCase().replace(' ', '-');
+                const statusText = task.status.replace(' ', '');
+                
+                return `
+                    <div class="task-item priority-${priorityClass}" data-task-id="${task.id}">
+                        <div class="task-info">
+                            <div class="task-name">${task.name}</div>
+                            <div class="task-details">
+                                <span>Priority: ${task.priority}</span>
+                                ${task.deadline ? `<span><i class="fas fa-calendar"></i> ${task.deadline}</span>` : ''}
+                                ${task.assignedToName ? `<span><i class="fas fa-user"></i> ${task.assignedToName}</span>` : ''}
+                            </div>
+                        </div>
+                        <span class="status-badge ${statusClass}">${task.status}</span>
+                    </div>
+                `;
+            }).join('');
+
+            // Add click event to change status
+            document.querySelectorAll('.task-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const taskId = item.getAttribute('data-task-id');
+                    changeTaskStatus(taskId);
+                });
+            });
+        }
+
+        function changeTaskStatus(taskId) {
+            const taskIndex = allTasks.findIndex(t => t.id === taskId);
+            if (taskIndex === -1) return;
+
+            const task = allTasks[taskIndex];
+            const statuses = ['To Do', 'In Progress', 'Done'];
+            const currentIndex = statuses.indexOf(task.status);
+            const nextIndex = (currentIndex + 1) % statuses.length;
+            
+            task.status = statuses[nextIndex];
+            localStorage.setItem('tasks', JSON.stringify(allTasks));
+
+            // Reload tasks
+            projectTasks = allTasks.filter(t => t.projectId === projectId);
+            updateProgress();
+            renderTasks();
+        }
+
+        // Back button
+        document.getElementById('backBtn').addEventListener('click', () => {
+            window.location.href = 'dashboard.html';
         });
-    }
 
-    tasksToDoCount.textContent = todoCount;
-    tasksProgressCount.textContent = progressCount;
-    tasksDoneCount.textContent = doneCount;
-});
+        // Menu dropdown
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
 
-function showInviteBox() {
-    document.getElementById("inviteBox").style.display = "block";
-}
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
 
-function hideInviteBox() {
-    document.getElementById("inviteBox").style.display = "none";
-}
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            dropdownMenu.classList.remove('show');
+        });
 
-function sendInvite() {
-    const email = document.getElementById("inviteEmail").value;
+        // Delete project
+        document.getElementById('deleteProject').addEventListener('click', () => {
+            if (confirm(`Are you sure you want to delete "${project.name}"?`)) {
+                // Remove project
+                const projectIndex = projects.findIndex(p => p.id === projectId);
+                if (projectIndex !== -1) {
+                    projects.splice(projectIndex, 1);
+                    localStorage.setItem('projects', JSON.stringify(projects));
+                }
 
-    if (!email) {
-        alert("Please enter an email.");
-        return;
-    }
+                // Remove all tasks
+                allTasks = allTasks.filter(t => t.projectId !== projectId);
+                localStorage.setItem('tasks', JSON.stringify(allTasks));
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        alert("Invalid email format");
-        return;
-    }
+                alert('Project deleted successfully!');
+                window.location.href = 'dashboard.html';
+            }
+        });
 
-    alert("Invitation sent to " + email);
-    hideInviteBox();
-}
+        // Add task button
+        document.getElementById('addTaskBtn').addEventListener('click', () => {
+            window.location.href = `add_task.html?projectId=${projectId}`;
+        });
 
-document.getElementById("invite-member-btn").onclick = showInviteBox;
-
-</script>
-
+        // Initial render
+        updateProgress();
+        renderTasks();
+    </script>
 </body>
 </html>

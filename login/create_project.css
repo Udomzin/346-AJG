@@ -1,31 +1,29 @@
-/* * ======================================================
- * Styles for Create Project Form (create_project.html)
- * ใช้ตัวแปรสีจาก dashboard.css: --app-bg, --card-color, --text-color, --fab-color
- * ======================================================
- */
+/* ======================================================
+   Create Project Page Styles
+   ====================================================== */
 
-/* 1. Base Layout Adjustments */
-/* ทำให้ Container เต็มจอตาม Mobile App Design */
+/* ---------- Layout Container ---------- */
+
 .form-view-container {
-    background-color: var(--app-bg); /* พื้นหลังสีเข้ม (Dark) */
-    padding: 0; /* ลบ padding รอบนอกของ dashboard-container ออก */
+    background-color: var(--app-bg);
+    padding: 0;
 }
 
-/* 2. Form Header (Navigation Bar) */
+/* ---------- Header ---------- */
+
 .form-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 12px 16px;
-    background-color: var(--app-bg); /* ใช้สีเดียวกับพื้นหลังเพื่อให้ดูเรียบ */
-    border-bottom: 1px solid #282828; /* เพิ่มเส้นแบ่งบางๆ */
+    background-color: var(--app-bg);
+    border-bottom: 1px solid #282828;
     position: sticky;
     top: 0;
     z-index: 10;
 }
 
 .form-header .back-btn {
-    /* ใช้ icon-btn จาก dashboard.css แต่ปรับสี/ขนาด */
     color: var(--text-color);
     font-size: 20px;
 }
@@ -36,16 +34,17 @@
     color: var(--text-color);
 }
 
-/* 3. Form Content */
+/* ---------- Form Layout ---------- */
+
 .form-content {
-    /* แทนที่ main-content ใน dashboard.css */
-    flex-grow: 1; 
-    padding: 20px 24px; /* Padding ภายในฟอร์ม */
-    display: block; /* ยกเลิก flexbox ที่จัดกึ่งกลางเดิม */
+    flex-grow: 1;
+    padding: 20px 24px;
 }
 
+/* ---------- Input Groups ---------- */
+
 .input-group {
-    margin-bottom: 25px;
+    margin-bottom: 22px;
 }
 
 .input-group label {
@@ -57,43 +56,44 @@
 }
 
 .input-group label i {
-    color: var(--primary-color); /* ใช้สีหลักสำหรับ icon นำหน้า label */
+    color: var(--primary-color);
     margin-right: 6px;
 }
 
-/* Input & Textarea */
+/* ---------- Inputs / Textarea ---------- */
+
 .project-form input[type="text"],
+.project-form input[type="email"],
 .project-form textarea {
     width: 100%;
     padding: 14px 16px;
-    background-color: var(--card-color); /* ใช้สีเข้มกว่า input-bg ทั่วไป */
+    background-color: var(--card-color);
     color: var(--text-color);
     border: none;
     border-radius: 12px;
     font-size: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     resize: vertical;
+    box-sizing: border-box;
 }
 
 .project-form textarea {
     min-height: 120px;
 }
 
-/* 4. Member Control (Selector) */
+/* ---------- Max Members Control ---------- */
+
 .member-control {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* จัดปุ่มกับ input ให้ห่างกัน */
-    max-width: 300px; /* จำกัดความกว้างของ control group */
+    max-width: 300px;
 }
 
 .member-control-group {
-    /* ปรับ margin ด้านล่างให้ปุ่มติดกับ Form Footer */
-    margin-bottom: 60px; 
+    margin-bottom: 40px;
 }
 
 .member-control input[type="number"] {
-    flex-grow: 1;
+    flex: 1;
     text-align: center;
     padding: 14px 10px;
     margin: 0 10px;
@@ -103,7 +103,6 @@
     border-radius: 12px;
     font-size: 18px;
     font-weight: bold;
- 
 }
 
 .member-control input::-webkit-outer-spin-button,
@@ -121,7 +120,7 @@
     border-radius: 12px;
     font-size: 18px;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s;
 }
 
 .control-btn:hover {
@@ -129,15 +128,23 @@
     color: var(--text-color);
 }
 
+/* ---------- Invite Email ---------- */
+
+.email-input-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
 .email-tag {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     background: #3d3d3d;
-    padding: 8px 12px;
+    padding: 6px 12px;
     border-radius: 20px;
-    margin: 5px;
-    font-size: 0.9rem;
+    margin: 4px 4px 0 0;
+    font-size: 0.85rem;
     color: #fff;
 }
 
@@ -146,19 +153,22 @@
     border: none;
     color: white;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
     font-size: 12px;
+    line-height: 18px;
+    text-align: center;
 }
 
-/* 5. Bottom Action Button */
+/* ---------- Footer Button ---------- */
+
 .form-footer-action {
     position: sticky;
     bottom: 0;
     width: 100%;
     padding: 16px 24px;
-    background-color: var(--app-bg); /* สีพื้นหลัง footer */
+    background-color: var(--app-bg);
     border-top: 1px solid #282828;
 }
 
@@ -172,74 +182,27 @@
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
 
 .btn-full-width:hover {
     background-color: #5d53f2;
 }
 
-/* 6. Responsive (Desktop View) */
+/* ---------- Desktop Responsive ---------- */
+
 @media (min-width: 768px) {
-    /* ทำให้หน้าฟอร์มอยู่ภายในกรอบของ Dashboard */
     .form-view-container {
-        max-width: 400px; 
-        min-height: 80vh; 
-        border-radius: 16px;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        max-width: 100%;
+        min-height: 100vh;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
         display: flex;
         flex-direction: column;
     }
-    
-    /* ปรับ Header ให้อยู่ภายในกรอบ */
-    .form-header {
-        border-radius: 16px 16px 0 0;
-    }
 
+    .form-header,
     .form-footer-action {
-        border-radius: 0 0 16px 16px;
+        border-radius: 0;
     }
-    .project-card {
-    background-color: var(--card-color);
-    padding: 18px 20px;
-    border-radius: 16px;
-    margin-bottom: 16px;
-    box-shadow: 0 5px 12px rgba(0,0,0,0.35);
-    border: 1px solid rgba(255,255,255,0.08);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.project-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.45);
-}
-
-.project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.project-title {
-    font-size: 18px;
-    color: var(--text-color);
-    font-weight: 600;
-}
-
-.member-badge {
-    background-color: var(--fab-color);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 13px;
-}
-
-.project-desc {
-    font-size: 14px;
-    color: var(--sub-text-color);
-    margin-top: 6px;
-    line-height: 1.5em;
-}
-
 }

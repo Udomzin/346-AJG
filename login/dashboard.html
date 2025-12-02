@@ -4,203 +4,258 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskSplit - Dashboard</title>
-    <link rel="stylesheet" href="dashboard.css">
+    
+    <!-- เชื่อมต่อ Font Awesome สำหรับไอคอน -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style> 
-        /* Project Card */
-        #dashboard-projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 16px;
-            padding: 20px;
-        }
-
-        .project-card {
-            background-color: rgb(135, 217, 81);
-            padding: 16px;
-            border-radius: 16px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-            border: 1px solid #e6e6e6;
-            transition: 0.25s;
-            cursor: pointer; /* เพิ่ม cursor: pointer */
-        }
-
-        .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-        }
-
-        .project-card h3 {
-            font-size: 1.2rem;
-            color: #000000;
-            margin-bottom: 6px;
-        }
-
-        .project-card p {
-            font-size: 0.95rem;
-            color: #000000;
-            margin-bottom: 8px;
-        }
-
-        .project-card button {
-            padding: 8px 14px;
-            background-color: #f44336;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .project-card button:hover {
-            background-color: #d32f2f;
-        }
-        
-        /* Floating Action Button (FAB) Style */
-        .fab {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background-color: var(--fab-color, #4f46e5);
-            color: var(--text-color, #ffffff);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            text-decoration: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            z-index: 10;
-        }
-    </style>
+    
+    <!-- เชื่อมต่อไฟล์ CSS หลัก -->
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
+    <!-- ปุ่ม Logout ติดมุมขวาบน -->
+    <button class="logout-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i>
+        Logout
+    </button>
+
+    <!-- คอนเทนเนอร์หลักของหน้า Dashboard -->
     <div class="page-wrapper">
         <div class="dashboard-container">
+            
+            <!-- ส่วนหัวแสดงข้อมูลผู้ใช้ -->
             <header class="header">
                 <div class="user-info">
+                    <!-- วงกลมโปรไฟล์ (Avatar) -->
                     <div class="avatar">JD</div>
+                    
+                    <!-- ข้อมูลผู้ใช้ -->
                     <div class="user-details">
-                        <span class="user-name">John Doe</span>
+                        <span class="user-email">user@example.com</span>
                         <span class="project-count">0 project</span>
                     </div>
                 </div>
-                <div class="actions">
-                    <button class="icon-btn" title="Notifications"><i class="fas fa-bell"></i></button>
-                    <button class="icon-btn" title="Settings"><i class="fas fa-cog"></i></button>
-                </div>
             </header>
 
+            <!-- แถบค้นหาโปรเจค -->
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search workspaces...">
+                <input type="text" id="searchInput" placeholder="Search workspaces...">
             </div>
 
-            <main class="main-content" id="dashboard-projects">
-                </main>
+            <!-- พื้นที่แสดงรายการโปรเจค -->
+            <main class="main-content">
+                <div id="dashboard-projects">
+                    <!-- โปรเจคจะถูกแสดงที่นี่โดย JavaScript -->
+                </div>
+            </main>
 
+            <!-- ปุ่ม FAB (Floating Action Button) สำหรับสร้างโปรเจคใหม่ -->
             <a href="create_project.html" class="fab" title="Create New Project">
                 <i class="fas fa-plus"></i>
             </a>
         </div>
     </div>
 
+    <!-- JavaScript สำหรับจัดการหน้า Dashboard -->
     <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const dashboardContainer = document.getElementById('dashboard-projects');
-    const avatarElement = document.querySelector('.avatar');
-    const userNameElement = document.querySelector('.user-name');
-    const projectCountElement = document.querySelector('.project-count');
-
-    const token = localStorage.getItem('currentUserToken') || sessionStorage.getItem('currentUserToken');
-
-    if (!token) {
-        alert('คุณยังไม่ได้ล็อกอิน!');
-        window.location.href = 'login.html';
-        return;
-    }
-
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const currentUser = users.find(u => u.token === token);
-
-    if (!currentUser) {
-        alert('ผู้ใช้ไม่ถูกต้อง!');
-        window.location.href = 'login.html';
-        return;
-    }
-
-    // NEW: Function to generate a unique ID
-    function generateId() {
-        return Math.random().toString(36).substring(2, 9);
-    }
-
-    // ดึง projects จาก localStorage
-    let projects = JSON.parse(localStorage.getItem('projects')) || [];
-
-    // NEW: Ensure all projects have a unique ID
-    projects = projects.map(p => {
-        if (!p.id) {
-            p.id = generateId();
-        }
-        return p;
-    });
-    localStorage.setItem('projects', JSON.stringify(projects));
-    // **********************************************
-
-    // แสดงชื่อผู้ใช้และอักษรย่อใน avatar
-    userNameElement.textContent = currentUser.fullName;
-    avatarElement.textContent = currentUser.fullName.split(' ').map(n => n[0]).join('').toUpperCase();
-
-    // กรอง project ของผู้ใช้
-    let userProjects = projects.filter(p => p.ownerToken === token);
-
-    // อัปเดตจำนวน project
-    projectCountElement.textContent = `${userProjects.length} project${userProjects.length !== 1 ? 's' : ''}`;
-
-    function renderProjects() {
-        dashboardContainer.innerHTML = '';
-        if (userProjects.length === 0) {
-            dashboardContainer.innerHTML = '<p style="color:#777; text-align:center;">No project yet.</p>';
-            return;
-        }
-
-        userProjects.forEach((p) => { 
-            const projectCard = document.createElement('div');
-            projectCard.className = 'project-card';
+        // ====================================
+        // เริ่มทำงานเมื่อโหลดหน้าเว็บเสร็จ
+        // ====================================
+        document.addEventListener('DOMContentLoaded', () => {
             
-            // MODIFIED: Use p.id for linking and deletion
-            projectCard.onclick = () => {
-                window.location.href = `project_detail.html?projectId=${p.id}`; 
-            };
+            // ====================================
+            // 1. ดึง Elements จาก DOM
+            // ====================================
+            const dashboardContainer = document.getElementById('dashboard-projects');
+            const avatarElement = document.querySelector('.avatar');
+            const userEmailElement = document.querySelector('.user-email');
+            const projectCountElement = document.querySelector('.project-count');
+            const searchInput = document.getElementById('searchInput');
+
+            // ====================================
+            // 2. ตรวจสอบการล็อกอิน
+            // ====================================
+            // ดึง token จาก localStorage หรือ sessionStorage
+            const token = localStorage.getItem('currentUserToken') || 
+                         sessionStorage.getItem('currentUserToken');
+
+            // ถ้าไม่มี token แสดงว่ายังไม่ได้ล็อกอิน
+            if (!token) {
+                alert('คุณยังไม่ได้ล็อกอิน!');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // ====================================
+            // 3. ดึงข้อมูลผู้ใช้
+            // ====================================
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const currentUser = users.find(u => u.token === token);
+
+            // ตรวจสอบว่าพบผู้ใช้หรือไม่
+            if (!currentUser) {
+                alert('ผู้ใช้ไม่ถูกต้อง!');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // ====================================
+            // 4. แสดงข้อมูลผู้ใช้
+            // ====================================
+            // แสดงอีเมลผู้ใช้
+            userEmailElement.textContent = currentUser.email;
             
-            projectCard.innerHTML = `
-                <h3>${p.name}</h3>
-                <p>${p.description || '<i>No description</i>'}</p>
-                <p><b>Max Members:</b> ${p.maxMembers}</p>
-                <button onclick="event.stopPropagation(); deleteProject('${p.id}')">Delete</button>
-            `;
-            dashboardContainer.appendChild(projectCard);
-        });
-    
-    }
+            // แสดงตัวย่อชื่อใน Avatar (เอาตัวอักษรแรกของแต่ละคำ)
+            avatarElement.textContent = currentUser.fullName
+                .split(' ')
+                .map(n => n[0])
+                .join('')
+                .toUpperCase();
 
-    renderProjects();
+            // ====================================
+            // 5. ฟังก์ชันสร้าง ID สุ่ม
+            // ====================================
+            function generateId() {
+                return Math.random().toString(36).substring(2, 9);
+            }
 
-    window.deleteProject = (projectId) => { 
-        // ลบ project ของผู้ใช้โดยหาจาก ID
-        const globalIndex = projects.findIndex(p => p.id === projectId); 
-        if (globalIndex !== -1) {
-            projects.splice(globalIndex, 1);
+            // ====================================
+            // 6. โหลดข้อมูลโปรเจค
+            // ====================================
+            let projects = JSON.parse(localStorage.getItem('projects')) || [];
+
+            // เพิ่ม ID ให้โปรเจคที่ยังไม่มี ID
+            projects = projects.map(p => {
+                if (!p.id) {
+                    p.id = generateId();
+                }
+                return p;
+            });
             localStorage.setItem('projects', JSON.stringify(projects));
-            userProjects = projects.filter(p => p.ownerToken === token);
-            projectCountElement.textContent = `${userProjects.length} project${userProjects.length !== 1 ? 's' : ''}`;
-            renderProjects();
-        }
-    };
-});
-</script>
 
+            // กรองเฉพาะโปรเจคของผู้ใช้คนนี้
+            let userProjects = projects.filter(p => p.ownerToken === token);
+
+            // อัพเดทจำนวนโปรเจค
+            projectCountElement.textContent = 
+                `${userProjects.length} project${userProjects.length !== 1 ? 's' : ''}`;
+
+            // ====================================
+            // 7. ฟังก์ชันแสดงโปรเจค
+            // ====================================
+            function renderProjects(filteredProjects = userProjects) {
+                dashboardContainer.innerHTML = '';
+                
+                // ถ้าไม่มีโปรเจค แสดง Empty State
+                if (filteredProjects.length === 0) {
+                    dashboardContainer.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-folder-open"></i>
+                            <p>No projects found.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // วนลูปแสดงโปรเจคทั้งหมด
+                filteredProjects.forEach((p) => { 
+                    const projectCard = document.createElement('div');
+                    projectCard.className = 'project-card';
+                    
+                    // คลิกที่การ์ดเพื่อเปิดรายละเอียดโปรเจค (ยกเว้นปุ่ม Delete)
+                    projectCard.onclick = (e) => {
+                        if (e.target.tagName !== 'BUTTON') {
+                            window.location.href = `project_detail.html?projectId=${p.id}`; 
+                        }
+                    };
+                    
+                    // สร้าง HTML ภายในการ์ด
+                    projectCard.innerHTML = `
+                        <h3>${p.name}</h3>
+                        <div class="description">${p.description || '<i>No description</i>'}</div>
+                        <div class="project-info">
+                            <i class="fas fa-users"></i>
+                            <span>Max Members: ${p.maxMembers}</span>
+                        </div>
+                        <button onclick="event.stopPropagation(); deleteProject('${p.id}')">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    `;
+                    
+                    dashboardContainer.appendChild(projectCard);
+                });
+            }
+
+            // ====================================
+            // 8. ฟีเจอร์ค้นหาโปรเจค
+            // ====================================
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                // กรองโปรเจคตามคำค้นหา (ค้นจากชื่อและคำอธิบาย)
+                const filtered = userProjects.filter(p => 
+                    p.name.toLowerCase().includes(searchTerm) || 
+                    (p.description && p.description.toLowerCase().includes(searchTerm))
+                );
+                
+                renderProjects(filtered);
+            });
+
+            // แสดงโปรเจคครั้งแรก
+            renderProjects();
+
+            // ====================================
+            // 9. ฟังก์ชันลบโปรเจค
+            // ====================================
+            window.deleteProject = (projectId) => { 
+                // ถามยืนยันก่อนลบ
+                if (!confirm('Are you sure you want to delete this project?')) {
+                    return;
+                }
+
+                // หา index ของโปรเจคที่จะลบ
+                const globalIndex = projects.findIndex(p => p.id === projectId); 
+                
+                if (globalIndex !== -1) {
+                    // ลบโปรเจคออกจาก array
+                    projects.splice(globalIndex, 1);
+                    localStorage.setItem('projects', JSON.stringify(projects));
+                    
+                    // อัพเดทรายการโปรเจคของผู้ใช้
+                    userProjects = projects.filter(p => p.ownerToken === token);
+                    projectCountElement.textContent = 
+                        `${userProjects.length} project${userProjects.length !== 1 ? 's' : ''}`;
+                    
+                    // แสดงโปรเจคใหม่ (คำนึงถึงการค้นหาด้วย)
+                    const searchTerm = searchInput.value.toLowerCase();
+                    if (searchTerm) {
+                        const filtered = userProjects.filter(p => 
+                            p.name.toLowerCase().includes(searchTerm) || 
+                            (p.description && p.description.toLowerCase().includes(searchTerm))
+                        );
+                        renderProjects(filtered);
+                    } else {
+                        renderProjects();
+                    }
+                }
+            };
+
+            // ====================================
+            // 10. ฟังก์ชัน Logout
+            // ====================================
+            const logoutBtn = document.getElementById('logoutBtn');
+            logoutBtn.addEventListener('click', () => {
+                // ถามยืนยันก่อน logout
+                if (confirm('Are you sure you want to logout?')) {
+                    // ลบ token ออกจาก storage ทั้งหมด
+                    localStorage.removeItem('currentUserToken');
+                    sessionStorage.removeItem('currentUserToken');
+                    
+                    alert('Logged out successfully!');
+                    window.location.href = 'login.html';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

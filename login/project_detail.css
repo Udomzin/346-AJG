@@ -1,10 +1,9 @@
-/* * ======================================================
+/* ======================================================
  * Base Dark Theme Variables
- * ======================================================
- */
+ * ====================================================== */
 :root {
     --bg-color: #333333;
-    --app-bg: #1c1c1c; 
+    --app-bg: #1c1c1c;
     --card-color: #2d2d2d;
     --text-color: #ffffff;
     --sub-text-color: #aaaaaa;
@@ -12,12 +11,10 @@
     --fab-color: #4f46e5;
 }
 
-/* * ======================================================
- * Styles for Project Detail Page
- * ======================================================
- */
+/* ======================================================
+ * Project Detail Page Layout
+ * ====================================================== */
 
-/* 1. Page Layout & Content */
 .page-wrapper {
     background-color: var(--app-bg);
     min-height: 100vh;
@@ -28,6 +25,8 @@
     max-width: 600px;
     margin: 0 auto;
 }
+
+/* Header ------------------------------------------------ */
 
 .project-header {
     display: flex;
@@ -57,10 +56,11 @@
     margin-top: 4px;
 }
 
-/* 2. Task Summary Card */
+/* Task Summary Card ------------------------------------- */
+
 .task-summary-card {
-    background-color: #55ac40; 
-    color: #111; 
+    background-color: #55ac40;
+    color: #111;
     padding: 20px;
     border-radius: 16px;
     margin-bottom: 20px;
@@ -101,7 +101,8 @@
     color: #333;
 }
 
-/* 3. Task List Styling */
+/* Task List --------------------------------------------- */
+
 .task-list-title {
     font-size: 1.2rem;
     font-weight: 600;
@@ -111,7 +112,14 @@
 }
 
 .task-list {
-    padding-bottom: 80px; /* Space for FAB */
+    padding-bottom: 80px; /* เผื่อพื้นที่ให้ FAB ไม่ทับรายการ */
+}
+
+.task-list-empty {
+    text-align: center;
+    color: var(--sub-text-color);
+    font-size: 0.9rem;
+    margin: 16px 0;
 }
 
 .task-item {
@@ -142,7 +150,8 @@
     color: var(--sub-text-color);
 }
 
-/* Task Status Color Coding */
+/* Task Status color (ตาม statusClass ใน JS) */
+
 .task-status {
     font-size: 0.85rem;
     padding: 4px 8px;
@@ -150,16 +159,37 @@
     font-weight: 600;
 }
 
-.task-status.to-do { background-color: #6366f1; color: #fff; } /* Primary/Blue */
-.task-status.in-progress { background-color: #f59e0b; color: #333; } /* Orange */
-.task-status.done { background-color: #10b981; color: #fff; } /* Green */
+.task-status.to-do {
+    background-color: #6366f1;
+    color: #fff;
+}
 
-/* Task Item Border Color based on Priority */
-.task-item.priority-low { border-left-color: #10b981; } /* Green - Low */
-.task-item.priority-medium { border-left-color: #f59e0b; } /* Orange - Medium */
-.task-item.priority-high { border-left-color: #f44336; } /* Red - High */
+.task-status.in-progress {
+    background-color: #f59e0b;
+    color: #333;
+}
 
-/* 4. Floating Action Button (FAB) */
+.task-status.done {
+    background-color: #10b981;
+    color: #fff;
+}
+
+/* Task Item border (ตาม priority ถ้าในอนาคตมีใช้) */
+
+.task-item.priority-low {
+    border-left-color: #10b981; /* Green - Low */
+}
+
+.task-item.priority-medium {
+    border-left-color: #f59e0b; /* Orange - Medium */
+}
+
+.task-item.priority-high {
+    border-left-color: #f44336; /* Red - High */
+}
+
+/* Floating Action Button (FAB) -------------------------- */
+
 .fab-menu {
     position: fixed;
     bottom: 20px;
@@ -171,7 +201,7 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background-color: var(--fab-color); /* ใช้สีม่วงหลัก */
+    background-color: var(--fab-color);
     color: var(--text-color);
     border: none;
     font-size: 24px;
@@ -181,21 +211,21 @@
     cursor: pointer;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
     transition: transform 0.3s ease-in-out;
-    position: relative; /* สำคัญ: ให้อยู่เหนือตัวเลือกย่อย */
+    position: relative;
     z-index: 1002;
 }
 
 .fab-options {
     position: absolute;
-    bottom: 70px; /* เลื่อนขึ้นจากปุ่มหลัก */
+    bottom: 70px;
     right: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 12px;
     opacity: 0;
-    transform: translateY(10px); /* ซ่อนไว้เล็กน้อย */
-    pointer-events: none; /* ทำให้คลิกทะลุได้เมื่อปิดอยู่ */
+    transform: translateY(10px);
+    pointer-events: none;
     transition: opacity 0.3s, transform 0.3s;
     z-index: 1001;
 }
@@ -203,7 +233,7 @@
 .fab-options.open {
     opacity: 1;
     transform: translateY(0);
-    pointer-events: auto; /* เปิดให้คลิกได้เมื่อเปิดเมนู */
+    pointer-events: auto;
 }
 
 .fab-option-btn {
@@ -228,14 +258,84 @@
     background-color: #383838;
 }
 
+/* Invite Member Box ------------------------------------- */
+
+.invite-box {
+    display: none;
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    background: #2d2d2d;
+    padding: 20px;
+    border-radius: 12px;
+    color: #ffffff;
+    width: 260px;
+    z-index: 2000;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.invite-title {
+    margin: 0 0 10px;
+    font-size: 1rem;
+}
+
+.invite-input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: #333;
+    color: #ffffff;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+.invite-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.invite-send-btn,
+.invite-cancel-btn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.invite-send-btn {
+    background: #55ac40;
+    color: #ffffff;
+}
+
+.invite-cancel-btn {
+    background: #444;
+    color: #ffffff;
+}
+
 /* ======================================================
- * Styles for Add Task Page (add_task.html)
- * ======================================================
- */
+ * Styles reused by Add Task page (ถ้า add_task.html link ไฟล์นี้)
+ * ====================================================== */
+
 .add-task-form {
     padding: 20px;
     background-color: var(--app-bg);
     min-height: 100vh;
+}
+
+.add-task-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 20px 0;
+}
+
+.add-task-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 15px;
 }
 
 .form-group {
@@ -243,13 +343,12 @@
 }
 
 .form-group label {
-    display: block;
+    display: flex;
+    align-items: center;
     color: var(--text-color);
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 8px;
-    display: flex;
-    align-items: center;
 }
 
 .form-group label i {
@@ -283,7 +382,8 @@
     outline: none;
 }
 
-/* Priority Buttons Styling */
+/* Priority buttons */
+
 .priority-selection {
     display: flex;
     gap: 10px;
@@ -308,18 +408,20 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Priority Color for selected button */
 .priority-btn[data-priority="Low"].selected {
-    background-color: #10b981; /* Green */
-}
-.priority-btn[data-priority="Medium"].selected {
-    background-color: #f59e0b; /* Orange */
-}
-.priority-btn[data-priority="High"].selected {
-    background-color: #f44336; /* Red */
+    background-color: #10b981;
 }
 
-/* Form Action Buttons */
+.priority-btn[data-priority="Medium"].selected {
+    background-color: #f59e0b;
+}
+
+.priority-btn[data-priority="High"].selected {
+    background-color: #f44336;
+}
+
+/* Add Task form buttons */
+
 .form-actions {
     margin-top: 30px;
 }
@@ -337,7 +439,7 @@
 
 .add-task-btn {
     background-color: var(--primary-color);
-    color: white;
+    color: #ffffff;
 }
 
 .cancel-btn {
@@ -345,22 +447,10 @@
     color: var(--text-color);
 }
 
-.add-task-header {
-    display: flex;
-    align-items: center;
-    padding: 10px 0 20px 0;
-}
-
-.add-task-header h2 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-left: 15px;
-}
-
 /* ======================================================
- * Task Detail Modal Styles (ใช้ใน project_detail.html)
- * ======================================================
- */
+ * Modal styles (ถ้าในอนาคตมี modal แสดงรายละเอียด task)
+ * ====================================================== */
+
 .modal {
     position: fixed;
     top: 0;
@@ -368,10 +458,10 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
-    display: none; /* ซ่อนไว้ก่อน */
+    display: none;
     justify-content: center;
     align-items: flex-start;
-    z-index: 2000; /* อยู่บนสุด */
+    z-index: 2000;
     padding-top: 5vh;
     overflow-y: auto;
 }
@@ -447,10 +537,17 @@
     color: var(--text-color);
 }
 
-/* Color Coding for Modal Header based on Priority */
-.modal-header.priority-low h3 { border-left-color: #10b981; }
-.modal-header.priority-medium h3 { border-left-color: #f59e0b; }
-.modal-header.priority-high h3 { border-left-color: #f44336; }
+.modal-header.priority-low h3 {
+    border-left-color: #10b981;
+}
+
+.modal-header.priority-medium h3 {
+    border-left-color: #f59e0b;
+}
+
+.modal-header.priority-high h3 {
+    border-left-color: #f44336;
+}
 
 .modal-description {
     font-style: italic;

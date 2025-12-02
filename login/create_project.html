@@ -1,197 +1,532 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TaskSplit - Create Project</title>
-    
-    <link rel="stylesheet" href="dashboard.css">
-    <link rel="stylesheet" href="create_project.css"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .page-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            background: #2a2a2a;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #3a3a3a;
+            transform: translateX(-3px);
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Form Container */
+        .form-content {
+            background: #2a2a2a;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Input Groups */
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #aaa;
+            margin-bottom: 12px;
+        }
+
+        .input-group label i {
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .input-group input[type="text"],
+        .input-group input[type="email"],
+        .input-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: #1a1a1a;
+            border: 2px solid #3a3a3a;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #222;
+        }
+
+        .input-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-group input::placeholder,
+        .input-group textarea::placeholder {
+            color: #666;
+        }
+
+        /* Member Control */
+        .member-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            background: #3a3a3a;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            background: #4a4a4a;
+            transform: scale(1.05);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .member-control input[type="number"] {
+            flex: 1;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            background: #1a1a1a;
+            border: 2px solid #3a3a3a;
+            border-radius: 12px;
+            color: #667eea;
+            padding: 12px;
+        }
+
+        /* Email List */
+        #email-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+            min-height: 32px;
+        }
+
+        .email-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .email-chip button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 20px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .email-chip button:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: rotate(90deg);
+        }
+
+        /* Add Email Section */
+        .add-email-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .add-email-container input {
+            flex: 1;
+        }
+
+        #addEmailBtn {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #5cb85c 0%, #4cae4c 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+
+        #addEmailBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(92, 184, 92, 0.4);
+        }
+
+        /* Submit Button */
+        .form-footer-action {
+            margin-top: 40px;
+        }
+
+        .btn-full-width {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-full-width:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-full-width:active {
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-content {
+                padding: 30px 20px;
+            }
+
+            .page-wrapper {
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="page-wrapper">
-        <div class="dashboard-container form-view-container"> 
-            
+        <div class="dashboard-container form-view-container">
             <header class="form-header">
-                <button class="icon-btn back-btn" title="Back">
+                <button class="back-btn" title="Back">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <h1 class="header-title">Create Project</h1>
-                <div style="width: 36px; height: 36px;"></div> 
+                <div style="width: 40px;"></div>
             </header>
 
             <main class="main-content form-content">
                 <form id="project-form" class="project-form">
-                    
+                    <!-- Project Name -->
                     <div class="input-group">
                         <label for="projectName">
-                            <i class="fas fa-clipboard-list"></i> Project Name
+                            <i class="fas fa-clipboard-list"></i>
+                            Project Name
                         </label>
-                        <input type="text" id="projectName" placeholder="e.g., DTI326 Mobile App" required>
+                        <input
+                            type="text"
+                            id="projectName"
+                            placeholder="e.g., DTI326 Mobile App"
+                            required
+                        />
                     </div>
 
+                    <!-- Description -->
                     <div class="input-group">
                         <label for="description">
-                            <i class="fas fa-file-alt"></i> Description
+                            <i class="fas fa-file-alt"></i>
+                            Description
                         </label>
-                        <textarea id="description" placeholder="Describe your workspace..."></textarea>
+                        <textarea
+                            id="description"
+                            placeholder="Describe your workspace..."
+                        ></textarea>
                     </div>
-                    
+
+                    <!-- Max Members -->
                     <div class="input-group member-control-group">
                         <label for="maxMembers">
-                            <i class="fas fa-user-friends"></i> Max Members
+                            <i class="fas fa-user-friends"></i>
+                            Max Members
                         </label>
+
                         <div class="member-control">
-                            <button type="button" class="control-btn minus-btn"><i class="fas fa-minus"></i></button>
-                            <input type="number" id="maxMembers" value="4" min="1" max="100" readonly>
-                            <button type="button" class="control-btn plus-btn"><i class="fas fa-plus"></i></button>
+                            <button
+                                type="button"
+                                class="control-btn minus-btn"
+                                aria-label="Decrease max members"
+                            >
+                                <i class="fas fa-minus"></i>
+                            </button>
+
+                            <input
+                                type="number"
+                                id="maxMembers"
+                                value="4"
+                                min="1"
+                                max="100"
+                                readonly
+                            />
+
+                            <button
+                                type="button"
+                                class="control-btn plus-btn"
+                                aria-label="Increase max members"
+                            >
+                                <i class="fas fa-plus"></i>
+                            </button>
                         </div>
                     </div>
 
+                    <!-- Invite Members by Email -->
                     <div class="input-group">
-                        <label><i class="fas fa-envelope"></i> Invite Members (Optional)</label>
-                        <div id="email-list" style="margin-bottom: 10px;"></div>
-                        <div style="display: flex; gap: 10px;">
-                             <input 
-                                 type="email" 
-                                 id="inviteEmail" 
-                                 placeholder="Enter member email"
-                                 style="flex: 1; padding: 12px; border-radius: 8px; background: #2d2d2d; border: 1px solid #444; color: white;"
-                             >
-                             <button 
-                                type="button" 
-                                id="addEmailBtn"
-                                style="padding: 12px 20px; background: #55ac40; border: none; border-radius: 8px; color: white; cursor: pointer;"
-                             >
-                                <i class="fas fa-plus"></i> Add
-                             </button>
+                        <label>
+                            <i class="fas fa-envelope"></i>
+                            Invite Members
+                        </label>
+
+                        <div id="email-list"></div>
+
+                        <div class="add-email-container">
+                            <input
+                                type="email"
+                                id="inviteEmail"
+                                placeholder="Enter member email"
+                            />
+                            <button type="button" id="addEmailBtn">
+                                <i class="fas fa-plus"></i>
+                                Add
+                            </button>
                         </div>
-                        <input type="hidden" id="membersInput" name="members">
+
+                        <input type="hidden" id="membersInput" name="members" />
                     </div>
 
+                    <!-- Submit Button -->
                     <div class="form-footer-action">
-                        <button type="submit" class="btn-full-width">Create Project</button>
+                        <button type="submit" class="btn-full-width">
+                            <i class="fas fa-rocket"></i>
+                            Create Project
+                        </button>
                     </div>
-                    
                 </form>
             </main>
-
         </div>
     </div>
-    
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Member control
-            const minusBtn = document.querySelector('.minus-btn');
-            const plusBtn = document.querySelector('.plus-btn');
-            const memberInput = document.getElementById('maxMembers');
-            
-            minusBtn.addEventListener('click', () => {
-                let currentVal = parseInt(memberInput.value);
-                if (currentVal > parseInt(memberInput.min)) {
+        document.addEventListener("DOMContentLoaded", () => {
+            const minusBtn = document.querySelector(".minus-btn");
+            const plusBtn = document.querySelector(".plus-btn");
+            const memberInput = document.getElementById("maxMembers");
+
+            // Member control buttons
+            minusBtn.addEventListener("click", () => {
+                const currentVal = parseInt(memberInput.value, 10);
+                const minVal = parseInt(memberInput.min, 10);
+
+                if (currentVal > minVal) {
                     memberInput.value = currentVal - 1;
                 }
             });
 
-            plusBtn.addEventListener('click', () => {
-                let currentVal = parseInt(memberInput.value);
-                if (currentVal < parseInt(memberInput.max)) {
+            plusBtn.addEventListener("click", () => {
+                const currentVal = parseInt(memberInput.value, 10);
+                const maxVal = parseInt(memberInput.max, 10);
+
+                if (currentVal < maxVal) {
                     memberInput.value = currentVal + 1;
                 }
             });
-            
-            // ปุ่ม Back
-            document.querySelector('.back-btn').addEventListener('click', () => {
+
+            // Back button
+            const backBtn = document.querySelector(".back-btn");
+            backBtn.addEventListener("click", () => {
                 window.history.back();
             });
 
-            // Add Email
-            const addEmailBtn = document.getElementById('addEmailBtn');
-            const inviteEmail = document.getElementById('inviteEmail');
-            const emailList = document.getElementById('email-list');
+            // Email management
+            const addEmailBtn = document.getElementById("addEmailBtn");
+            const inviteEmail = document.getElementById("inviteEmail");
+            const emailList = document.getElementById("email-list");
             let emails = [];
 
-            addEmailBtn.addEventListener('click', () => {
+            function createEmailChip(email) {
+                const chip = document.createElement("div");
+                chip.className = "email-chip";
+                chip.innerHTML = `
+                    <span>${email}</span>
+                    <button type="button">×</button>
+                `;
+
+                const removeBtn = chip.querySelector("button");
+                removeBtn.addEventListener("click", () => {
+                    emailList.removeChild(chip);
+                    emails = emails.filter((e) => e !== email);
+                });
+
+                return chip;
+            }
+
+            addEmailBtn.addEventListener("click", () => {
                 const email = inviteEmail.value.trim();
+
                 if (!email) {
-                    alert('กรุณากรอกอีเมล');
+                    alert("Please enter an email.");
                     return;
                 }
 
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email)) {
-                    alert('รูปแบบอีเมลไม่ถูกต้อง');
+                    alert("Invalid email format.");
                     return;
                 }
 
-                // เพิ่มอีเมลลงใน array
+                if (emails.includes(email)) {
+                    alert("This email is already added.");
+                    return;
+                }
+
                 emails.push(email);
-
-                // สร้าง div แสดงอีเมล
-                const emailDiv = document.createElement('div');
-                emailDiv.textContent = email;
-                emailDiv.style.padding = "5px 10px";
-                emailDiv.style.background = "#444";
-                emailDiv.style.color = "white";
-                emailDiv.style.borderRadius = "5px";
-                emailDiv.style.marginBottom = "5px";
-                emailDiv.style.fontSize = "14px";
-
-                // ปุ่มลบ
-                const removeBtn = document.createElement('button');
-                removeBtn.textContent = "×";
-                removeBtn.style.marginLeft = "10px";
-                removeBtn.style.background = "red";
-                removeBtn.style.border = "none";
-                removeBtn.style.color = "white";
-                removeBtn.style.cursor = "pointer";
-                removeBtn.style.borderRadius = "50%";
-                removeBtn.style.width = "20px";
-                removeBtn.style.height = "20px";
-                removeBtn.addEventListener('click', () => {
-                    emailList.removeChild(emailDiv);
-                    emails = emails.filter(e => e !== email);
-                });
-
-                emailDiv.appendChild(removeBtn);
-                emailList.appendChild(emailDiv);
-
+                const emailChip = createEmailChip(email);
+                emailList.appendChild(emailChip);
                 inviteEmail.value = "";
             });
 
-            // Submit form
-            const projectForm = document.getElementById('project-form');
-            projectForm.addEventListener('submit', (e) => {
+            // Allow adding email with Enter key
+            inviteEmail.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    addEmailBtn.click();
+                }
+            });
+
+            // Form submission
+            const projectForm = document.getElementById("project-form");
+
+            projectForm.addEventListener("submit", (e) => {
                 e.preventDefault();
 
-                const projectName = document.getElementById('projectName').value.trim();
-                const description = document.getElementById('description').value.trim();
-                const maxMembers = document.getElementById('maxMembers').value;
+                const projectName = document.getElementById("projectName").value.trim();
+                const description = document.getElementById("description").value.trim();
+                const maxMembers = memberInput.value;
 
                 if (!projectName) {
-                    alert('กรุณากรอกชื่อ Project');
+                    alert("Please enter project name.");
                     return;
                 }
 
-                // เก็บอีเมลทั้งหมดใน hidden input
-                document.getElementById('membersInput').value = emails.join(',');
+                document.getElementById("membersInput").value = emails.join(",");
 
-                const token = localStorage.getItem('currentUserToken') || sessionStorage.getItem('currentUserToken');
+                const token = localStorage.getItem("currentUserToken") || sessionStorage.getItem("currentUserToken");
 
-                let projects = JSON.parse(localStorage.getItem('projects')) || [];
+                if (!token) {
+                    alert("You must be logged in to create a project.");
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                const projects = JSON.parse(localStorage.getItem("projects")) || [];
+
+                // Generate unique ID
+                const generateId = () => Math.random().toString(36).substring(2, 9);
 
                 projects.push({
+                    id: generateId(),
                     name: projectName,
-                    description: description,
-                    maxMembers: maxMembers,
+                    description,
+                    maxMembers,
                     ownerToken: token,
-                    members: emails
+                    members: emails,
+                    createdAt: new Date().toISOString()
                 });
 
-                localStorage.setItem('projects', JSON.stringify(projects));
+                localStorage.setItem("projects", JSON.stringify(projects));
 
-                window.location.href = 'dashboard.html';
+                // Show success message
+                alert(`Project "${projectName}" created successfully!`);
+                window.location.href = "dashboard.html";
             });
         });
     </script>
