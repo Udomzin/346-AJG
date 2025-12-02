@@ -35,22 +35,23 @@ body {
  * ========================================
  */
 .app-container {
-    width: 100%;
-    /* บนมือถือ: ให้สูงเต็มหน้าจอ */
-    min-height: 100vh; 
-    background-color: var(--card-color);
-    padding: 24px;
     display: flex;
-    flex-direction: column;
-    justify-content: center; /* จัดกึ่งกลางเนื้อหาภายใน */
-    /* ลบ max-width ออกจากตรงนี้ เพื่อให้ใช้ได้กับ Media Query ด้านล่าง */
-}
-
-.login-card {
-    /* บนมือถือ: Card กินพื้นที่ทั้งหมดของ Container */
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    min-height: 100vh;
+    padding: 24px;
 }
 
+/* Login Card */
+.login-card {
+    width: 100%;
+    max-width: 400px; /* กำหนดขนาดสูงสุด */
+    background-color: var(--card-color);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
 /*
  * ========================================
  * 3. Logo and Header Styling
