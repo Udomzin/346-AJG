@@ -1,0 +1,110 @@
+/* * add_task.css
+ * Custom styles for Add Task Page
+ */
+
+/* ===========================
+   1. Priority Selector Styling
+   =========================== */
+.priority-selector {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.p-btn {
+    flex: 1; /* แบ่งความกว้างเท่าๆ กัน */
+    background-color: var(--card-color);
+    border: 1px solid transparent; /* เตรียมเส้นขอบไว้ */
+    color: var(--sub-text-color);
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.p-btn:hover {
+    background-color: #3d3d3d;
+    color: var(--text-color);
+}
+
+/* =========================================
+   Active State Colors (ปรับใหม่ตรงนี้)
+   ========================================= */
+
+/* Low = สีเขียว */
+.p-btn[data-value="Low"].active {
+    border-color: #4CAF50; /* ขอบเขียว */
+    color: #4CAF50;       /* ตัวหนังสือเขียว */
+    background-color: rgba(76, 175, 80, 0.1); /* พื้นหลังเขียวจางๆ */
+    font-weight: 600;
+}
+
+/* Medium = สีส้ม/เหลือง */
+.p-btn[data-value="Medium"].active {
+    border-color: #FFC107; /* ขอบส้ม */
+    color: #FFC107;       /* ตัวหนังสือส้ม */
+    background-color: rgba(255, 193, 7, 0.1); /* พื้นหลังส้มจางๆ */
+    font-weight: 600;
+}
+
+/* High = สีแดง */
+.p-btn[data-value="High"].active {
+    border-color: #F44336; /* ขอบแดง */
+    color: #F44336;       /* ตัวหนังสือแดง */
+    background-color: rgba(244, 67, 54, 0.1); /* พื้นหลังแดงจางๆ */
+    font-weight: 600;
+}
+
+/* ===========================
+   2. Form Footer (เหมือนเดิม)
+   =========================== */
+.task-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.btn-full-width {
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-primary-action {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+}
+
+.btn-primary-action:hover {
+    background-color: #4f46e5;
+}
+
+/* ปุ่ม Cancel (Outline) */
+.btn-outline-action {
+    background-color: transparent; 
+    border: 1px solid var(--sub-text-color); 
+    color: var(--sub-text-color);           
+}
+
+.btn-outline-action:hover {
+    border-color: var(--text-color); 
+    color: var(--text-color);
+    background-color: rgba(255, 255, 255, 0.1); 
+}
+
+/* 6. Responsive (Desktop View) */
+@media (min-width: 768px) {
+    /* ทำให้หน้าฟอร์มอยู่ภายในกรอบของ Dashboard */
+    .form-view-container {
+        max-width: 400px; /* จำกัดความกว้างของฟอร์มบนจอใหญ่ */
+        min-height: 80vh; /* ความสูงขั้นต่ำ */
+        margin-top: 5vh;
+        border-radius: 20px;
+    }
+}
