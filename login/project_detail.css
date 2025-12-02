@@ -1,0 +1,163 @@
+/* * ======================================================
+ * Styles for Project Detail Page
+ * ======================================================
+ */
+
+/* 1. Task Status Grid */
+.detail-content {
+    padding: 20px 16px;
+    /* --- เพิ่ม 2 บรรทัดนี้ --- */
+    background-color: var(--app-bg); /* กำหนดพื้นหลังสีเข้มอย่างชัดเจน */
+    min-height: calc(100vh - 60px); /* กำหนดความสูงขั้นต่ำให้เต็มจอ (หักส่วน Header ออก) */
+    /* -------------------------- */
+    margin-bottom: 76px; /* เพิ่ม Margin ด้านล่างเพื่อไม่ให้ FAB บังเนื้อหา */
+}
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.status-card {
+    background-color: var(--card-color);
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.status-card i {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.status-card .count {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.status-card .label {
+    font-size: 14px;
+    color: var(--sub-text-color);
+    margin: 0;
+}
+
+/* Color Coding */
+.status-card.completed i, .status-card.completed .count { color: #10b981; } /* Green */
+.status-card.ongoing i, .status-card.ongoing .count { color: #f59e0b; } /* Orange */
+.status-card.todo i, .status-card.todo .count { color: #6366f1; } /* Primary/Blue */
+
+/* 2. Task List Styling */
+.section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    padding-top: 10px; /* เว้นระยะห่างจากด้านบน */
+}
+
+.task-card {
+    background-color: var(--card-color);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 5px solid transparent;
+}
+
+.task-card h3 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.task-card .task-status {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: #fff;
+}
+
+/* Task Status Color Coding */
+.task-card.completed { border-left-color: #10b981; }
+.task-card.completed .task-status { background-color: #10b981; }
+
+.task-card.ongoing { border-left-color: #f59e0b; }
+.task-card.ongoing .task-status { background-color: #f59e0b; }
+
+.task-card.to-do { border-left-color: #6366f1; }
+.task-card.to-do .task-status { background-color: #6366f1; }
+
+.no-task-message {
+    text-align: center;
+    color: var(--sub-text-color);
+    margin-top: 40px;
+}
+
+/* 3. Floating Action Button (FAB) */
+.fab-main, .fab-item {
+    position: fixed;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+    z-index: 20;
+}
+
+/* FAB หลัก */
+.fab-main {
+    bottom: 20px;
+    background-color: var(--fab-color); /* ใช้สีม่วงหลัก */
+    font-size: 24px;
+}
+
+.fab-main.active {
+    transform: rotate(135deg); /* หมุนเครื่องหมาย + เป็น x */
+}
+
+/* FAB Menu */
+.fab-menu {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    pointer-events: none; /* ทำให้คลิกทะลุได้เมื่อปิดอยู่ */
+    z-index: 19;
+}
+
+.fab-menu.open {
+    pointer-events: auto; /* เปิดให้คลิกได้เมื่อเปิดเมนู */
+}
+
+.fab-item {
+    background-color: var(--card-color);
+    font-size: 20px;
+    opacity: 0;
+    transform: translateY(0);
+}
+
+/* จัดเรียงปุ่มย่อยและทำให้ปรากฏเมื่อเมนูเปิด */
+.fab-menu.open #createTaskFab {
+    opacity: 1;
+    transform: translateY(-70px); /* เลื่อนปุ่มสร้าง Task ขึ้น */
+    transition: transform 0.3s 0.1s, opacity 0.3s 0.1s;
+}
+
+.fab-menu.open #addMemberFab {
+    opacity: 1;
+    transform: translateY(-138px); /* เลื่อนปุ่มเพิ่ม Member ขึ้นไปอีก */
+    transition: transform 0.3s 0.2s, opacity 0.3s 0.2s;
+}
