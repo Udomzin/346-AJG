@@ -1,559 +1,427 @@
-/* ======================================================
- * Base Dark Theme Variables
- * ====================================================== */
-:root {
-    --bg-color: #333333;
-    --app-bg: #1c1c1c;
-    --card-color: #2d2d2d;
-    --text-color: #ffffff;
-    --sub-text-color: #aaaaaa;
-    --primary-color: #6366f1; /* Purple/Blue */
-    --fab-color: #4f46e5;
+/* ========================================
+   TaskSplit - Project Detail Styles
+   ======================================== */
+
+/* ========================================
+   1. Reset และ Base Styles
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* ======================================================
- * Project Detail Page Layout
- * ====================================================== */
-
-.page-wrapper {
-    background-color: var(--app-bg);
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1a1a1a; /* พื้นหลังสีดำ */
+    color: #fff; /* ข้อความสีขาว */
     min-height: 100vh;
-}
-
-.dashboard-container {
-    padding: 16px;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* Header ------------------------------------------------ */
-
-.project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    margin-bottom: 20px;
-}
-
-.project-header .back-btn {
-    background: none;
-    border: none;
-    color: var(--text-color);
-    font-size: 24px;
-    cursor: pointer;
-    padding: 8px;
-}
-
-.project-title h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-.project-meta {
-    font-size: 0.85rem;
-    color: var(--sub-text-color);
-    margin-top: 4px;
-}
-
-/* Task Summary Card ------------------------------------- */
-
-.task-summary-card {
-    background-color: #55ac40;
-    color: #111;
     padding: 20px;
-    border-radius: 16px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-.task-summary-card h3 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    color: #111;
+/* ========================================
+   2. คอนเทนเนอร์หลัก
+   ======================================== */
+.container {
+    max-width: 1200px; /* ความกว้างสูงสุด */
+    margin: 0 auto; /* จัดกึ่งกลาง */
+}
+
+/* ========================================
+   3. ส่วนหัว (Header)
+   ======================================== */
+.header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 30px;
 }
 
-.summary-stats {
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-}
-
-.stat-item {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    border-radius: 8px;
-    color: #111;
-}
-
-.stat-value {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.stat-label {
-    font-size: 0.85rem;
-    color: #333;
-}
-
-/* Task List --------------------------------------------- */
-
-.task-list-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-    padding-top: 10px;
-    color: var(--text-color);
-}
-
-.task-list {
-    padding-bottom: 80px; /* เผื่อพื้นที่ให้ FAB ไม่ทับรายการ */
-}
-
-.task-list-empty {
-    text-align: center;
-    color: var(--sub-text-color);
-    font-size: 0.9rem;
-    margin: 16px 0;
-}
-
-.task-item {
-    background-color: var(--card-color);
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* ปุ่มย้อนกลับ */
+.back-btn {
+    width: 44px;
+    height: 44px;
+    background: #2a2a2a; /* พื้นหลังเทาเข้ม */
+    border: none;
+    border-radius: 10px; /* ขอบมน */
+    color: white;
+    font-size: 20px;
     cursor: pointer;
-    transition: background-color 0.2s;
-    border-left: 5px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s; /* เอฟเฟกต์เรียบ */
 }
 
-.task-item:hover {
-    background-color: #383838;
+/* เอฟเฟกต์ Hover ปุ่มย้อนกลับ */
+.back-btn:hover {
+    background: #3a3a3a; /* สีเข้มขึ้น */
+    transform: translateX(-3px); /* เลื่อนไปทางซ้าย */
 }
 
-.task-item-details strong {
-    display: block;
-    font-size: 1rem;
+/* ส่วนกลางของ Header */
+.header-center {
+    flex: 1; /* ขยายเต็มพื้นที่ */
+    text-align: center; /* จัดข้อความกึ่งกลาง */
+}
+
+/* ชื่อโปรเจค */
+.project-title {
+    font-size: 28px;
+    font-weight: 700;
     margin-bottom: 4px;
 }
 
-.task-item-details span {
-    font-size: 0.8rem;
-    color: var(--sub-text-color);
+/* ข้อมูลโปรเจค (ID และ Max Members) */
+.project-info {
+    font-size: 14px;
+    color: #999; /* สีเทาอ่อน */
 }
 
-/* Task Status color (ตาม statusClass ใน JS) */
-
-.task-status {
-    font-size: 0.85rem;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-weight: 600;
-}
-
-.task-status.to-do {
-    background-color: #6366f1;
-    color: #fff;
-}
-
-.task-status.in-progress {
-    background-color: #f59e0b;
-    color: #333;
-}
-
-.task-status.done {
-    background-color: #10b981;
-    color: #fff;
-}
-
-/* Task Item border (ตาม priority ถ้าในอนาคตมีใช้) */
-
-.task-item.priority-low {
-    border-left-color: #10b981; /* Green - Low */
-}
-
-.task-item.priority-medium {
-    border-left-color: #f59e0b; /* Orange - Medium */
-}
-
-.task-item.priority-high {
-    border-left-color: #f44336; /* Red - High */
-}
-
-/* Floating Action Button (FAB) -------------------------- */
-
-.fab-menu {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-}
-
-.fab-btn {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background-color: var(--fab-color);
-    color: var(--text-color);
+/* ========================================
+   4. ปุ่มเมนู 3 จุด (Menu Button)
+   ======================================== */
+.menu-btn {
+    width: 44px;
+    height: 44px;
+    background: #2a2a2a;
     border: none;
-    font-size: 24px;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
     display: flex;
-    justify-content: center;
     align-items: center;
-    cursor: pointer;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s ease-in-out;
-    position: relative;
-    z-index: 1002;
+    justify-content: center;
+    transition: all 0.3s;
+    position: relative; /* สำหรับวาง dropdown */
 }
 
-.fab-options {
+.menu-btn:hover {
+    background: #3a3a3a;
+}
+
+/* ========================================
+   5. Dropdown Menu
+   ======================================== */
+.dropdown-menu {
+    display: none; /* ซ่อนไว้ */
     position: absolute;
-    bottom: 70px;
+    top: 50px; /* ห่างจากปุ่ม */
     right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
-    opacity: 0;
-    transform: translateY(10px);
-    pointer-events: none;
-    transition: opacity 0.3s, transform 0.3s;
-    z-index: 1001;
+    background: #2a2a2a;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* เงา */
+    min-width: 150px;
+    z-index: 100; /* อยู่บนสุด */
 }
 
-.fab-options.open {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+/* แสดงเมนูเมื่อมี class 'show' */
+.dropdown-menu.show {
+    display: block;
 }
 
-.fab-option-btn {
-    background-color: var(--card-color);
-    color: var(--text-color);
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 1rem;
-    text-align: right;
+/* รายการในเมนู */
+.dropdown-item {
+    padding: 12px 16px;
+    color: #fff;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
     display: flex;
     align-items: center;
     gap: 10px;
-    min-width: 150px;
-    justify-content: flex-end;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.fab-option-btn:hover {
-    background-color: #383838;
+/* ขอบมนสำหรับรายการแรก */
+.dropdown-item:first-child {
+    border-radius: 10px 10px 0 0;
 }
 
-/* Invite Member Box ------------------------------------- */
-
-.invite-box {
-    display: none;
-    position: fixed;
-    bottom: 100px;
-    right: 20px;
-    background: #2d2d2d;
-    padding: 20px;
-    border-radius: 12px;
-    color: #ffffff;
-    width: 260px;
-    z-index: 2000;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+/* ขอบมนสำหรับรายการสุดท้าย */
+.dropdown-item:last-child {
+    border-radius: 0 0 10px 10px;
 }
 
-.invite-title {
-    margin: 0 0 10px;
-    font-size: 1rem;
+/* เอฟเฟกต์ Hover รายการเมนู */
+.dropdown-item:hover {
+    background: #dc3545; /* สีแดง */
 }
 
-.invite-input {
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: 6px;
-    border: 1px solid #444;
-    background: #333;
-    color: #ffffff;
-    font-size: 0.9rem;
-    box-sizing: border-box;
+/* ========================================
+   6. การ์ดแสดงความคืบหน้า (Progress Card)
+   ======================================== */
+.progress-card {
+    background: linear-gradient(135deg, #7ed957 0%, #5cb85c 100%); /* ไล่สีเขียว */
+    padding: 30px;
+    border-radius: 20px; /* ขอบมน */
+    margin-bottom: 30px;
+    box-shadow: 0 6px 24px rgba(92, 184, 92, 0.4); /* เงา */
 }
 
-.invite-input:focus {
-    border-color: var(--primary-color);
-    outline: none;
-}
-
-.invite-send-btn,
-.invite-cancel-btn {
-    margin-top: 10px;
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    cursor: pointer;
-}
-
-.invite-send-btn {
-    background: #55ac40;
-    color: #ffffff;
-}
-
-.invite-cancel-btn {
-    background: #444;
-    color: #ffffff;
-}
-
-/* ======================================================
- * Styles reused by Add Task page (ถ้า add_task.html link ไฟล์นี้)
- * ====================================================== */
-
-.add-task-form {
-    padding: 20px;
-    background-color: var(--app-bg);
-    min-height: 100vh;
-}
-
-.add-task-header {
+/* ส่วนหัวของการ์ด */
+.progress-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px 0 20px 0;
-}
-
-.add-task-header h2 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-left: 15px;
-}
-
-.form-group {
     margin-bottom: 20px;
 }
 
-.form-group label {
-    display: flex;
-    align-items: center;
-    color: var(--text-color);
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 8px;
+/* หัวข้อการ์ด */
+.progress-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
 }
 
-.form-group label i {
-    margin-right: 8px;
-    font-size: 18px;
-    color: var(--primary-color);
+/* ไอคอนในการ์ด */
+.progress-icon {
+    font-size: 24px;
+    color: #000;
 }
 
-.form-group input[type="text"],
-.form-group input[type="date"],
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #444;
-    border-radius: 8px;
-    background-color: #333;
-    color: var(--text-color);
-    font-size: 16px;
-    box-sizing: border-box;
-    transition: border-color 0.2s;
+/* ========================================
+   7. สถิติความคืบหน้า (Progress Stats)
+   ======================================== */
+.progress-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* แบ่ง 3 คอลัมน์เท่าๆ กัน */
+    gap: 20px;
 }
 
-.form-group textarea {
-    resize: vertical;
-    min-height: 100px;
+/* แต่ละสถิติ */
+.stat-item {
+    text-align: center;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: var(--primary-color);
-    outline: none;
+/* ตัวเลขสถิติ */
+.stat-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: #000;
+    display: block;
 }
 
-/* Priority buttons */
-
-.priority-selection {
-    display: flex;
-    gap: 10px;
+/* ป้ายกำกับสถิติ */
+.stat-label {
+    font-size: 14px;
+    color: #1a1a1a;
+    font-weight: 600;
 }
 
-.priority-btn {
-    flex-grow: 1;
-    padding: 10px 15px;
-    border: 1px solid #444;
-    border-radius: 8px;
-    background-color: #333;
-    color: var(--sub-text-color);
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-}
-
-.priority-btn.selected {
-    color: var(--text-color);
-    font-weight: bold;
-    border-color: transparent;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.priority-btn[data-priority="Low"].selected {
-    background-color: #10b981;
-}
-
-.priority-btn[data-priority="Medium"].selected {
-    background-color: #f59e0b;
-}
-
-.priority-btn[data-priority="High"].selected {
-    background-color: #f44336;
-}
-
-/* Add Task form buttons */
-
-.form-actions {
+/* ========================================
+   8. ส่วนแสดง Tasks (Tasks Section)
+   ======================================== */
+.tasks-section {
     margin-top: 30px;
 }
 
-.form-actions button {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 10px;
+/* หัวข้อส่วน */
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #fff;
 }
 
-.add-task-btn {
-    background-color: var(--primary-color);
-    color: #ffffff;
-}
-
-.cancel-btn {
-    background-color: #444;
-    color: var(--text-color);
-}
-
-/* ======================================================
- * Modal styles (ถ้าในอนาคตมี modal แสดงรายละเอียด task)
- * ====================================================== */
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: none;
-    justify-content: center;
-    align-items: flex-start;
-    z-index: 2000;
-    padding-top: 5vh;
-    overflow-y: auto;
-}
-
-.modal.open {
+/* รายการ Tasks */
+.tasks-list {
     display: flex;
+    flex-direction: column;
+    gap: 12px; /* ระยะห่างระหว่าง Task */
 }
 
-.modal-content {
-    background-color: var(--app-bg);
-    width: 90%;
-    max-width: 500px;
-    border-radius: 12px;
+/* ========================================
+   9. Task Item (รายการแต่ละ Task)
+   ======================================== */
+.task-item {
+    background: #2a2a2a; /* พื้นหลังเทาเข้ม */
     padding: 20px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-    transform: translateY(-50px);
-    transition: transform 0.3s ease-out;
-}
-
-.modal.open .modal-content {
-    transform: translateY(0);
-}
-
-.modal-header {
+    border-radius: 12px; /* ขอบมน */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer; /* แสดง pointer เมื่อ hover */
+    transition: all 0.3s; /* เอฟเฟกต์เรียบ */
+    border-left: 4px solid transparent; /* ขอบซ้าย (จะเปลี่ยนสีตาม priority) */
+}
+
+/* เอฟเฟกต์ Hover */
+.task-item:hover {
+    background: #3a3a3a; /* สีเข้มขึ้น */
+    transform: translateX(5px); /* เลื่อนไปทางขวา */
+}
+
+/* สีขอบตาม Priority */
+.task-item.priority-high {
+    border-left-color: #dc3545; /* แดง - High */
+}
+
+.task-item.priority-medium {
+    border-left-color: #ffc107; /* เหลือง - Medium */
+}
+
+.task-item.priority-low {
+    border-left-color: #28a745; /* เขียว - Low */
+}
+
+/* ข้อมูล Task */
+.task-info {
+    flex: 1; /* ขยายเต็มพื้นที่ */
+}
+
+/* ชื่อ Task */
+.task-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #fff;
+}
+
+/* รายละเอียด Task (Priority, Deadline, Assigned) */
+.task-details {
+    font-size: 13px;
+    color: #999;
+    display: flex;
+    gap: 15px;
+}
+
+/* ========================================
+   10. Status Badge (ป้ายสถานะ)
+   ======================================== */
+.status-badge {
+    padding: 6px 16px;
+    border-radius: 20px; /* ขอบมนมาก */
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+/* สถานะ To Do */
+.status-badge.todo {
+    background: #667eea; /* สีม่วง */
+    color: white;
+}
+
+/* สถานะ In Progress */
+.status-badge.in-progress {
+    background: #ffc107; /* สีเหลือง */
+    color: #000;
+}
+
+/* สถานะ Done */
+.status-badge.done {
+    background: #28a745; /* สีเขียว */
+    color: white;
+}
+
+/* เอฟเฟกต์ Hover Badge */
+.status-badge:hover {
+    transform: scale(1.05); /* ขยายใหญ่ขึ้นเล็กน้อย */
+}
+
+/* ========================================
+   11. Empty State (ไม่มี Tasks)
+   ======================================== */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+/* ไอคอน */
+.empty-state i {
+    font-size: 80px;
     margin-bottom: 20px;
+    opacity: 0.3; /* โปร่งแสง */
 }
 
-.modal-header h3 {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--text-color);
-    border-left: 4px solid var(--primary-color);
-    padding-left: 10px;
-    line-height: 1.2;
+/* ข้อความ */
+.empty-state p {
+    font-size: 16px;
 }
 
-.close-btn {
-    background: none;
+/* ========================================
+   12. ปุ่ม FAB (Floating Action Button)
+   ======================================== */
+.fab {
+    position: fixed; /* ติดอยู่กับตำแหน่งเดิม */
+    bottom: 30px;
+    right: 30px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* ไล่สีม่วง */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(102, 126, 234, 0.6); /* เงา */
+    z-index: 100;
+    transition: all 0.3s;
     border: none;
-    color: var(--sub-text-color);
-    font-size: 24px;
     cursor: pointer;
 }
 
-.modal-body p {
-    color: var(--text-color);
-    margin-bottom: 15px;
-    line-height: 1.5;
+/* เอฟเฟกต์ Hover ปุ่ม FAB */
+.fab:hover {
+    transform: scale(1.1) rotate(90deg); /* ขยายและหมุน 90 องศา */
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.8);
 }
 
-.task-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 20px;
-    padding-top: 10px;
-    border-top: 1px solid #333;
-}
-
-.task-info-item strong {
-    display: block;
-    font-size: 12px;
-    color: var(--sub-text-color);
-    margin-bottom: 4px;
-}
-
-.task-info-item span {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--text-color);
-}
-
-.modal-header.priority-low h3 {
-    border-left-color: #10b981;
-}
-
-.modal-header.priority-medium h3 {
-    border-left-color: #f59e0b;
-}
-
-.modal-header.priority-high h3 {
-    border-left-color: #f44336;
-}
-
-.modal-description {
-    font-style: italic;
-    color: var(--sub-text-color) !important;
-    padding: 10px;
-    background-color: #222;
-    border-radius: 8px;
-    margin-top: 15px;
+/* ========================================
+   13. Responsive Design (หน้าจอเล็ก)
+   ======================================== */
+@media (max-width: 768px) {
+    /* ลด Padding ของ Body */
+    body {
+        padding: 10px;
+    }
+    
+    /* ปรับขนาดหัวข้อ */
+    .project-title {
+        font-size: 22px;
+    }
+    
+    .project-info {
+        font-size: 12px;
+    }
+    
+    /* ปรับขนาดสถิติ */
+    .stat-number {
+        font-size: 36px;
+    }
+    
+    .stat-label {
+        font-size: 12px;
+    }
+    
+    /* ปรับ Progress Card */
+    .progress-card {
+        padding: 20px;
+    }
+    
+    /* ปรับ Task Item */
+    .task-item {
+        padding: 15px;
+    }
+    
+    .task-name {
+        font-size: 16px;
+    }
+    
+    .task-details {
+        font-size: 12px;
+        flex-wrap: wrap; /* ขึ้นบรรทัดใหม่ถ้าหน้าจอเล็ก */
+    }
+    
+    /* ปรับปุ่ม FAB */
+    .fab {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+        bottom: 20px;
+        right: 20px;
+    }
 }

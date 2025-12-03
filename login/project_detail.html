@@ -3,326 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Detail</title>
+    <title>Project Detail - TaskSplit</title>
+    
+    <!-- เชื่อมต่อ Font Awesome สำหรับไอคอน -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #1a1a1a;
-            color: #fff;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 30px;
-        }
-
-        .back-btn {
-            width: 44px;
-            height: 44px;
-            background: #2a2a2a;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .back-btn:hover {
-            background: #3a3a3a;
-            transform: translateX(-3px);
-        }
-
-        .header-center {
-            flex: 1;
-            text-align: center;
-        }
-
-        .project-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .project-info {
-            font-size: 14px;
-            color: #999;
-        }
-
-        .menu-btn {
-            width: 44px;
-            height: 44px;
-            background: #2a2a2a;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .menu-btn:hover {
-            background: #3a3a3a;
-        }
-
-        /* Dropdown Menu */
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            min-width: 150px;
-            z-index: 100;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-item {
-            padding: 12px 16px;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .dropdown-item:first-child {
-            border-radius: 10px 10px 0 0;
-        }
-
-        .dropdown-item:last-child {
-            border-radius: 0 0 10px 10px;
-        }
-
-        .dropdown-item:hover {
-            background: #dc3545;
-        }
-
-        /* Progress Card */
-        .progress-card {
-            background: linear-gradient(135deg, #7ed957 0%, #5cb85c 100%);
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 6px 24px rgba(92, 184, 92, 0.4);
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .progress-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #000;
-        }
-
-        .progress-icon {
-            font-size: 24px;
-            color: #000;
-        }
-
-        .progress-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 48px;
-            font-weight: 700;
-            color: #000;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: #1a1a1a;
-            font-weight: 600;
-        }
-
-        /* Tasks Section */
-        .tasks-section {
-            margin-top: 30px;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-
-        .tasks-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .task-item {
-            background: #2a2a2a;
-            padding: 20px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-left: 4px solid transparent;
-        }
-
-        .task-item:hover {
-            background: #3a3a3a;
-            transform: translateX(5px);
-        }
-
-        .task-item.priority-high {
-            border-left-color: #dc3545;
-        }
-
-        .task-item.priority-medium {
-            border-left-color: #ffc107;
-        }
-
-        .task-item.priority-low {
-            border-left-color: #28a745;
-        }
-
-        .task-info {
-            flex: 1;
-        }
-
-        .task-name {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #fff;
-        }
-
-        .task-details {
-            font-size: 13px;
-            color: #999;
-            display: flex;
-            gap: 15px;
-        }
-
-        .status-badge {
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .status-badge.todo {
-            background: #667eea;
-            color: white;
-        }
-
-        .status-badge.in-progress {
-            background: #ffc107;
-            color: #000;
-        }
-
-        .status-badge.done {
-            background: #28a745;
-            color: white;
-        }
-
-        .status-badge:hover {
-            transform: scale(1.05);
-        }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-        }
-
-        .empty-state i {
-            font-size: 80px;
-            margin-bottom: 20px;
-            opacity: 0.3;
-        }
-
-        /* FAB */
-        .fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 28px;
-            text-decoration: none;
-            box-shadow: 0 6px 24px rgba(102, 126, 234, 0.6);
-            z-index: 100;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .fab:hover {
-            transform: scale(1.1) rotate(90deg);
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.8);
-        }
-    </style>
+    
+    <!-- เชื่อมต่อไฟล์ CSS หลัก -->
+    <link rel="stylesheet" href="project_detail.css">
 </head>
 <body>
+    <!-- คอนเทนเนอร์หลัก -->
     <div class="container">
+        
+        <!-- ====================================
+             ส่วนหัวของหน้า
+             ==================================== -->
         <div class="header">
+            <!-- ปุ่มย้อนกลับ -->
             <button class="back-btn" id="backBtn">
                 <i class="fas fa-arrow-left"></i>
             </button>
+            
+            <!-- ข้อมูลโปรเจคตรงกลาง -->
             <div class="header-center">
                 <h1 class="project-title" id="projectTitle">Loading...</h1>
                 <p class="project-info" id="projectInfo">ID: ... | Max Members: ...</p>
             </div>
+            
+            <!-- ปุ่มเมนู 3 จุด -->
             <button class="menu-btn" id="menuBtn">
                 <i class="fas fa-ellipsis-v"></i>
+                
+                <!-- Dropdown Menu -->
                 <div class="dropdown-menu" id="dropdownMenu">
                     <div class="dropdown-item" id="deleteProject">
                         <i class="fas fa-trash"></i>
@@ -332,20 +44,30 @@
             </button>
         </div>
 
+        <!-- ====================================
+             การ์ดแสดงความคืบหน้า (Progress Card)
+             ==================================== -->
         <div class="progress-card">
             <div class="progress-header">
                 <span class="progress-title">Overall Progress</span>
                 <i class="fas fa-chart-line progress-icon"></i>
             </div>
+            
+            <!-- สถิติแบ่งเป็น 3 คอลัมน์ -->
             <div class="progress-stats">
+                <!-- To Do -->
                 <div class="stat-item">
                     <span class="stat-number" id="todoCount">0</span>
                     <span class="stat-label">To Do</span>
                 </div>
+                
+                <!-- In Progress -->
                 <div class="stat-item">
                     <span class="stat-number" id="inProgressCount">0</span>
                     <span class="stat-label">In Progress</span>
                 </div>
+                
+                <!-- Done -->
                 <div class="stat-item">
                     <span class="stat-number" id="doneCount">0</span>
                     <span class="stat-label">Done</span>
@@ -353,9 +75,15 @@
             </div>
         </div>
 
+        <!-- ====================================
+             ส่วนแสดงรายการ Tasks
+             ==================================== -->
         <div class="tasks-section">
             <h2 class="section-title">Recent Activity / Tasks</h2>
+            
+            <!-- รายการ Tasks (จะถูกสร้างโดย JavaScript) -->
             <div class="tasks-list" id="tasksList">
+                <!-- Empty State (แสดงเมื่อไม่มี Task) -->
                 <div class="empty-state">
                     <i class="fas fa-clipboard-list"></i>
                     <p>No tasks yet. Add one with the '+' button.</p>
@@ -363,49 +91,77 @@
             </div>
         </div>
 
+        <!-- ====================================
+             ปุ่ม FAB สำหรับเพิ่ม Task
+             ==================================== -->
         <button class="fab" id="addTaskBtn">
             <i class="fas fa-plus"></i>
         </button>
     </div>
 
+    <!-- ====================================
+         JavaScript สำหรับจัดการหน้า Project Detail
+         ==================================== -->
     <script>
+        // ====================================
+        // 1. ดึง Project ID จาก URL
+        // ====================================
         const urlParams = new URLSearchParams(window.location.search);
         const projectId = urlParams.get('projectId');
 
+        // ตรวจสอบว่ามี Project ID หรือไม่
         if (!projectId) {
             alert('Project not found!');
             window.location.href = 'dashboard.html';
         }
 
+        // ====================================
+        // 2. โหลดข้อมูลโปรเจค
+        // ====================================
         const projects = JSON.parse(localStorage.getItem('projects')) || [];
         const project = projects.find(p => p.id === projectId);
 
+        // ตรวจสอบว่าพบโปรเจคหรือไม่
         if (!project) {
             alert('Project not found!');
             window.location.href = 'dashboard.html';
         }
 
-        // Display project info
+        // ====================================
+        // 3. แสดงข้อมูลโปรเจค
+        // ====================================
         document.getElementById('projectTitle').textContent = project.name;
-        document.getElementById('projectInfo').textContent = `ID: ${projectId} | Max Members: ${project.maxMembers}`;
+        document.getElementById('projectInfo').textContent = 
+            `ID: ${projectId} | Max Members: ${project.maxMembers}`;
 
-        // Load tasks
+        // ====================================
+        // 4. โหลดข้อมูล Tasks
+        // ====================================
         let allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
         let projectTasks = allTasks.filter(t => t.projectId === projectId);
 
+        // ====================================
+        // 5. ฟังก์ชันอัพเดทความคืบหน้า
+        // ====================================
         function updateProgress() {
+            // นับจำนวน Task แต่ละสถานะ
             const todo = projectTasks.filter(t => t.status === 'To Do').length;
             const inProgress = projectTasks.filter(t => t.status === 'In Progress').length;
             const done = projectTasks.filter(t => t.status === 'Done').length;
 
+            // อัพเดทตัวเลขบนหน้าเว็บ
             document.getElementById('todoCount').textContent = todo;
             document.getElementById('inProgressCount').textContent = inProgress;
             document.getElementById('doneCount').textContent = done;
         }
 
+        // ====================================
+        // 6. ฟังก์ชันแสดงรายการ Tasks
+        // ====================================
         function renderTasks() {
             const tasksList = document.getElementById('tasksList');
             
+            // ถ้าไม่มี Task แสดง Empty State
             if (projectTasks.length === 0) {
                 tasksList.innerHTML = `
                     <div class="empty-state">
@@ -416,10 +172,10 @@
                 return;
             }
 
+            // สร้าง HTML สำหรับแต่ละ Task
             tasksList.innerHTML = projectTasks.map(task => {
                 const priorityClass = task.priority.toLowerCase();
                 const statusClass = task.status.toLowerCase().replace(' ', '-');
-                const statusText = task.status.replace(' ', '');
                 
                 return `
                     <div class="task-item priority-${priorityClass}" data-task-id="${task.id}">
@@ -436,7 +192,7 @@
                 `;
             }).join('');
 
-            // Add click event to change status
+            // เพิ่ม Event Listener ให้แต่ละ Task
             document.querySelectorAll('.task-item').forEach(item => {
                 item.addEventListener('click', (e) => {
                     const taskId = item.getAttribute('data-task-id');
@@ -445,54 +201,71 @@
             });
         }
 
+        // ====================================
+        // 7. ฟังก์ชันเปลี่ยนสถานะ Task
+        // ====================================
         function changeTaskStatus(taskId) {
+            // หา Task ที่ต้องการเปลี่ยนสถานะ
             const taskIndex = allTasks.findIndex(t => t.id === taskId);
             if (taskIndex === -1) return;
 
             const task = allTasks[taskIndex];
+            
+            // วนสถานะ: To Do → In Progress → Done → To Do
             const statuses = ['To Do', 'In Progress', 'Done'];
             const currentIndex = statuses.indexOf(task.status);
             const nextIndex = (currentIndex + 1) % statuses.length;
             
+            // เปลี่ยนสถานะ
             task.status = statuses[nextIndex];
+            
+            // บันทึกลง localStorage
             localStorage.setItem('tasks', JSON.stringify(allTasks));
 
-            // Reload tasks
+            // อัพเดทหน้าเว็บ
             projectTasks = allTasks.filter(t => t.projectId === projectId);
             updateProgress();
             renderTasks();
         }
 
-        // Back button
+        // ====================================
+        // 8. ปุ่มย้อนกลับ
+        // ====================================
         document.getElementById('backBtn').addEventListener('click', () => {
             window.location.href = 'dashboard.html';
         });
 
-        // Menu dropdown
+        // ====================================
+        // 9. เมนู Dropdown (จุด 3 จุด)
+        // ====================================
         const menuBtn = document.getElementById('menuBtn');
         const dropdownMenu = document.getElementById('dropdownMenu');
 
+        // เปิด/ปิดเมนู
         menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
+            e.stopPropagation(); // ป้องกันไม่ให้ปิดทันที
             dropdownMenu.classList.toggle('show');
         });
 
-        // Close dropdown when clicking outside
+        // ปิดเมนูเมื่อคลิกที่อื่น
         document.addEventListener('click', () => {
             dropdownMenu.classList.remove('show');
         });
 
-        // Delete project
+        // ====================================
+        // 10. ฟังก์ชันลบโปรเจค
+        // ====================================
         document.getElementById('deleteProject').addEventListener('click', () => {
+            // ถามยืนยัน
             if (confirm(`Are you sure you want to delete "${project.name}"?`)) {
-                // Remove project
+                // ลบโปรเจค
                 const projectIndex = projects.findIndex(p => p.id === projectId);
                 if (projectIndex !== -1) {
                     projects.splice(projectIndex, 1);
                     localStorage.setItem('projects', JSON.stringify(projects));
                 }
 
-                // Remove all tasks
+                // ลบ Tasks ทั้งหมดของโปรเจค
                 allTasks = allTasks.filter(t => t.projectId !== projectId);
                 localStorage.setItem('tasks', JSON.stringify(allTasks));
 
@@ -501,12 +274,16 @@
             }
         });
 
-        // Add task button
+        // ====================================
+        // 11. ปุ่มเพิ่ม Task (FAB)
+        // ====================================
         document.getElementById('addTaskBtn').addEventListener('click', () => {
             window.location.href = `add_task.html?projectId=${projectId}`;
         });
 
-        // Initial render
+        // ====================================
+        // 12. เริ่มต้นแสดงผล
+        // ====================================
         updateProgress();
         renderTasks();
     </script>
