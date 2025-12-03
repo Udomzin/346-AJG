@@ -12,20 +12,16 @@
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-    <!-- ปุ่ม Logout ติดมุมขวาบน -->
-    <button class="logout-btn" id="logoutBtn">
-        <i class="fas fa-sign-out-alt"></i>
-        Logout
-    </button>
-
     <!-- คอนเทนเนอร์หลักของหน้า Dashboard -->
     <div class="page-wrapper">
         <div class="dashboard-container">
             
-            <!-- ส่วนหัวแสดงข้อมูลผู้ใช้ -->
+            <!-- ====================================
+                 ส่วนหัว: ข้อมูลผู้ใช้ + ปุ่ม Logout
+                 ==================================== -->
             <header class="header">
                 <div class="user-info">
-                    <!-- วงกลมโปรไฟล์ (Avatar) -->
+                    <!-- Avatar -->
                     <div class="avatar">JD</div>
                     
                     <!-- ข้อมูลผู้ใช้ -->
@@ -34,228 +30,205 @@
                         <span class="project-count">0 project</span>
                     </div>
                 </div>
+
+                <!-- ปุ่มออกจากระบบ -->
+                <button class="logout-btn" id="logoutBtn" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
             </header>
 
-            <!-- แถบค้นหาโปรเจค -->
+            <!-- ====================================
+                 แถบค้นหาโปรเจค
+                 ==================================== -->
             <div class="search-bar">
                 <i class="fas fa-search"></i>
                 <input type="text" id="searchInput" placeholder="Search workspaces...">
             </div>
 
-            <!-- พื้นที่แสดงรายการโปรเจค -->
+            <!-- ====================================
+                 พื้นที่แสดงโปรเจค
+                 ==================================== -->
             <main class="main-content">
-                <div id="dashboard-projects">
-                    <!-- โปรเจคจะถูกแสดงที่นี่โดย JavaScript -->
-                </div>
+                <div id="dashboard-projects"></div>
             </main>
 
-            <!-- ปุ่ม FAB (Floating Action Button) สำหรับสร้างโปรเจคใหม่ -->
+            <!-- ====================================
+                 ปุ่มสร้างโปรเจค (FAB)
+                 ==================================== -->
             <a href="create_project.html" class="fab" title="Create New Project">
                 <i class="fas fa-plus"></i>
             </a>
+
         </div>
     </div>
 
-    <!-- JavaScript สำหรับจัดการหน้า Dashboard -->
-    <script>
-        // ====================================
-        // เริ่มทำงานเมื่อโหลดหน้าเว็บเสร็จ
-        // ====================================
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // ====================================
-            // 1. ดึง Elements จาก DOM
-            // ====================================
-            const dashboardContainer = document.getElementById('dashboard-projects');
-            const avatarElement = document.querySelector('.avatar');
-            const userEmailElement = document.querySelector('.user-email');
-            const projectCountElement = document.querySelector('.project-count');
-            const searchInput = document.getElementById('searchInput');
+<script>
+document.addEventListener('DOMContentLoaded', () => {
 
-            // ====================================
-            // 2. ตรวจสอบการล็อกอิน
-            // ====================================
-            // ดึง token จาก localStorage หรือ sessionStorage
-            const token = localStorage.getItem('currentUserToken') || 
-                         sessionStorage.getItem('currentUserToken');
+    // ====================================
+    // ดึง Elements จากหน้าเว็บ
+    // ====================================
+    const dashboardContainer = document.getElementById('dashboard-projects');
+    const avatarElement = document.querySelector('.avatar');
+    const userEmailElement = document.querySelector('.user-email');
+    const projectCountElement = document.querySelector('.project-count');
+    const searchInput = document.getElementById('searchInput');
+    const logoutBtn = document.getElementById('logoutBtn');
 
-            // ถ้าไม่มี token แสดงว่ายังไม่ได้ล็อกอิน
-            if (!token) {
-                alert('คุณยังไม่ได้ล็อกอิน!');
-                window.location.href = 'login.html';
-                return;
-            }
+    // ====================================
+    // ตรวจสอบการล็อกอิน
+    // ====================================
+    const token = localStorage.getItem('currentUserToken') ||
+                  sessionStorage.getItem('currentUserToken');
 
-            // ====================================
-            // 3. ดึงข้อมูลผู้ใช้
-            // ====================================
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            const currentUser = users.find(u => u.token === token);
+    if (!token) {
+        alert('คุณยังไม่ได้ล็อกอิน!');
+        window.location.href = 'login.html';
+        return;
+    }
 
-            // ตรวจสอบว่าพบผู้ใช้หรือไม่
-            if (!currentUser) {
-                alert('ผู้ใช้ไม่ถูกต้อง!');
-                window.location.href = 'login.html';
-                return;
-            }
+    // ====================================
+    // ดึงข้อมูลผู้ใช้ปัจจุบัน
+    // ====================================
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const currentUser = users.find(u => u.token === token);
 
-            // ====================================
-            // 4. แสดงข้อมูลผู้ใช้
-            // ====================================
-            // แสดงอีเมลผู้ใช้
-            userEmailElement.textContent = currentUser.email;
-            
-            // แสดงตัวย่อชื่อใน Avatar (เอาตัวอักษรแรกของแต่ละคำ)
-            avatarElement.textContent = currentUser.fullName
-                .split(' ')
-                .map(n => n[0])
-                .join('')
-                .toUpperCase();
+    if (!currentUser) {
+        alert('ผู้ใช้ไม่ถูกต้อง!');
+        window.location.href = 'login.html';
+        return;
+    }
 
-            // ====================================
-            // 5. ฟังก์ชันสร้าง ID สุ่ม
-            // ====================================
-            function generateId() {
-                return Math.random().toString(36).substring(2, 9);
-            }
+    // ====================================
+    // แสดงข้อมูลผู้ใช้
+    // ====================================
+    userEmailElement.textContent = currentUser.email;
+    avatarElement.textContent = currentUser.fullName
+        .split(' ')
+        .map(n => n[0])
+        .join('')
+        .toUpperCase();
 
-            // ====================================
-            // 6. โหลดข้อมูลโปรเจค
-            // ====================================
-            let projects = JSON.parse(localStorage.getItem('projects')) || [];
+    // ====================================
+    // ฟังก์ชันสร้าง ID สุ่ม
+    // ====================================
+    function generateId() {
+        return Math.random().toString(36).substring(2, 9);
+    }
 
-            // เพิ่ม ID ให้โปรเจคที่ยังไม่มี ID
-            projects = projects.map(p => {
-                if (!p.id) {
-                    p.id = generateId();
-                }
-                return p;
-            });
-            localStorage.setItem('projects', JSON.stringify(projects));
+    // ====================================
+    // โหลดข้อมูลโปรเจค
+    // ====================================
+    let projects = JSON.parse(localStorage.getItem('projects')) || [];
 
-            // กรองเฉพาะโปรเจคของผู้ใช้คนนี้
-            let userProjects = projects.filter(p => p.ownerToken === token);
+    projects = projects.map(p => {
+        if (!p.id) {
+            p.id = generateId();
+        }
+        return p;
+    });
 
-            // อัพเดทจำนวนโปรเจค
-            projectCountElement.textContent = 
-                `${userProjects.length} project${userProjects.length !== 1 ? 's' : ''}`;
+    localStorage.setItem('projects', JSON.stringify(projects));
 
-            // ====================================
-            // 7. ฟังก์ชันแสดงโปรเจค
-            // ====================================
-            function renderProjects(filteredProjects = userProjects) {
-                dashboardContainer.innerHTML = '';
-                
-                // ถ้าไม่มีโปรเจค แสดง Empty State
-                if (filteredProjects.length === 0) {
-                    dashboardContainer.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-folder-open"></i>
-                            <p>No projects found.</p>
-                        </div>
-                    `;
-                    return;
-                }
+    // ====================================
+    // คัดเฉพาะโปรเจคของผู้ใช้
+    // ====================================
+    let userProjects = projects.filter(p => p.ownerToken === token);
 
-                // วนลูปแสดงโปรเจคทั้งหมด
-                filteredProjects.forEach((p) => { 
-                    const projectCard = document.createElement('div');
-                    projectCard.className = 'project-card';
-                    
-                    // คลิกที่การ์ดเพื่อเปิดรายละเอียดโปรเจค (ยกเว้นปุ่ม Delete)
-                    projectCard.onclick = (e) => {
-                        if (e.target.tagName !== 'BUTTON') {
-                            window.location.href = `project_detail.html?projectId=${p.id}`; 
-                        }
-                    };
-                    
-                    // สร้าง HTML ภายในการ์ด
-                    projectCard.innerHTML = `
-                        <h3>${p.name}</h3>
-                        <div class="description">${p.description || '<i>No description</i>'}</div>
-                        <div class="project-info">
-                            <i class="fas fa-users"></i>
-                            <span>Max Members: ${p.maxMembers}</span>
-                        </div>
-                        <button onclick="event.stopPropagation(); deleteProject('${p.id}')">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    `;
-                    
-                    dashboardContainer.appendChild(projectCard);
-                });
-            }
+    projectCountElement.textContent =
+        `${userProjects.length} project${userProjects.length !== 1 ? 's' : ''}`;
 
-            // ====================================
-            // 8. ฟีเจอร์ค้นหาโปรเจค
-            // ====================================
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                
-                // กรองโปรเจคตามคำค้นหา (ค้นจากชื่อและคำอธิบาย)
-                const filtered = userProjects.filter(p => 
-                    p.name.toLowerCase().includes(searchTerm) || 
-                    (p.description && p.description.toLowerCase().includes(searchTerm))
-                );
-                
-                renderProjects(filtered);
-            });
+    // ====================================
+    // แสดงโปรเจค
+    // ====================================
+    function renderProjects(filteredProjects = userProjects) {
+        dashboardContainer.innerHTML = '';
 
-            // แสดงโปรเจคครั้งแรก
-            renderProjects();
+        if (filteredProjects.length === 0) {
+            dashboardContainer.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-folder-open"></i>
+                    <p>No projects found.</p>
+                </div>
+            `;
+            return;
+        }
 
-            // ====================================
-            // 9. ฟังก์ชันลบโปรเจค
-            // ====================================
-            window.deleteProject = (projectId) => { 
-                // ถามยืนยันก่อนลบ
-                if (!confirm('Are you sure you want to delete this project?')) {
-                    return;
-                }
+        filteredProjects.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
 
-                // หา index ของโปรเจคที่จะลบ
-                const globalIndex = projects.findIndex(p => p.id === projectId); 
-                
-                if (globalIndex !== -1) {
-                    // ลบโปรเจคออกจาก array
-                    projects.splice(globalIndex, 1);
-                    localStorage.setItem('projects', JSON.stringify(projects));
-                    
-                    // อัพเดทรายการโปรเจคของผู้ใช้
-                    userProjects = projects.filter(p => p.ownerToken === token);
-                    projectCountElement.textContent = 
-                        `${userProjects.length} project${userProjects.length !== 1 ? 's' : ''}`;
-                    
-                    // แสดงโปรเจคใหม่ (คำนึงถึงการค้นหาด้วย)
-                    const searchTerm = searchInput.value.toLowerCase();
-                    if (searchTerm) {
-                        const filtered = userProjects.filter(p => 
-                            p.name.toLowerCase().includes(searchTerm) || 
-                            (p.description && p.description.toLowerCase().includes(searchTerm))
-                        );
-                        renderProjects(filtered);
-                    } else {
-                        renderProjects();
-                    }
+            card.onclick = (e) => {
+                if (e.target.tagName !== 'BUTTON') {
+                    window.location.href = 'project_detail.html?projectId=' + p.id;
                 }
             };
 
-            // ====================================
-            // 10. ฟังก์ชัน Logout
-            // ====================================
-            const logoutBtn = document.getElementById('logoutBtn');
-            logoutBtn.addEventListener('click', () => {
-                // ถามยืนยันก่อน logout
-                if (confirm('Are you sure you want to logout?')) {
-                    // ลบ token ออกจาก storage ทั้งหมด
-                    localStorage.removeItem('currentUserToken');
-                    sessionStorage.removeItem('currentUserToken');
-                    
-                    alert('Logged out successfully!');
-                    window.location.href = 'login.html';
-                }
-            });
+            card.innerHTML = `
+                <h3>${p.name}</h3>
+                <div class="description">${p.description || '<i>No description</i>'}</div>
+                <div class="project-info">
+                    <i class="fas fa-users"></i>
+                    <span>Max Members: ${p.maxMembers}</span>
+                </div>
+                <button onclick="event.stopPropagation(); deleteProject('${p.id}')">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            `;
+
+            dashboardContainer.appendChild(card);
         });
-    </script>
+    }
+
+    // ====================================
+    // ฟีเจอร์ค้นหา
+    // ====================================
+    searchInput.addEventListener('input', e => {
+        const term = e.target.value.toLowerCase();
+
+        const filtered = userProjects.filter(p =>
+            p.name.toLowerCase().includes(term) ||
+            (p.description && p.description.toLowerCase().includes(term))
+        );
+
+        renderProjects(filtered);
+    });
+
+    renderProjects();
+
+    // ====================================
+    // ลบโปรเจค
+    // ====================================
+    window.deleteProject = projectId => {
+        if (!confirm('Are you sure you want to delete this project?')) return;
+
+        const index = projects.findIndex(p => p.id === projectId);
+
+        if (index !== -1) {
+            projects.splice(index, 1);
+            localStorage.setItem('projects', JSON.stringify(projects));
+
+            userProjects = projects.filter(p => p.ownerToken === token);
+            projectCountElement.textContent =
+                `${userProjects.length} project${userProjects.length !== 1 ? 's' : ''}`;
+
+            renderProjects();
+        }
+    };
+
+    // ====================================
+    // Logout
+    // ====================================
+    logoutBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('currentUserToken');
+            sessionStorage.removeItem('currentUserToken');
+            window.location.href = 'login.html';
+        }
+    });
+
+});
+</script>
 </body>
 </html>

@@ -3,7 +3,7 @@
    ======================================== */
 
 /* ========================================
-   1. Reset และ Base Styles
+   1. Reset & Base
    ======================================== */
 * {
     margin: 0;
@@ -13,62 +13,28 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #1a1a1a; /* พื้นหลังสีดำ */
-    color: #fff; /* ข้อความสีขาว */
+    background: #1a1a1a;
+    color: #fff;
     min-height: 100vh;
 }
 
 /* ========================================
-   2. คอนเทนเนอร์หลัก
+   2. Layout หลัก
    ======================================== */
 .page-wrapper {
-    max-width: 1400px; /* ความกว้างสูงสุด */
-    margin: 0 auto; /* จัดกึ่งกลาง */
+    max-width: 1400px;
+    margin: 0 auto;
     padding: 20px;
-    position: relative;
 }
 
 /* ========================================
-   3. ปุ่ม Logout (มุมขวาบน)
-   ======================================== */
-.logout-btn {
-    position: fixed; /* ติดอยู่กับตำแหน่งเดิมแม้เลื่อนหน้า */
-    top: 48px;
-    right: 40px;
-    padding: 12px 24px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* ไล่สีม่วง */
-    color: white;
-    border: none;
-    border-radius: 25px; /* ขอบมน */
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.3s; /* เอฟเฟกต์เรียบ */
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); /* เงา */
-    z-index: 1000; /* อยู่บนสุด */
-}
-
-/* เอฟเฟกต์เมื่อ Hover */
-.logout-btn:hover {
-    transform: translateY(-2px); /* ลอยขึ้น */
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-}
-
-.logout-btn i {
-    font-size: 16px;
-}
-
-/* ========================================
-   4. ส่วนหัว (Header)
+   3. Header
    ======================================== */
 .header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 10px 10px 25px;
 }
 
 /* ข้อมูลผู้ใช้ */
@@ -78,266 +44,204 @@ body {
     gap: 15px;
 }
 
-/* วงกลมโปรไฟล์ (Avatar) */
+/* Avatar */
 .avatar {
     width: 56px;
     height: 56px;
-    border-radius: 50%; /* ทำให้เป็นวงกลม */
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* ไล่สีม่วง */
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24px;
     font-weight: bold;
-    color: white;
 }
 
-/* รายละเอียดผู้ใช้ */
+/* Email และจำนวนโปรเจค */
 .user-details {
     display: flex;
     flex-direction: column;
-    gap: 4px;
 }
 
-/* อีเมลผู้ใช้ */
 .user-email {
     font-size: 18px;
     font-weight: 600;
-    color: #fff;
 }
 
-/* จำนวนโปรเจค */
 .project-count {
     font-size: 14px;
-    color: #999; /* สีเทาอ่อน */
+    color: #aaa;
 }
 
-/* ========================================
-   5. แถบค้นหา (Search Bar)
-   ======================================== */
-.search-bar {
-    background: #2a2a2a; /* พื้นหลังเทาเข้ม */
-    padding: 12px 20px;
-    border-radius: 12px; /* ขอบมน */
+/* ปุ่ม Logout */
+.logout-btn {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 30px;
-}
-
-/* ไอคอนค้นหา */
-.search-bar i {
-    color: #999;
-    font-size: 16px;
-}
-
-/* ช่องกรอกข้อความค้นหา */
-.search-bar input {
-    flex: 1; /* ขยายเต็มพื้นที่ */
-    background: none;
+    gap: 6px;
+    padding: 10px 18px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 20px;
     border: none;
-    color: #fff;
-    font-size: 14px;
-    outline: none; /* ไม่แสดงขอบเมื่อ focus */
-}
-
-/* Placeholder ในช่องค้นหา */
-.search-bar input::placeholder {
-    color: #666;
-}
-
-/* ========================================
-   6. พื้นที่เนื้อหาหลัก (Main Content)
-   ======================================== */
-.main-content {
-    padding: 0 20px;
-}
-
-/* ========================================
-   7. Grid แสดงโปรเจค
-   ======================================== */
-#dashboard-projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* ปรับขนาดอัตโนมัติ */
-    gap: 20px; /* ระยะห่างระหว่างการ์ด */
-    padding-bottom: 80px; /* เว้นพื้นที่สำหรับ FAB */
-}
-
-/* ========================================
-   8. การ์ดโปรเจค (Project Card)
-   ======================================== */
-.project-card {
-    background: linear-gradient(135deg, #7ed957 0%, #5cb85c 100%); /* ไล่สีเขียว */
-    padding: 24px;
-    border-radius: 16px; /* ขอบมน */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* เงา */
-    transition: all 0.3s ease; /* เอฟเฟกต์เรียบ */
-    cursor: pointer; /* แสดง pointer เมื่อ hover */
-    position: relative;
-    overflow: hidden; /* ซ่อนส่วนที่เกิน */
-}
-
-/* เลเยอร์ซ้อนทับสำหรับเอฟเฟกต์ Hover */
-.project-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-    opacity: 0; /* ซ่อนไว้ */
-    transition: opacity 0.3s;
-}
-
-/* แสดงเลเยอร์เมื่อ Hover */
-.project-card:hover::before {
-    opacity: 1;
-}
-
-/* เอฟเฟกต์ลอยขึ้นเมื่อ Hover */
-.project-card:hover {
-    transform: translateY(-8px); /* ลอยขึ้น */
-    box-shadow: 0 8px 30px rgba(92, 184, 92, 0.5); /* เงาชัดขึ้น */
-}
-
-/* ชื่อโปรเจค */
-.project-card h3 {
-    font-size: 22px;
-    color: #000;
-    margin-bottom: 8px;
-    font-weight: 700;
-    position: relative;
-    z-index: 1; /* อยู่เหนือเลเยอร์ซ้อนทับ */
-}
-
-/* คำอธิบายโปรเจค */
-.project-card .description {
-    font-size: 14px;
-    color: #1a1a1a;
-    margin-bottom: 16px;
-    font-style: italic;
-    line-height: 1.5;
-    position: relative;
-    z-index: 1;
-    min-height: 40px; /* ความสูงขั้นต่ำ */
-}
-
-/* ข้อมูลโปรเจค (Max Members) */
-.project-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
-    position: relative;
-    z-index: 1;
-}
-
-.project-info i {
-    color: #000;
-    font-size: 14px;
-}
-
-.project-info span {
-    font-size: 14px;
-    color: #000;
-    font-weight: 600;
-}
-
-/* ปุ่มลบโปรเจค */
-.project-card button {
-    padding: 10px 20px;
-    background: #dc3545; /* สีแดง */
-    color: #fff;
-    border: none;
-    border-radius: 8px;
+    color: white;
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
-    transition: all 0.2s;
-    position: relative;
-    z-index: 2; /* อยู่บนสุดเพื่อคลิกได้ */
+    transition: 0.3s;
 }
 
-/* เอฟเฟกต์ Hover ปุ่มลบ */
-.project-card button:hover {
-    background: #c82333; /* แดงเข้มขึ้น */
-    transform: scale(1.05); /* ขยายใหญ่ขึ้นเล็กน้อย */
+.logout-btn:hover {
+    transform: translateY(-2px);
 }
 
 /* ========================================
-   9. Empty State (ไม่มีโปรเจค)
+   4. Search Bar
+   ======================================== */
+.search-bar {
+    background: #2a2a2a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.search-bar input {
+    background: none;
+    border: none;
+    color: white;
+    outline: none;
+    width: 100%;
+}
+
+.search-bar i {
+    color: #888;
+}
+
+/* ========================================
+   5. Content
+   ======================================== */
+.main-content {
+    padding: 0 10px;
+}
+
+#dashboard-projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding-bottom: 90px;
+}
+
+/* ========================================
+   6. Project Card
+   ======================================== */
+.project-card {
+    background: linear-gradient(135deg, #7ed957, #5cb85c);
+    padding: 22px;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+}
+
+.project-card h3 {
+    color: #000;
+}
+
+.project-card .description {
+    color: #222;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.project-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: black;
+}
+
+.project-card button {
+    background: #dc3545;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* ========================================
+   7. Empty State
    ======================================== */
 .empty-state {
-    grid-column: 1 / -1; /* ขยายเต็ม grid */
+    grid-column: 1 / -1;
     text-align: center;
-    padding: 80px 20px;
-    color: #666;
+    color: #777;
 }
 
-/* ไอคอนใน Empty State */
 .empty-state i {
-    font-size: 80px;
-    margin-bottom: 20px;
-    opacity: 0.3; /* โปร่งแสง */
-}
-
-/* ข้อความใน Empty State */
-.empty-state p {
-    font-size: 18px;
+    font-size: 50px;
+    margin-bottom: 10px;
 }
 
 /* ========================================
-   10. ปุ่ม FAB (Floating Action Button)
+   8. FAB
    ======================================== */
 .fab {
-    position: fixed; /* ติดอยู่กับตำแหน่งเดิม */
-    bottom: 30px;
-    right: 30px;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%; /* ทำให้เป็นวงกลม */
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* ไล่สีม่วง */
-    color: white;
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 28px;
-    text-decoration: none; /* ไม่มีขีดเส้นใต้ */
-    box-shadow: 0 6px 24px rgba(102, 126, 234, 0.6); /* เงา */
-    z-index: 100;
-    transition: all 0.3s;
-}
-
-/* เอฟเฟกต์ Hover ปุ่ม FAB */
-.fab:hover {
-    transform: scale(1.1) rotate(90deg); /* ขยายและหมุน */
-    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.8);
+    color: white;
+    font-size: 22px;
+    text-decoration: none;
 }
 
 /* ========================================
-   11. Responsive Design (หน้าจอเล็ก)
+   9. Responsive: Mobile
    ======================================== */
 @media (max-width: 768px) {
-    /* แสดงโปรเจคแบบคอลัมน์เดียว */
-    #dashboard-projects {
-        grid-template-columns: 1fr;
+
+    /* Header เรียงแนวตั้ง */
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
     }
-    
-    /* ปรับขนาดปุ่ม Logout */
+
+    /* ให้ข้อมูลผู้ใช้เต็มขอบ */
+    .user-info {
+        width: 100%;
+    }
+
+    /* ปุ่ม Logout เป็นแถบยาว */
     .logout-btn {
-        top: 20px;
-        right: 20px;
-        padding: 10px 20px;
-        font-size: 13px;
+        width: 100%;
+        justify-content: center;
+        border-radius: 14px;
+        padding: 10px 0;
+        box-shadow: none;
     }
-    
-    /* ปรับขนาดปุ่ม FAB */
+
+    .logout-btn span {
+        display: inline;
+    }
+
+    /* ปรับ FAB ให้เล็กลง */
     .fab {
-        width: 56px;
-        height: 56px;
-        font-size: 24px;
-        bottom: 20px;
-        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
     }
 }
