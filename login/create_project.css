@@ -1,208 +1,347 @@
-/* ======================================================
-   Create Project Page Styles
-   ====================================================== */
+/* ========================================
+   TaskSplit - Create Project Styles
+   ======================================== */
 
-/* ---------- Layout Container ---------- */
-
-.form-view-container {
-    background-color: var(--app-bg);
+/* ========================================
+   1. Reset และ Base Styles
+   ======================================== */
+* {
+    margin: 0;
     padding: 0;
-}
-
-/* ---------- Header ---------- */
-
-.form-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    background-color: var(--app-bg);
-    border-bottom: 1px solid #282828;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-
-.form-header .back-btn {
-    color: var(--text-color);
-    font-size: 20px;
-}
-
-.form-header .header-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-/* ---------- Form Layout ---------- */
-
-.form-content {
-    flex-grow: 1;
-    padding: 20px 24px;
-}
-
-/* ---------- Input Groups ---------- */
-
-.input-group {
-    margin-bottom: 22px;
-}
-
-.input-group label {
-    display: block;
-    font-size: 14px;
-    color: var(--sub-text-color);
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.input-group label i {
-    color: var(--primary-color);
-    margin-right: 6px;
-}
-
-/* ---------- Inputs / Textarea ---------- */
-
-.project-form input[type="text"],
-.project-form input[type="email"],
-.project-form textarea {
-    width: 100%;
-    padding: 14px 16px;
-    background-color: var(--card-color);
-    color: var(--text-color);
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    resize: vertical;
     box-sizing: border-box;
 }
 
-.project-form textarea {
-    min-height: 120px;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1a1a1a; /* พื้นหลังสีดำ */
+    color: #fff; /* ข้อความสีขาว */
+    min-height: 100vh;
 }
 
-/* ---------- Max Members Control ---------- */
+/* ========================================
+   2. คอนเทนเนอร์หลัก
+   ======================================== */
+.page-wrapper {
+    max-width: 600px; /* จำกัดความกว้าง */
+    margin: 0 auto; /* จัดกึ่งกลาง */
+    padding: 20px;
+}
 
-.member-control {
+/* ========================================
+   3. ส่วนหัวฟอร์ม (Header)
+   ======================================== */
+.form-header {
     display: flex;
     align-items: center;
-    max-width: 300px;
+    justify-content: space-between; /* กระจายเท่าๆ กัน */
+    padding: 20px 0;
+    margin-bottom: 30px;
 }
 
-.member-control-group {
-    margin-bottom: 40px;
-}
-
-.member-control input[type="number"] {
-    flex: 1;
-    text-align: center;
-    padding: 14px 10px;
-    margin: 0 10px;
-    background-color: var(--card-color);
-    color: var(--text-color);
+/* ปุ่มย้อนกลับ */
+.back-btn {
+    background: #2a2a2a; /* สีเทาเข้ม */
+    color: white;
     border: none;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.member-control input::-webkit-outer-spin-button,
-.member-control input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.control-btn {
-    width: 48px;
-    height: 48px;
-    background-color: var(--card-color);
-    color: var(--sub-text-color);
-    border: none;
-    border-radius: 12px;
-    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px; /* ขอบมน */
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-}
-
-.control-btn:hover {
-    background-color: #3d3d3d;
-    color: var(--text-color);
-}
-
-/* ---------- Invite Email ---------- */
-
-.email-input-row {
+    font-size: 18px;
     display: flex;
-    gap: 10px;
-    margin-top: 6px;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s; /* เอฟเฟกต์เรียบ */
 }
 
-.email-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #3d3d3d;
-    padding: 6px 12px;
-    border-radius: 20px;
-    margin: 4px 4px 0 0;
-    font-size: 0.85rem;
+/* เอฟเฟกต์ Hover ปุ่มย้อนกลับ */
+.back-btn:hover {
+    background: #3a3a3a; /* สีเข้มขึ้น */
+    transform: translateX(-3px); /* เลื่อนไปทางซ้าย */
+}
+
+/* หัวข้อหน้า */
+.header-title {
+    font-size: 24px;
+    font-weight: 700;
     color: #fff;
 }
 
-.email-tag button {
-    background: #f44336;
+/* ========================================
+   4. คอนเทนเนอร์ฟอร์ม
+   ======================================== */
+.form-content {
+    background: #2a2a2a; /* พื้นหลังเทาเข้ม */
+    padding: 40px;
+    border-radius: 20px; /* ขอบมน */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); /* เงา */
+}
+
+/* ========================================
+   5. กลุ่มของ Input (Input Groups)
+   ======================================== */
+.input-group {
+    margin-bottom: 25px; /* ระยะห่างระหว่างกลุ่ม */
+}
+
+/* กลุ่ม Max Members มีระยะห่างน้อยกว่า */
+.member-control-group {
+    margin-bottom: 20px; /* ลดระยะห่างให้ใกล้กับ Invite Members */
+}
+
+/* Label ของ Input */
+.input-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #aaa; /* สีเทาอ่อน */
+    margin-bottom: 8px; /* ลดจาก 12px เป็น 8px */
+}
+
+/* ไอคอนใน Label */
+.input-group label i {
+    color: #667eea; /* สีม่วง */
+    font-size: 18px;
+}
+
+/* ========================================
+   6. Input Fields และ Textarea
+   ======================================== */
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group textarea {
+    width: 100%;
+    padding: 14px 18px;
+    background: #1a1a1a; /* พื้นหลังดำ */
+    border: 2px solid #3a3a3a; /* ขอบเทา */
+    border-radius: 12px; /* ขอบมน */
+    color: #fff;
+    font-size: 15px;
+    transition: all 0.3s; /* เอฟเฟกต์เรียบ */
+    font-family: inherit; /* ใช้ฟอนต์เดียวกับ parent */
+}
+
+/* เอฟเฟกต์เมื่อ Focus */
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none; /* ไม่แสดงขอบเริ่มต้น */
+    border-color: #667eea; /* ขอบเปลี่ยนเป็นสีม่วง */
+    background: #222; /* พื้นหลังเข้มขึ้นเล็กน้อย */
+}
+
+/* Textarea (ความสูงขั้นต่ำและปรับขนาดได้) */
+.input-group textarea {
+    min-height: 120px;
+    resize: vertical; /* ปรับขนาดได้แนวตั้งอย่างเดียว */
+}
+
+/* Placeholder */
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: #666; /* สีเทาเข้ม */
+}
+
+/* ========================================
+   7. ตัวควบคุมจำนวนสมาชิก (Member Control)
+   ======================================== */
+.member-control {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ปุ่ม + และ - */
+.control-btn {
+    width: 50px;
+    height: 50px;
+    background: #3a3a3a; /* พื้นหลังเทา */
+    border: none;
+    border-radius: 12px; /* ขอบมน */
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* เอฟเฟกต์ Hover ปุ่ม */
+.control-btn:hover {
+    background: #4a4a4a; /* สีเข้มขึ้น */
+    transform: scale(1.05); /* ขยายใหญ่ขึ้นเล็กน้อย */
+}
+
+/* เอฟเฟกต์เมื่อคลิก */
+.control-btn:active {
+    transform: scale(0.95); /* หดเล็กลง */
+}
+
+/* ช่องแสดงจำนวนสมาชิก */
+.member-control input[type="number"] {
+    flex: 1; /* ขยายเต็มพื้นที่ */
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    background: #1a1a1a;
+    border: 2px solid #3a3a3a;
+    border-radius: 12px;
+    color: #667eea; /* สีม่วง */
+    padding: 12px;
+}
+
+/* ========================================
+   8. รายการอีเมล (Email List)
+   ======================================== */
+#email-list {
+    display: flex;
+    flex-wrap: wrap; /* ขึ้นบรรทัดใหม่เมื่อเต็ม */
+    gap: 8px;
+    margin-bottom: 15px;
+    min-height: 32px; /* ความสูงขั้นต่ำ */
+}
+
+/* Email Chip (แท็กอีเมล) */
+.email-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* ไล่สีม่วง */
+    color: white;
+    padding: 8px 14px;
+    border-radius: 20px; /* ขอบมนมาก */
+    font-size: 14px;
+    animation: slideIn 0.3s ease; /* Animation เมื่อปรากฏ */
+}
+
+/* Animation เมื่อเพิ่ม Email Chip */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px); /* เริ่มจากด้านบน */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* เลื่อนมาตำแหน่งจริง */
+    }
+}
+
+/* ปุ่มลบอีเมล */
+.email-chip button {
+    background: rgba(255, 255, 255, 0.2); /* พื้นหลังโปร่งแสง */
     border: none;
     color: white;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
     cursor: pointer;
-    font-size: 12px;
-    line-height: 18px;
-    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* ---------- Footer Button ---------- */
+/* เอฟเฟกต์ Hover ปุ่มลบ */
+.email-chip button:hover {
+    background: rgba(255, 255, 255, 0.4); /* ทึบขึ้น */
+    transform: rotate(90deg); /* หมุน 90 องศา */
+}
 
+/* ========================================
+   9. ส่วนเพิ่มอีเมล (Add Email Section)
+   ======================================== */
+.add-email-container {
+    display: flex;
+    gap: 10px;
+}
+
+/* ช่องกรอกอีเมลใหม่ */
+.add-email-container input {
+    flex: 1; /* ขยายเต็มพื้นที่ */
+}
+
+/* ปุ่มเพิ่มอีเมล */
+#addEmailBtn {
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #5cb85c 0%, #4cae4c 100%); /* ไล่สีเขียว */
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+}
+
+/* เอฟเฟกต์ Hover ปุ่มเพิ่ม */
+#addEmailBtn:hover {
+    transform: translateY(-2px); /* ลอยขึ้น */
+    box-shadow: 0 6px 20px rgba(92, 184, 92, 0.4); /* เงา */
+}
+
+/* ========================================
+   10. ปุ่มสร้างโปรเจค (Submit Button)
+   ======================================== */
 .form-footer-action {
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-    padding: 16px 24px;
-    background-color: var(--app-bg);
-    border-top: 1px solid #282828;
+    margin-top: 40px;
 }
 
+/* ปุ่มเต็มความกว้าง */
 .btn-full-width {
     width: 100%;
     padding: 16px;
-    background-color: var(--fab-color);
-    color: var(--text-color);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* ไล่สีม่วง */
     border: none;
     border-radius: 12px;
+    color: white;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4); /* เงา */
 }
 
+/* เอฟเฟกต์ Hover ปุ่มสร้าง */
 .btn-full-width:hover {
-    background-color: #5d53f2;
+    transform: translateY(-2px); /* ลอยขึ้น */
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.6); /* เงาชัดขึ้น */
 }
 
-/* ---------- Desktop Responsive ---------- */
+/* เอฟเฟกต์เมื่อคลิก */
+.btn-full-width:active {
+    transform: translateY(0); /* กลับมาตำแหน่งเดิม */
+}
 
-@media (min-width: 768px) {
-    .form-view-container {
-        max-width: 100%;
-        min-height: 100vh;
-        margin: 0;
-        border-radius: 0;
-        box-shadow: none;
-        display: flex;
-        flex-direction: column;
+/* ========================================
+   11. Responsive Design (หน้าจอเล็ก)
+   ======================================== */
+@media (max-width: 768px) {
+    /* ลด Padding ของฟอร์ม */
+    .form-content {
+        padding: 30px 20px;
     }
 
-    .form-header,
-    .form-footer-action {
-        border-radius: 0;
+    /* ลด Padding ของ Page Wrapper */
+    .page-wrapper {
+        padding: 10px;
+    }
+    
+    /* ปรับขนาดปุ่มควบคุมจำนวนสมาชิก */
+    .control-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+    
+    /* ปรับขนาดตัวเลข */
+    .member-control input[type="number"] {
+        font-size: 24px;
     }
 }

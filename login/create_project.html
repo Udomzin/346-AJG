@@ -4,301 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TaskSplit - Create Project</title>
+    
+    <!-- เชื่อมต่อ Font Awesome สำหรับไอคอน -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #1a1a1a;
-            color: #fff;
-            min-height: 100vh;
-        }
-
-        .page-wrapper {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header */
-        .form-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 0;
-            margin-bottom: 30px;
-        }
-
-        .back-btn {
-            background: #2a2a2a;
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .back-btn:hover {
-            background: #3a3a3a;
-            transform: translateX(-3px);
-        }
-
-        .header-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        /* Form Container */
-        .form-content {
-            background: #2a2a2a;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Input Groups */
-        .input-group {
-            margin-bottom: 25px;
-        }
-
-        .input-group label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            color: #aaa;
-            margin-bottom: 12px;
-        }
-
-        .input-group label i {
-            color: #667eea;
-            font-size: 18px;
-        }
-
-        .input-group input[type="text"],
-        .input-group input[type="email"],
-        .input-group textarea {
-            width: 100%;
-            padding: 14px 18px;
-            background: #1a1a1a;
-            border: 2px solid #3a3a3a;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 15px;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-
-        .input-group input:focus,
-        .input-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            background: #222;
-        }
-
-        .input-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .input-group input::placeholder,
-        .input-group textarea::placeholder {
-            color: #666;
-        }
-
-        /* Member Control */
-        .member-control {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .control-btn {
-            width: 50px;
-            height: 50px;
-            background: #3a3a3a;
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .control-btn:hover {
-            background: #4a4a4a;
-            transform: scale(1.05);
-        }
-
-        .control-btn:active {
-            transform: scale(0.95);
-        }
-
-        .member-control input[type="number"] {
-            flex: 1;
-            text-align: center;
-            font-size: 28px;
-            font-weight: bold;
-            background: #1a1a1a;
-            border: 2px solid #3a3a3a;
-            border-radius: 12px;
-            color: #667eea;
-            padding: 12px;
-        }
-
-        /* Email List */
-        #email-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 15px;
-            min-height: 32px;
-        }
-
-        .email-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 14px;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .email-chip button {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 14px;
-            line-height: 20px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .email-chip button:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: rotate(90deg);
-        }
-
-        /* Add Email Section */
-        .add-email-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .add-email-container input {
-            flex: 1;
-        }
-
-        #addEmailBtn {
-            padding: 14px 24px;
-            background: linear-gradient(135deg, #5cb85c 0%, #4cae4c 100%);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 15px;
-        }
-
-        #addEmailBtn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(92, 184, 92, 0.4);
-        }
-
-        /* Submit Button */
-        .form-footer-action {
-            margin-top: 40px;
-        }
-
-        .btn-full-width {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-full-width:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.6);
-        }
-
-        .btn-full-width:active {
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .form-content {
-                padding: 30px 20px;
-            }
-
-            .page-wrapper {
-                padding: 10px;
-            }
-        }
-    </style>
+    
+    <!-- เชื่อมต่อไฟล์ CSS หลัก -->
+    <link rel="stylesheet" href="create_project.css" />
 </head>
 <body>
+    <!-- คอนเทนเนอร์หลักของหน้า -->
     <div class="page-wrapper">
         <div class="dashboard-container form-view-container">
+            
+            <!-- ====================================
+                 ส่วนหัวของฟอร์ม
+                 ==================================== -->
             <header class="form-header">
+                <!-- ปุ่มย้อนกลับ -->
                 <button class="back-btn" title="Back">
                     <i class="fas fa-arrow-left"></i>
                 </button>
+                
+                <!-- หัวข้อหน้า -->
                 <h1 class="header-title">Create Project</h1>
+                
+                <!-- ช่องว่างเพื่อสมดุล (ให้ชื่ออยู่ตรงกลาง) -->
                 <div style="width: 40px;"></div>
             </header>
 
+            <!-- ====================================
+                 ฟอร์มสร้างโปรเจค
+                 ==================================== -->
             <main class="main-content form-content">
                 <form id="project-form" class="project-form">
-                    <!-- Project Name -->
+                    
+                    <!-- ชื่อโปรเจค -->
                     <div class="input-group">
                         <label for="projectName">
                             <i class="fas fa-clipboard-list"></i>
@@ -312,7 +52,7 @@
                         />
                     </div>
 
-                    <!-- Description -->
+                    <!-- คำอธิบายโปรเจค -->
                     <div class="input-group">
                         <label for="description">
                             <i class="fas fa-file-alt"></i>
@@ -324,7 +64,7 @@
                         ></textarea>
                     </div>
 
-                    <!-- Max Members -->
+                    <!-- จำนวนสมาชิกสูงสุด -->
                     <div class="input-group member-control-group">
                         <label for="maxMembers">
                             <i class="fas fa-user-friends"></i>
@@ -332,6 +72,7 @@
                         </label>
 
                         <div class="member-control">
+                            <!-- ปุ่มลดจำนวน -->
                             <button
                                 type="button"
                                 class="control-btn minus-btn"
@@ -340,6 +81,7 @@
                                 <i class="fas fa-minus"></i>
                             </button>
 
+                            <!-- ช่องแสดงจำนวน (แก้ไขได้ด้วยปุ่ม +/- เท่านั้น) -->
                             <input
                                 type="number"
                                 id="maxMembers"
@@ -349,6 +91,7 @@
                                 readonly
                             />
 
+                            <!-- ปุ่มเพิ่มจำนวน -->
                             <button
                                 type="button"
                                 class="control-btn plus-btn"
@@ -359,15 +102,17 @@
                         </div>
                     </div>
 
-                    <!-- Invite Members by Email -->
+                    <!-- เชิญสมาชิกผ่านอีเมล -->
                     <div class="input-group">
                         <label>
                             <i class="fas fa-envelope"></i>
                             Invite Members
                         </label>
 
+                        <!-- แสดงรายการอีเมลที่เพิ่มแล้ว -->
                         <div id="email-list"></div>
 
+                        <!-- ช่องกรอกอีเมลใหม่ -->
                         <div class="add-email-container">
                             <input
                                 type="email"
@@ -380,10 +125,11 @@
                             </button>
                         </div>
 
+                        <!-- Hidden input เก็บรายการอีเมลทั้งหมด -->
                         <input type="hidden" id="membersInput" name="members" />
                     </div>
 
-                    <!-- Submit Button -->
+                    <!-- ปุ่มสร้างโปรเจค -->
                     <div class="form-footer-action">
                         <button type="submit" class="btn-full-width">
                             <i class="fas fa-rocket"></i>
@@ -395,43 +141,68 @@
         </div>
     </div>
 
+    <!-- ====================================
+         JavaScript สำหรับจัดการฟอร์ม
+         ==================================== -->
     <script>
+        // ====================================
+        // เริ่มทำงานเมื่อโหลดหน้าเว็บเสร็จ
+        // ====================================
         document.addEventListener("DOMContentLoaded", () => {
+            
+            // ====================================
+            // 1. ดึง Elements จาก DOM
+            // ====================================
             const minusBtn = document.querySelector(".minus-btn");
             const plusBtn = document.querySelector(".plus-btn");
             const memberInput = document.getElementById("maxMembers");
+            const backBtn = document.querySelector(".back-btn");
+            const addEmailBtn = document.getElementById("addEmailBtn");
+            const inviteEmail = document.getElementById("inviteEmail");
+            const emailList = document.getElementById("email-list");
+            const projectForm = document.getElementById("project-form");
 
-            // Member control buttons
+            // เก็บรายการอีเมลที่เชิญ
+            let emails = [];
+
+            // ====================================
+            // 2. ปุ่มเพิ่ม/ลดจำนวนสมาชิก
+            // ====================================
+            
+            // ปุ่มลดจำนวน
             minusBtn.addEventListener("click", () => {
                 const currentVal = parseInt(memberInput.value, 10);
                 const minVal = parseInt(memberInput.min, 10);
 
+                // ลดได้ถ้ายังไม่ถึงค่าต่ำสุด
                 if (currentVal > minVal) {
                     memberInput.value = currentVal - 1;
                 }
             });
 
+            // ปุ่มเพิ่มจำนวน
             plusBtn.addEventListener("click", () => {
                 const currentVal = parseInt(memberInput.value, 10);
                 const maxVal = parseInt(memberInput.max, 10);
 
+                // เพิ่มได้ถ้ายังไม่ถึงค่าสูงสุด
                 if (currentVal < maxVal) {
                     memberInput.value = currentVal + 1;
                 }
             });
 
-            // Back button
-            const backBtn = document.querySelector(".back-btn");
+            // ====================================
+            // 3. ปุ่มย้อนกลับ
+            // ====================================
             backBtn.addEventListener("click", () => {
-                window.history.back();
+                window.history.back(); // กลับไปหน้าก่อนหน้า
             });
 
-            // Email management
-            const addEmailBtn = document.getElementById("addEmailBtn");
-            const inviteEmail = document.getElementById("inviteEmail");
-            const emailList = document.getElementById("email-list");
-            let emails = [];
-
+            // ====================================
+            // 4. จัดการรายการอีเมล
+            // ====================================
+            
+            // ฟังก์ชันสร้าง Email Chip (แท็กอีเมล)
             function createEmailChip(email) {
                 const chip = document.createElement("div");
                 chip.className = "email-chip";
@@ -440,41 +211,51 @@
                     <button type="button">×</button>
                 `;
 
+                // ปุ่มลบอีเมล
                 const removeBtn = chip.querySelector("button");
                 removeBtn.addEventListener("click", () => {
-                    emailList.removeChild(chip);
-                    emails = emails.filter((e) => e !== email);
+                    emailList.removeChild(chip); // ลบ chip ออกจาก DOM
+                    emails = emails.filter((e) => e !== email); // ลบออกจาก array
                 });
 
                 return chip;
             }
 
+            // ปุ่มเพิ่มอีเมล
             addEmailBtn.addEventListener("click", () => {
                 const email = inviteEmail.value.trim();
 
+                // ตรวจสอบว่ากรอกอีเมลหรือไม่
                 if (!email) {
                     alert("Please enter an email.");
                     return;
                 }
 
+                // ตรวจสอบรูปแบบอีเมล
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email)) {
                     alert("Invalid email format.");
                     return;
                 }
 
+                // ตรวจสอบว่าอีเมลซ้ำหรือไม่
                 if (emails.includes(email)) {
                     alert("This email is already added.");
                     return;
                 }
 
+                // เพิ่มอีเมลเข้า array
                 emails.push(email);
+                
+                // สร้างและแสดง chip
                 const emailChip = createEmailChip(email);
                 emailList.appendChild(emailChip);
+                
+                // เคลียร์ช่องกรอก
                 inviteEmail.value = "";
             });
 
-            // Allow adding email with Enter key
+            // กด Enter ในช่องอีเมลเพื่อเพิ่มอีเมล
             inviteEmail.addEventListener("keypress", (e) => {
                 if (e.key === "Enter") {
                     e.preventDefault();
@@ -482,50 +263,64 @@
                 }
             });
 
-            // Form submission
-            const projectForm = document.getElementById("project-form");
-
+            // ====================================
+            // 5. Submit ฟอร์ม (สร้างโปรเจค)
+            // ====================================
             projectForm.addEventListener("submit", (e) => {
-                e.preventDefault();
+                e.preventDefault(); // ป้องกันการ reload หน้า
 
+                // ดึงข้อมูลจากฟอร์ม
                 const projectName = document.getElementById("projectName").value.trim();
                 const description = document.getElementById("description").value.trim();
                 const maxMembers = memberInput.value;
 
+                // ตรวจสอบว่ากรอกชื่อโปรเจคหรือไม่
                 if (!projectName) {
                     alert("Please enter project name.");
                     return;
                 }
 
+                // เก็บรายการอีเมลลง hidden input
                 document.getElementById("membersInput").value = emails.join(",");
 
-                const token = localStorage.getItem("currentUserToken") || sessionStorage.getItem("currentUserToken");
+                // ดึง token ของผู้ใช้ปัจจุบัน
+                const token = localStorage.getItem("currentUserToken") || 
+                             sessionStorage.getItem("currentUserToken");
 
+                // ตรวจสอบว่าได้ล็อกอินหรือไม่
                 if (!token) {
                     alert("You must be logged in to create a project.");
                     window.location.href = "login.html";
                     return;
                 }
 
+                // โหลดรายการโปรเจคเดิม
                 const projects = JSON.parse(localStorage.getItem("projects")) || [];
 
-                // Generate unique ID
+                // ฟังก์ชันสร้าง ID สุ่ม
                 const generateId = () => Math.random().toString(36).substring(2, 9);
 
-                projects.push({
+                // สร้างโปรเจคใหม่
+                const newProject = {
                     id: generateId(),
                     name: projectName,
                     description,
                     maxMembers,
                     ownerToken: token,
                     members: emails,
-                    createdAt: new Date().toISOString()
-                });
+                    createdAt: new Date().toISOString() // บันทึกวันที่สร้าง
+                };
 
+                // เพิ่มโปรเจคใหม่เข้า array
+                projects.push(newProject);
+                
+                // บันทึกลง localStorage
                 localStorage.setItem("projects", JSON.stringify(projects));
 
-                // Show success message
+                // แจ้งเตือนความสำเร็จ
                 alert(`Project "${projectName}" created successfully!`);
+                
+                // กลับไปหน้า Dashboard
                 window.location.href = "dashboard.html";
             });
         });
