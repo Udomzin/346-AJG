@@ -4,201 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskSplit - Login</title>
+    
+    <!-- เชื่อมต่อ Font Awesome สำหรับไอคอน -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 440px;
-        }
-
-        .login-card {
-            background: #2a2a2a;
-            border-radius: 24px;
-            padding: 48px 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .logo-section {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .logo-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
-        }
-
-        .logo-icon i {
-            font-size: 40px;
-            color: white;
-        }
-
-        .logo-section h1 {
-            font-size: 32px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .welcome-text {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .welcome-text h2 {
-            font-size: 28px;
-            color: #fff;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .welcome-text p {
-            color: #999;
-            font-size: 15px;
-        }
-
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .login-form input[type="email"],
-        .login-form input[type="password"] {
-            width: 100%;
-            padding: 16px 20px;
-            background: #1a1a1a;
-            border: 2px solid #3a3a3a;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 15px;
-            transition: all 0.3s;
-        }
-
-        .login-form input:focus {
-            outline: none;
-            border-color: #667eea;
-            background: #222;
-        }
-
-        .login-form input::placeholder {
-            color: #666;
-        }
-
-        .options {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            font-size: 14px;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #ccc;
-        }
-
-        .remember-me input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #667eea;
-        }
-
-        .btn-primary {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4);
-            margin-top: 8px;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.6);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        .signup-link {
-            text-align: center;
-            margin-top: 32px;
-            color: #999;
-            font-size: 14px;
-        }
-
-        .signup-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .signup-link a:hover {
-            color: #764ba2;
-        }
-
-        @media (max-width: 480px) {
-            .login-card {
-                padding: 36px 28px;
-            }
-        }
-    </style>
+    
+    <!-- เชื่อมต่อไฟล์ CSS หลัก -->
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
+    <!-- คอนเทนเนอร์หลัก -->
     <div class="app-container">
         <div class="login-card">
+            
+            <!-- ====================================
+                 ส่วนโลโก้
+                 ==================================== -->
             <div class="logo-section">
+                <!-- ไอคอนโลโก้ -->
                 <div class="logo-icon">
                     <i class="fas fa-user-friends"></i>
                 </div>
+                <!-- ชื่อแอป -->
                 <h1>TaskSplit</h1>
             </div>
 
+            <!-- ====================================
+                 ข้อความต้อนรับ
+                 ==================================== -->
             <div class="welcome-text">
                 <h2>Welcome Back</h2>
                 <p>Sign in to continue</p>
             </div>
 
+            <!-- ====================================
+                 ฟอร์มล็อกอิน
+                 ==================================== -->
             <form class="login-form" id="loginForm">
-                <input type="email" id="email" placeholder="you@example.com" required>
-                <input type="password" id="password" placeholder="Password" required>
+                <!-- ช่องกรอกอีเมล -->
+                <input 
+                    type="email" 
+                    id="email" 
+                    placeholder="you@example.com" 
+                    required
+                >
                 
+                <!-- ช่องกรอกรหัสผ่าน -->
+                <input 
+                    type="password" 
+                    id="password" 
+                    placeholder="Password" 
+                    required
+                >
+                
+                <!-- ตัวเลือก Remember Me -->
                 <div class="options">
                     <div class="remember-me">
                         <input type="checkbox" id="remember">
@@ -206,67 +64,103 @@
                     </div>
                 </div>
 
+                <!-- ปุ่มล็อกอิน -->
                 <button type="submit" class="btn-primary">Sign In</button>
             </form>
 
+            <!-- ====================================
+                 ลิงก์ไปหน้าสมัครสมาชิก
+                 ==================================== -->
             <div class="signup-link">
                 Don't have an account? <a href="signup.html">Sign Up</a>
             </div>
         </div>
     </div>
 
+    <!-- ====================================
+         JavaScript สำหรับจัดการการล็อกอิน
+         ==================================== -->
     <script>
+        // ====================================
+        // เริ่มทำงานเมื่อโหลดหน้าเว็บเสร็จ
+        // ====================================
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // ====================================
+            // 1. ดึง Elements จาก DOM
+            // ====================================
             const loginForm = document.getElementById('loginForm');
             const rememberCheckbox = document.getElementById('remember');
             const emailInput = document.getElementById('email');
             const passwordInput = document.getElementById('password');
 
-            // Check if there's saved login info
+            // ====================================
+            // 2. ตรวจสอบว่ามีข้อมูล Remember Me บันทึกไว้หรือไม่
+            // ====================================
             const savedEmail = localStorage.getItem('rememberedEmail');
             const savedPassword = localStorage.getItem('rememberedPassword');
 
+            // ถ้ามีข้อมูลบันทึกไว้ ให้เติมอัตโนมัติ
             if (savedEmail && savedPassword) {
                 emailInput.value = savedEmail;
                 passwordInput.value = savedPassword;
                 rememberCheckbox.checked = true;
             }
 
+            // ====================================
+            // 3. จัดการการ Submit ฟอร์ม
+            // ====================================
             loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
+                e.preventDefault(); // ป้องกันการ reload หน้า
 
+                // ดึงข้อมูลจากฟอร์ม
                 const email = emailInput.value.trim();
                 const password = passwordInput.value;
 
+                // ตรวจสอบว่ากรอกข้อมูลครบหรือไม่
                 if (!email || !password) {
                     alert('Please fill in all fields');
                     return;
                 }
 
+                // ====================================
+                // 4. ตรวจสอบข้อมูลผู้ใช้
+                // ====================================
                 const users = JSON.parse(localStorage.getItem('users')) || [];
                 const user = users.find(u => u.email === email && u.password === password);
 
+                // ถ้าไม่พบผู้ใช้หรือรหัสผ่านผิด
                 if (!user) {
                     alert('Invalid email or password');
                     return;
                 }
 
-                // Handle Remember Me
+                // ====================================
+                // 5. จัดการ Remember Me
+                // ====================================
                 if (rememberCheckbox.checked) {
+                    // บันทึกข้อมูลไว้ใน localStorage
                     localStorage.setItem('rememberedEmail', email);
                     localStorage.setItem('rememberedPassword', password);
                     localStorage.setItem('currentUserToken', user.token);
                 } else {
+                    // ลบข้อมูล Remember Me
                     localStorage.removeItem('rememberedEmail');
                     localStorage.removeItem('rememberedPassword');
+                    // ใช้ sessionStorage แทน (หายเมื่อปิด browser)
                     sessionStorage.setItem('currentUserToken', user.token);
                 }
 
+                // ====================================
+                // 6. ล็อกอินสำเร็จ
+                // ====================================
                 alert('Login successful!');
                 window.location.href = 'dashboard.html';
             });
 
-            // Clear remember me data when checkbox is unchecked manually
+            // ====================================
+            // 7. ลบข้อมูล Remember Me เมื่อยกเลิกติ๊ก
+            // ====================================
             rememberCheckbox.addEventListener('change', () => {
                 if (!rememberCheckbox.checked) {
                     localStorage.removeItem('rememberedEmail');

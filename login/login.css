@@ -1,201 +1,236 @@
-/*
- * ========================================
- * 1. Global Reset & Body Styling
- * ========================================
- */
-:root {
-    --bg-color: #333333; /* สีพื้นหลังโดยรวม */
-    --card-color: #444444; /* สีพื้นหลังของ Card */
-    --input-bg: #555555; /* สีพื้นหลังของ Input */
-    --text-color: #ffffff; /* สีข้อความหลัก */
-    --link-color: #6366f1; /* สีม่วง/น้ำเงินหลัก (Indigo) */
-    --primary-button: #4f46e5; /* สีปุ่มหลัก */
-    --border-color: #666666; /* สีขอบ Input */
-}
+/* ========================================
+   TaskSplit - Login Page Styles
+   ======================================== */
 
+/* ========================================
+   1. Reset และ Base Styles
+   ======================================== */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    display: flex;
-    justify-content: center; /* จัดกึ่งกลางแนวนอน */
-    align-items: center;  /* จัดกึ่งกลางแนวตั้ง */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); /* ไล่สีพื้นหลัง */
     min-height: 100vh;
-
-}
-
-
-/*
- * ========================================
- * 2. App Container (Mobile-First / Base Layout)
- * ========================================
- */
-.app-container {
-    /* การปรับปรุงโค้ดตามที่ระบุ: ใช้ Flexbox จัดกึ่งกลางเต็มหน้าจอ */
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 100vh;
-    padding: 24px;
-    /* ลบ background-color และ flex-direction: column; ออกเพื่อให้เหลือเพียงการจัดกึ่งกลางของเนื้อหา */
+    padding: 20px;
 }
 
-/* Login Card - ใช้คลาสนี้แทน Responsive Styles ใน Media Query เก่า */
+/* ========================================
+   2. คอนเทนเนอร์หลัก
+   ======================================== */
+.app-container {
+    width: 100%;
+    max-width: 440px; /* ความกว้างสูงสุด */
+}
+
+/* ========================================
+   3. การ์ดล็อกอิน
+   ======================================== */
 .login-card {
-    width: 100%;
-    max-width: 400px; /* กำหนดขนาดสูงสุด */
-    background-color: var(--card-color);
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    background: #2a2a2a; /* พื้นหลังเทาเข้ม */
+    border-radius: 24px; /* ขอบมนมาก */
+    padding: 48px 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); /* เงาลึก */
 }
 
-/*
- * ========================================
- * 3. Logo and Header Styling
- * ========================================
- */
+/* ========================================
+   4. ส่วนโลโก้
+   ======================================== */
 .logo-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
     margin-bottom: 40px;
 }
 
+/* ไอคอนโลโก้ */
 .logo-icon {
-    background-color: var(--primary-button);
-    width: 60px;
-    height: 60px;
-    border-radius: 16px;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* ไล่สีม่วง */
+    border-radius: 20px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4); /* เงา */
 }
 
 .logo-icon i {
-    font-size: 28px;
-    color: var(--text-color);
+    font-size: 40px;
+    color: white;
 }
 
+/* ชื่อแอป */
 .logo-section h1 {
-    font-size: 24px;
-    font-weight: bold;
-    display: none; /* ซ่อนชื่อ App ด้านล่าง Icon ตามดีไซน์ Login */
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* ไล่สีม่วง */
+    -webkit-background-clip: text; /* ตัดพื้นหลังตามข้อความ */
+    -webkit-text-fill-color: transparent; /* ทำให้ข้อความโปร่งใส */
+    background-clip: text;
 }
 
+/* ========================================
+   5. ข้อความต้อนรับ
+   ======================================== */
 .welcome-text {
-    margin-bottom: 20px;
-    text-align: center; /* จัดหัวข้อให้อยู่กึ่งกลางตามที่ต้องการ */
+    text-align: center;
+    margin-bottom: 32px;
 }
 
 .welcome-text h2 {
-    font-size: 24px;
-    margin-bottom: 5px;
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 8px;
+    font-weight: 700;
 }
 
 .welcome-text p {
-    color: #aaaaaa;
-    font-size: 16px;
+    color: #999; /* สีเทาอ่อน */
+    font-size: 15px;
 }
 
-/*
- * ========================================
- * 4. Form and Input Styling
- * ========================================
- */
+/* ========================================
+   6. ฟอร์มล็อกอิน
+   ======================================== */
+.login-form {
+    display: flex;
+    flex-direction: column; /* เรียงแนวตั้ง */
+    gap: 20px; /* ระยะห่างระหว่าง elements */
+}
+
+/* ช่องกรอก Email และ Password */
 .login-form input[type="email"],
 .login-form input[type="password"] {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    background-color: var(--input-bg);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 16px;
+    padding: 16px 20px;
+    background: #1a1a1a; /* พื้นหลังดำ */
+    border: 2px solid #3a3a3a; /* ขอบเทา */
+    border-radius: 12px; /* ขอบมน */
+    color: #fff;
+    font-size: 15px;
+    transition: all 0.3s; /* เอฟเฟกต์เรียบ */
 }
 
+/* เอฟเฟกต์ Focus */
+.login-form input:focus {
+    outline: none; /* ไม่แสดงขอบเริ่มต้น */
+    border-color: #667eea; /* ขอบเปลี่ยนเป็นสีม่วง */
+    background: #222; /* พื้นหลังเข้มขึ้นเล็กน้อย */
+}
+
+/* Placeholder */
 .login-form input::placeholder {
-    color: #999999;
+    color: #666; /* สีเทาเข้ม */
 }
 
+/* ========================================
+   7. ตัวเลือก Remember Me
+   ======================================== */
 .options {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; /* ชิดซ้าย */
     align-items: center;
-    margin-bottom: 20px;
     font-size: 14px;
 }
 
 .remember-me {
     display: flex;
     align-items: center;
-    color: #aaaaaa;
+    gap: 8px;
+    color: #ccc; /* สีเทาอ่อน */
 }
 
+/* Checkbox */
 .remember-me input[type="checkbox"] {
-    margin-right: 8px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #667eea; /* สีม่วงเมื่อติ๊ก */
 }
 
-.options a {
-    color: var(--link-color);
-    text-decoration: none;
-    font-weight: 600;
-}
-
+/* ========================================
+   8. ปุ่มล็อกอิน
+   ======================================== */
 .btn-primary {
     width: 100%;
-    padding: 12px;
-    background-color: var(--primary-button);
-    color: var(--text-color);
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* ไล่สีม่วง */
     border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
+    border-radius: 12px; /* ขอบมน */
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s; /* เอฟเฟกต์เรียบ */
+    box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4); /* เงา */
+    margin-top: 8px;
 }
 
+/* เอฟเฟกต์ Hover */
 .btn-primary:hover {
-    background-color: #4338ca;
+    transform: translateY(-2px); /* ลอยขึ้น */
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.6); /* เงาชัดขึ้น */
 }
 
-/*
- * ========================================
- * 5. Sign Up Link
- * ========================================
- */
+/* เอฟเฟกต์เมื่อคลิก */
+.btn-primary:active {
+    transform: translateY(0); /* กลับมาตำแหน่งเดิม */
+}
+
+/* ========================================
+   9. ลิงก์ไปหน้า Sign Up
+   ======================================== */
 .signup-link {
     text-align: center;
+    margin-top: 32px;
+    color: #999; /* สีเทาอ่อน */
     font-size: 14px;
-    color: #aaaaaa;
-    margin-top: 30px;
 }
 
+/* ลิงก์ */
 .signup-link a {
-    color: var(--link-color);
-    text-decoration: none;
+    color: #667eea; /* สีม่วง */
+    text-decoration: none; /* ไม่มีขีดเส้นใต้ */
     font-weight: 600;
+    transition: color 0.3s; /* เอฟเฟกต์เรียบ */
 }
 
-/*
- * ========================================
- * 6. Responsive Styles (Desktop/Tablet)
- * ========================================
- * ส่วน Media Query ถูกลดความซับซ้อนลง เพราะ .login-card ถูกตั้งค่า Max-width ที่ 400px แล้ว
- */
-@media (min-width: 768px) {
+/* เอฟเฟกต์ Hover ลิงก์ */
+.signup-link a:hover {
+    color: #764ba2; /* สีม่วงเข้ม */
+}
+
+/* ========================================
+   10. Responsive Design (หน้าจอเล็ก)
+   ======================================== */
+@media (max-width: 480px) {
+    /* ลด Padding ของการ์ด */
+    .login-card {
+        padding: 36px 28px;
+    }
     
-    .app-container {
-        /* ปรับ App container ให้ไม่ยืดเต็มจอเมื่ออยู่บน Desktop */
-        background-color: var(--bg-color); 
+    /* ลดขนาดโลโก้ */
+    .logo-icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .logo-icon i {
+        font-size: 36px;
+    }
+    
+    /* ลดขนาดข้อความ */
+    .logo-section h1 {
+        font-size: 28px;
+    }
+    
+    .welcome-text h2 {
+        font-size: 24px;
     }
 }
