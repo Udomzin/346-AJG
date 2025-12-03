@@ -1,151 +1,162 @@
-/*
- * ========================================
- * BASE (Mobile-First) & Global Styles
- * ========================================
- */
-:root {
-    --bg-color: #333333;
-    --card-color: #444444; 
-    --input-bg: #2d2d2d; 
-    --text-color: #ffffff;
-    --link-color: #6366f1;
-    --primary-button: #4f46e5;
-    --border-color: #3d3d3d;
-}
+/* ========================================
+   TaskSplit - Signup Styles
+   ======================================== */
 
+/* Reset */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     min-height: 100vh;
-}
-
-/* Wrapper: ใช้ Flexbox จัดกึ่งกลาง Card */
-.page-wrapper {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-}
-
-/* Card หลัก */
-.app-card {
-    width: 100%;
-    max-width: 400px;
-    padding: 30px 24px; 
-    background-color: var(--card-color);
-    border-radius: 12px;
-}
-
-/* ------------------ Logo Section ------------------ */
-.logo-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* จัดกึ่งกลาง Icon และ ชื่อแอป */
-    margin-bottom: 30px;
-}
-
-.logo-icon {
-    background: linear-gradient(135deg, #6366f1, #4f46e5); 
-    box-shadow: 0 0 10px rgba(79, 70, 229, 0.5); 
-    width: 60px;
-    height: 60px;
-    border-radius: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 8px;
+    padding: 20px;
+}
+
+/* คอนเทนเนอร์ */
+.app-container {
+    width: 100%;
+    max-width: 440px;
+}
+
+/* การ์ดสมัครสมาชิก */
+.signup-card {
+    background: #2a2a2a;
+    border-radius: 24px;
+    padding: 48px 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+/* โลโก้ */
+.logo-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(102,126,234,0.4);
 }
 
 .logo-icon i {
-    font-size: 28px;
-    color: var(--text-color);
+    font-size: 40px;
+    color: #fff;
 }
 
 .logo-section h1 {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--link-color); 
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* ------------------ Header Text ------------------ */
+/* Header Text */
 .header-text {
     text-align: center;
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 }
 
-/* ------------------ Form Styles ------------------ */
+.header-text h2 {
+    color: #fff;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
 
-.account-form label {
-    display: block; /* ทำให้ label ขึ้นบรรทัดใหม่ */
+.header-text p {
+    color: #999;
+    font-size: 15px;
+}
+
+/* ฟอร์ม */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    color: #ccc;
     font-size: 14px;
-    color: #aaaaaa;
-    margin-bottom: 4px; /* ระยะห่างเหนือ input */
-    /* ในดีไซน์ไม่มี Label แต่ถ้าต้องการให้ User Experience ดีขึ้นควรใส่ไว้ */
-    display: none; /* ซ่อน Label เพื่อให้ตรงกับดีไซน์ในภาพ */
 }
 
-.account-form input {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 20px;
-    background-color: var(--input-bg);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 16px;
+.signup-form input {
+    padding: 16px 20px;
+    background: #1a1a1a;
+    border: 2px solid #3a3a3a;
+    border-radius: 12px;
+    color: #fff;
+    transition: 0.3s;
 }
 
-/* Button */
+.signup-form input:focus {
+    outline: none;
+    border-color: #667eea;
+    background: #222;
+}
+
+.signup-form input::placeholder {
+    color: #666;
+}
+
+/* ปุ่ม */
 .btn-primary {
-    width: 100%;
-    padding: 14px;
-    margin-top: 5px; 
-    background: linear-gradient(to right, #6366f1, #4f46e5); 
-    color: var(--text-color);
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
+    margin-top: 10px;
+    padding: 16px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
     font-weight: bold;
+    border: none;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.4);
+    transition: 0.3s;
+    box-shadow: 0 6px 20px rgba(102,126,234,0.4);
 }
 
-/* ------------------ Sign In Link ------------------ */
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+/* ลิงก์ */
 .signin-link {
+    margin-top: 30px;
     text-align: center;
     font-size: 14px;
-    color: #aaaaaa;
-    margin-top: 25px;
+    color: #aaa;
 }
 
 .signin-link a {
-    color: var(--link-color);
+    color: #667eea;
     text-decoration: none;
     font-weight: 600;
-    cursor: pointer;
 }
 
+.signin-link a:hover {
+    color: #764ba2;
+}
 
-/*
- * ========================================
- * Responsive Styles (Desktop) - หน้าจอใหญ่กว่า 768px
- * ========================================
- */
-@media (min-width: 768px) {
-    .app-card {
-        max-width: 400px; 
-        padding: 40px; 
-        border-radius: 16px;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); 
+/* Responsive */
+@media (max-width: 480px) {
+    .signup-card {
+        padding: 36px 28px;
     }
 }
